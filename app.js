@@ -7857,48 +7857,9 @@ function handleKeyPress(event) {
 // --- ↓↓↓ 请从这里开始复制，完整替换你的旧函数 ↓↓↓ ---
 
 function toggleSendButtonActive(textarea) {
+    // 发送键已移除：这里只做高度自适应，左右按钮始终显示、输入框宽度固定不变
     textarea.style.height = 'auto';
     textarea.style.height = (textarea.scrollHeight) + 'px';
-
-    const sendBtn = document.getElementById('chatInputSendButton');
-    
-    // --- 【【【核心修改在这里！】】】 ---
-    // 我们不再寻找单个按钮，而是直接找到那两个“箱子”
-    const leftButtonsContainer = document.getElementById('chatDefaultButtons');
-    const rightButtonsContainer = document.getElementById('chatRightButtons');
-    
-    const hasText = textarea.value.trim().length > 0;
-    
-    if (hasText) {
-        // 当有文字时，显示发送按钮，隐藏两个“箱子”
-        sendBtn.classList.add('active');
-        
-        if (leftButtonsContainer) {
-            leftButtonsContainer.style.transform = 'scale(0)';
-            leftButtonsContainer.style.width = '0';
-            leftButtonsContainer.style.opacity = '0';
-        }
-        if (rightButtonsContainer) {
-            rightButtonsContainer.style.transform = 'scale(0)';
-            rightButtonsContainer.style.width = '0';
-            rightButtonsContainer.style.opacity = '0';
-        }
-
-    } else {
-        // 当没有文字时，隐藏发送按钮，恢复显示两个“箱子”
-        sendBtn.classList.remove('active');
-        
-        if (leftButtonsContainer) {
-            leftButtonsContainer.style.transform = '';
-            leftButtonsContainer.style.width = '';
-            leftButtonsContainer.style.opacity = '';
-        }
-        if (rightButtonsContainer) {
-            rightButtonsContainer.style.transform = '';
-            rightButtonsContainer.style.width = '';
-            rightButtonsContainer.style.opacity = '';
-        }
-    }
 }
 // --- ↑↑↑ 请在这里结束复制 ---
 
@@ -12231,7 +12192,7 @@ case 'sim_videos':
 
     view.innerHTML = `
         <div class="sim-app-header">
-            <button class="sim-app-header-btn" onclick="${backFn}"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="sim-app-header-btn" onclick="${backFn}"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <div class="sim-app-header-title">${headerMap[appName]}</div>
             <div style="width: 40px;"></div>
         </div>
@@ -12414,7 +12375,7 @@ case 'sim_videos':
 
     detailView.innerHTML = `
         <div class="sim-app-header">
-            <button class="sim-app-header-btn" onclick="${backFn}"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="sim-app-header-btn" onclick="${backFn}"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <div class="sim-app-header-title">${headerTitle}</div>
             <div style="width: 40px;"></div>
         </div>
@@ -13490,7 +13451,6 @@ function renderBeautificationSettings() {
                 { key: 'chatInputReceiveButton', label: '接收按钮' },
                 { key: 'chatInputEmojiButton', label: '表情按钮' },
                 { key: 'chatInputPlusButton', label: '加号按钮' },
-                { key: 'chatInputSendButton', label: '发送按钮' },
             ]
         },
         {
@@ -13659,7 +13619,7 @@ function applyBeautificationSettings() {
     const iconKeys = [
         'navBarGoHomeButton', 'navBarBackButton', 'navBarHeartsVoiceButton', 'navBarMoreButton',
         'chatInputReceiveButton', 'chatInputEmojiButton',
-        'chatInputPlusButton', 'chatInputSendButton', 'plusMenuPhoto', 'plusMenuCamera',
+        'chatInputPlusButton', 'plusMenuPhoto', 'plusMenuCamera',
         'plusMenuVoiceCall', 'plusMenuTransfer', 'plusMenuGroupRedEnvelope','plusMenuListen', 'plusMenuLocation',
         'plusMenuMemory', 'plusMenuPoll', 
         'bottomNavIconMessages', 'bottomNavIconDiscover', 'bottomNavIconMe', 'plusMenuOfflineMode', // 加上这一行
@@ -13845,7 +13805,6 @@ function getSelectorForKey(key) {
         'chatInputReceiveButton': '#chatInputReceiveButton',
         'chatInputEmojiButton': '#chatInputEmojiButton',
         'chatInputPlusButton': '#chatInputPlusButton',
-        'chatInputSendButton': '#chatInputSendButton',
         // “更多”菜单
         'plusMenuPhoto': '.function-item[onclick="selectPhoto()"] .function-icon',
         'plusMenuCamera': '.function-item[onclick="openCameraModal()"] .function-icon',
@@ -19231,7 +19190,7 @@ if (isAnonymous) {
     // 组装最终页面
     pageContainer.innerHTML = `
         <div class="nav-bar">
-           <button class="nav-btn" onclick="backFromForumDetail()"><i class="ri-arrow-left-s-line"></i></button>
+           <button class="nav-btn" onclick="backFromForumDetail()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <div class="nav-title">帖子</div>
             <div>
                 <button class="nav-btn" id="refresh-comments-btn-${post.id}" onclick="refreshPostComments('${post.id}')">
@@ -19770,7 +19729,7 @@ function applyChatInterfaceCSS(css) {
     const iconKeys = [
         'navBarBackButton', 'navBarGoHomeButton', 'navBarHeartsVoiceButton', 'navBarMoreButton',
         'chatInputReceiveButton', 'chatInputEmojiButton',
-        'chatInputPlusButton', 'chatInputSendButton', 'plusMenuPhoto', 'plusMenuCamera',
+        'chatInputPlusButton', 'plusMenuPhoto', 'plusMenuCamera',
         'plusMenuVoiceCall', 'plusMenuTransfer', 'plusMenuGroupRedEnvelope', 'plusMenuListen', 'plusMenuLocation',
         'plusMenuMemory', 'plusMenuPoll', 'plusMenuOfflineMode', 'offlineModeFloatIcon'
     ];
@@ -19848,12 +19807,8 @@ textarea#messageInput::placeholder { /* 输入框里的提示文字 */
 /* --- 底部输入区 - 按钮 --- */
 #chatInputReceiveButton svg,   /* “接收消息”图标 */
 #chatInputEmojiButton svg,     /* “表情”图标 */
-#chatInputPlusButton svg,      /* “加号”图标 */
-#chatInputSendButton svg {      /* “发送”图标 */
+#chatInputPlusButton svg {      /* “加号”图标 */
   /* fill: #333; */ /* 使用 fill 来改变SVG图标的颜色 */
-}
-.send-btn.active { /* “发送”按钮激活时的背景 */
-  /* background: #07c160; */
 }
 
 /* --- “更多”(+)菜单 --- */
@@ -25322,7 +25277,7 @@ function doujinShowNovelDetail(bookId) {
     // 2. 渲染顶部导航栏 (包含新增的“管理”按钮)
     const subpageHeader = document.querySelector('#novel-detail-page .subpage-header');
     subpageHeader.innerHTML = `
-        <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+        <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <h2>书籍详情</h2>
         <!-- 新增：右侧管理按钮 -->
         <button class="nav-btn" onclick="doujinToggleChapterManageMode()" style="font-size: 20px; color: #333; margin-left: auto; padding: 5px;">
@@ -34568,7 +34523,7 @@ function openLoversSpyScreen() {
     const header = document.querySelector('.spy-header');
     header.innerHTML = `
         <button class="lovers-icon-btn-round" onclick="backToLoversDetail()">
-            <i class="fas fa-arrow-left" style="color: #000;"></i>
+            <svg class="back-svg" style="color: #000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <h2 style="font-weight: 800; letter-spacing: 1px; font-size: 18px;">TA的动态</h2>
         
@@ -41508,7 +41463,6 @@ function updateBlockedInputUI() {
     const blockedBar = document.getElementById('blockedBar');
     const messageInput = document.getElementById('messageInput');
     const chatMessages = document.getElementById('chatMessages');
-    const sendBtn = document.getElementById('chatInputSendButton');
 
     // 所有的功能按键
     const emojiBtn = document.getElementById('chatInputEmojiButton');
@@ -41528,7 +41482,6 @@ function updateBlockedInputUI() {
         // 禁用：表情、加号、发送（语音按钮已移除）
         emojiBtn.classList.add('btn-disabled');
         plusBtn.classList.add('btn-disabled');
-        sendBtn.classList.remove('active'); // 发送按钮如果是激活状态则取消
         
         // 允许：只有“接收消息”按钮保持可用
         receiveBtn.classList.remove('btn-disabled');
@@ -41550,7 +41503,7 @@ function updateBlockedInputUI() {
         // --- 解除拉黑模式 ---
         blockedBar.style.display = 'none';
         messageInput.disabled = false;
-        messageInput.placeholder = 'send message..';
+        messageInput.placeholder = 'u are all i need..';
         
         // 恢复所有按钮点击
         emojiBtn.classList.remove('btn-disabled');
@@ -48895,3 +48848,27 @@ function applyPageTopOffset() {
 // START: 账密系统 & Supabase 核心逻辑
 // ==========================================
     
+// ============================================================
+// 聊天页键盘适配：输入区始终高于系统键盘，输入内容始终可见
+// ============================================================
+(function () {
+    const root = document.documentElement;
+
+    function syncKeyboardInset() {
+        const vv = window.visualViewport;
+        if (!vv) return;
+        const layoutH = window.innerHeight || root.clientHeight || 0;
+        // 布局视口高度 - 可视视口高度 - 可视视口偏移 = 键盘占位高度
+        const kb = Math.round(layoutH - vv.height - vv.offsetTop);
+        root.style.setProperty('--kb-h', (kb > 40 ? kb : 0) + 'px');
+    }
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', syncKeyboardInset);
+        window.visualViewport.addEventListener('scroll', syncKeyboardInset);
+    }
+    window.addEventListener('resize', syncKeyboardInset);
+    window.addEventListener('orientationchange', () => setTimeout(syncKeyboardInset, 300));
+    document.addEventListener('focusin', () => setTimeout(syncKeyboardInset, 100));
+    document.addEventListener('focusout', () => setTimeout(syncKeyboardInset, 80));
+})();

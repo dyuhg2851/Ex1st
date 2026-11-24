@@ -221,7 +221,7 @@
     <div class="novel-float-footer" style="justify-content: space-between; padding: 0 15px;">
         <!-- 【修改】上一页变成箭头图标 -->
         <span class="float-nav-btn" onclick="floatPrevPage()" title="上一页">
-            <i class="ri-arrow-left-s-line" style="font-size: 18px;"></i>
+            <svg class="back-svg" style="font-size: 18px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </span>
 
         <!-- 【修改】加号减号移到中间 -->
@@ -436,7 +436,7 @@
             <div id="wechatAppBackground"></div>
                  <div class="nav-bar">
 
-<button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+<button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
 
     <div class="nav-title">消息</div>
     <!-- ↓↓↓ 修改从这里开始 ↓↓↓ -->
@@ -589,13 +589,16 @@
 
             <div id="chatScreen" class="page">
                 <div class="nav-bar">
-                    <button class="nav-btn" id="navBarBackButton" onclick="backToWechat()"><i class="ri-arrow-left-s-line"></i></button>
-                    <div class="nav-title" id="chatTitle">聊天</div>
+                    <button class="nav-btn" id="navBarBackButton" onclick="backToWechat()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
+                    <div class="nav-title-block">
+                        <div class="nav-title" id="chatTitle">聊天</div>
+                        <div class="nav-subtitle">2 hearts that beat as 1</div>
+                    </div>
                     <div style="display: flex; align-items: center;">
                         <button class="nav-btn" id="navBarHeartsVoiceButton" onclick="openHeartsVoiceModal()" title="心声" style="display:none !important;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
                         </button>
-                      <button class="nav-btn nav-right-action-btn" id="navBarMoreButton" onclick="openChatSettings()">⋯</button>
+                      <button class="nav-btn nav-right-action-btn" id="navBarMoreButton" onclick="openChatSettings()" title="更多"><svg class="nav-more-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 7q-.425 0-.712-.288T3 6t.288-.712T4 5h16q.425 0 .713.288T21 6t-.288.713T20 7zm0 12q-.425 0-.712-.288T3 18t.288-.712T4 17h16q.425 0 .713.288T21 18t-.288.713T20 19zm0-6q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13z"/></svg></button>
                     </div>
                 </div>
                 <div class="wechat-content" style="position: relative; z-index: 1;">
@@ -616,19 +619,17 @@
 <div class="chat-input">
     <!-- 我们用这个新的div把四个默认按钮包了起来，并给了它一个ID -->
     <div id="chatDefaultButtons" style="display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;">
-        <button class="chat-btn" id="chatInputReceiveButton" onclick="requestAIResponse()" title="接收消息"> <i class="ri-mail-download-line"></i> </button>
+        <button class="chat-btn" id="chatInputReceiveButton" onclick="requestAIResponse()" title="接收消息"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4 10v4m4-7v10m4-13v16m4-13v10m4-7v4"/></svg> </button>
     </div>
     
-   <textarea id="messageInput" rows="1" placeholder="send message.." onkeydown="handleKeyPress(event)" oninput="toggleSendButtonActive(this)" onclick="hideFunctionMenus()"></textarea>
+   <textarea id="messageInput" rows="1" placeholder="u are all i need.." onkeydown="handleKeyPress(event)" oninput="toggleSendButtonActive(this)" onclick="hideFunctionMenus()"></textarea>
     
     <!-- 我们也给右边的按钮们一个“家” -->
     <div id="chatRightButtons" style="display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;">
-         <button class="chat-btn" id="chatInputEmojiButton" onclick="toggleEmojiPicker()" title="表情"> <i class="ri-emotion-happy-line"></i> </button>
-         <button class="chat-btn plus-btn" id="chatInputPlusButton" onclick="toggleChatFunctions()" title="更多"> <i class="ri-add-line"></i> </button>
+         <button class="chat-btn" id="chatInputEmojiButton" onclick="toggleEmojiPicker()" title="表情"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="15.5" cy="9.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="9.5" r="1.5" fill="currentColor"/><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2M12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8m4.41-6.11a.745.745 0 0 0-1.03.24C14.64 15.3 13.38 16 12 16s-2.64-.7-3.38-1.88a.747.747 0 1 0-1.27.79C8.37 16.54 10.1 17.5 12 17.5s3.63-.97 4.65-2.58c.22-.35.11-.81-.24-1.03"/></svg> </button>
+         <button class="chat-btn plus-btn" id="chatInputPlusButton" onclick="toggleChatFunctions()" title="更多"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M11 13v3q0 .425.288.713T12 17t.713-.288T13 16v-3h3q.425 0 .713-.288T17 12t-.288-.712T16 11h-3V8q0-.425-.288-.712T12 7t-.712.288T11 8v3H8q-.425 0-.712.288T7 12t.288.713T8 13zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg> </button>
     </div>
     
-    <!-- 发送按钮单独放在外面 -->
-    <button class="chat-btn send-btn" id="chatInputSendButton" onclick="sendMessage()" title="发送消息"> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4l17.4-8.4c.8-.4.8-1.6 0-2L3.4 1.6c-.8-.4-1.6.4-1.4 1.2l3.6 7.2c.2.4.2 1 0 1.4L2 19.2c-.2.8.6 1.6 1.4 1.2z"/></svg></button>
 </div>
 <!-- ↑↑↑ 新代码到此结束 ↑↑↑ -->
                     <div class="chat-functions" id="chatFunctions">
@@ -769,7 +770,7 @@
        <!-- 1. 修改后的日记正文浏览页 -->
 <div id="diaryViewScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" id="backToDiaryListBtn"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="backToDiaryListBtn"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">日记正文</div>
         <!-- 新增：右上角的浏览者头像按钮 -->
         <div class="nav-right-actions">
@@ -903,7 +904,7 @@
 
             <div id="chatSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToChat()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToChat()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">聊天设置</div>
         <div></div>
     </div>
@@ -955,7 +956,7 @@
 
             <div id="chatSearchScreen" class="page">
                 <div class="nav-bar">
-                    <button class="nav-btn" onclick="backToChatSettings()"><i class="ri-arrow-left-s-line"></i></button>
+                    <button class="nav-btn" onclick="backToChatSettings()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
                     <div class="nav-title">查找聊天记录</div>
                     <div></div>
                 </div>
@@ -969,7 +970,7 @@
 
      <div id="friendSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToChatSettings()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToChatSettings()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">好友设置</div>
         <div></div>
     </div>
@@ -1110,7 +1111,7 @@
 
            <div id="groupSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToChatSettings()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToChatSettings()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">群聊设置</div>
         <div></div>
     </div>
@@ -1177,7 +1178,7 @@
 
           <div id="backgroundSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToChatSettings()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToChatSettings()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">聊天背景</div>
         <div></div>
     </div>
@@ -1219,7 +1220,7 @@
 </div>
             <div id="personalSettingsScreen" class="page">
                 <div class="nav-bar">
-                    <button class="nav-btn" onclick="backToProfile()"><i class="ri-arrow-left-s-line"></i></button>
+                    <button class="nav-btn" onclick="backToProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
                     <div class="nav-title">人设与背景</div>
                     <div></div>
                 </div>
@@ -1233,7 +1234,7 @@
 
             <div id="mySettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToProfile()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">设置</div>
         <div></div>
     </div>
@@ -1268,7 +1269,7 @@
 
           <div id="bubbleSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToTheme()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToTheme()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">气泡设置</div>
         <div></div>
     </div>
@@ -1437,7 +1438,7 @@
 
             <div id="globalChatBgScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToMySettings()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToMySettings()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">全局聊天背景</div>
         <div></div>
     </div>
@@ -1481,7 +1482,7 @@
            <!-- 1. 钱包主界面 (黑白风 + 布局调整) -->
 <div id="walletScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToProfile()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">钱包</div>
         <div class="nav-btn" style="width: 40px;"></div> <!-- 占位，保持标题居中 -->
     </div>
@@ -1548,7 +1549,7 @@
 
 <div id="familyCardScreen" class="page">
     <div class="nav-bar" style="background-color: #fff;">
-        <button class="nav-btn" onclick="backToWallet()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToWallet()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">亲属卡</div>
         <!-- ▼▼▼ 核心修改：右上角变成了管理按钮 ▼▼▼ -->
         <button class="nav-btn nav-right-action-btn" id="manageFamilyCardBtn" onclick="toggleFamilyCardManageMode()">
@@ -1600,7 +1601,7 @@
 <!-- 【新增】亲属卡消费详情页 (独立页面，非弹窗) -->
 <div id="familyCardDetailScreen" class="page">
     <div class="nav-bar" style="background-color: #fff; border-bottom: 1px solid #f0f0f0;">
-        <button class="nav-btn" onclick="backToFamilyCardList()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToFamilyCardList()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">消费明细</div>
         <div class="nav-btn" style="width: 40px;"></div>
     </div>
@@ -1625,7 +1626,7 @@
         </div>
     </div>
 </div>
-            <div id="favoritesScreen" class="page"><div class="nav-bar"><button class="nav-btn" onclick="backToProfile()"><i class="ri-arrow-left-s-line"></i></button> <div class="nav-title">收藏</div><button class="nav-btn" onclick="toggleSelectMode()">选择</button> 
+            <div id="favoritesScreen" class="page"><div class="nav-bar"><button class="nav-btn" onclick="backToProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button> <div class="nav-title">收藏</div><button class="nav-btn" onclick="toggleSelectMode()">选择</button> 
     </div>
     <div class="wechat-content">
         <!-- ↓↓↓ 把“选择栏”移动到这里来 ↓↓↓ -->
@@ -1638,7 +1639,7 @@
 </div>
             <div id="worldBookScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">世界书</div>
         <div style="display: flex; align-items: center; gap: 5px;">
             <button class="nav-btn" onclick="openAddWorldBookFolderModal()" title="新建文件夹">
@@ -1659,7 +1660,7 @@
 </div>
           <div id="momentsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToDiscover()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToDiscover()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">朋友圈</div>
         <!-- 修改：右侧按钮组 -->
         <div class="nav-right-buttons">
@@ -1678,7 +1679,7 @@
       <div id="diaryScreen" class="page">
     <div class="nav-bar">
         <!-- 返回按钮：默认返回发现页 -->
-        <button class="nav-btn" id="diaryNavBarBackBtn" onclick="backToDiscover()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="diaryNavBarBackBtn" onclick="backToDiscover()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" id="diaryPageTitle">日记</div>
         <!-- 右上角按钮容器 -->
         <div id="diaryNavFriendName"></div>
@@ -1722,7 +1723,7 @@
 
             <div id="themeApp" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">主题设置</div>
         <div></div>
     </div>
@@ -1784,7 +1785,7 @@
 
            <div id="fontSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToTheme()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToTheme()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">字体设置</div>
         <div></div>
     </div>
@@ -1888,7 +1889,7 @@
 </div>
             <div id="wallpaperSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToTheme()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToTheme()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">主屏幕壁纸</div>
         <div></div>
     </div>
@@ -1930,7 +1931,7 @@
 </div>
          <div id="iconSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToTheme()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToTheme()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">图标设置</div>
         <div></div>
     </div>
@@ -1956,7 +1957,7 @@
             
             <div id="componentSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToTheme()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToTheme()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">组件设置</div>
         <div></div>
     </div>
@@ -1999,7 +2000,7 @@
             
            <div id="settingsApp" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">设置</div>
         <div></div>
     </div>
@@ -2130,7 +2131,7 @@
 
   <!-- 【【【这是修改后的记忆界面导航栏】】】 -->
 <div class="nav-bar">
-    <button class="nav-btn" onclick="backToChat()"><i class="ri-arrow-left-s-line"></i></button>
+    <button class="nav-btn" onclick="backToChat()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
     <div class="nav-title" id="memoryTitle">对话总结</div>
     <!-- 右侧按钮组：现在包含了“导入导出”和“手动总结”两个按钮 -->
     <div class="nav-right-actions" style="display: flex; gap: 5px;">
@@ -2151,7 +2152,7 @@
 
                     <div id="apiSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToSettingsMenu()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToSettingsMenu()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">API 设置</div>
         <div></div>
     </div>
@@ -2256,7 +2257,7 @@
 </div>
             <div id="beautificationSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToTheme()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToTheme()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">美化设置</div>
         <div></div>
     </div>
@@ -2272,7 +2273,7 @@
             <!-- 用这段新代码替换 -->
 <div id="phoneApp" class="page">
     <div class="nav-bar" id="phoneAppNavBar">
-        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="navBarGoHomeButton" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">手机</div>
         <!-- 新增了一个重新生成按钮，并给予了ID和点击事件 -->
         <div>
@@ -2466,7 +2467,7 @@
     <!-- "我发布的" 子页面 -->
     <div class="page-container" id="my-posts-page">
         <div class="subpage-header with-back-btn">
-            <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+            <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <h2>我发布的</h2>
         </div>
         <div class="content" id="my-posts-list"></div>
@@ -2476,7 +2477,7 @@
 <div class="page-container" id="cp-list-page">
     <div class="subpage-header">
         <!-- 左侧：返回按钮 -->
-        <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+        <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         
         <!-- 中间：标题 -->
         <h2>磕CP选择</h2>
@@ -2499,7 +2500,7 @@
     <!-- CP创建/编辑页面 -->
 <div class="page-container" id="cp-edit-page">
     <div class="subpage-header with-back-btn">
-        <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+        <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <h2 id="cp-edit-page-title">创建新CP</h2>
     </div>
     <div class="content">
@@ -2544,7 +2545,7 @@
     <!-- 帖子详情 子页面 -->
     <div class="page-container" id="post-detail-page">
         <div class="subpage-header with-back-btn">
-            <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+            <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <h2>帖子详情</h2>
         </div>
         <div class="content" style="padding-bottom: 80px;">
@@ -2603,7 +2604,7 @@
     <!-- 小说详情/目录页 -->
     <div class="page-container" id="novel-detail-page">
         <div class="subpage-header with-back-btn">
-            <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+            <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <h2>书籍详情</h2>
         </div>
         <div class="content">
@@ -2622,7 +2623,7 @@
     <!-- 章节阅读页 -->
     <div class="page-container" id="chapter-reading-page">
         <div class="subpage-header with-back-btn">
-            <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+            <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <h2 id="chapter-title-header"></h2>
         </div>
         <div class="content" style="padding-bottom: 80px;">
@@ -2641,7 +2642,7 @@
     <!-- 发布页面 -->
     <div class="page-container" id="publish-page">
         <div class="publish-header">
-            <button class="back-btn" onclick="doujinGoBack()"><i class="fas fa-chevron-left"></i></button>
+            <button class="back-btn" onclick="doujinGoBack()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <h2>创建新作品</h2>
             <button class="publish-draft-btn" onclick="alert('草稿已保存')">存草稿</button>
         </div>
@@ -3127,7 +3128,7 @@
 <!-- 新增：人设列表页面 -->
 <div id="personaListScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToProfile()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">我的人设</div>
         <button class="nav-btn" onclick="openPersonaEditModal(null)">+</button>
     </div>
@@ -3363,7 +3364,7 @@
     <div id="container">
         <div class="nav-bar">
             <div class="nav-left">
-                <i id="nav-back-btn" class="ri-arrow-left-s-line nav-back-btn"></i>
+                <svg class="back-svg nav-back-btn" id="nav-back-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
             </div>
             <div class="nav-title">莎翁（对方）</div>
             <div class="nav-right">
@@ -3440,7 +3441,7 @@
 <!-- 【新增】提示词自定义页面 -->
 <div id="promptCustomScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToSettingsMenu()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToSettingsMenu()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">提示词自定义</div>
         <div></div>
     </div>
@@ -3476,7 +3477,7 @@
 
 <div id="cloneApiSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToSettingsMenu()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToSettingsMenu()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">克隆音色设置</div>
         <div></div>
     </div>
@@ -3616,7 +3617,7 @@
 <!-- 找到 id="stickerLibraryScreen" 的页面 -->
 <div id="stickerLibraryScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToDiscover()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToDiscover()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" onclick="openStickerBindingModal()" style="cursor: pointer;">
             <span id="stickerLibraryTitle">绑定角色 (0)</span> <i class="ri-arrow-down-s-fill" style="font-size: 12px;"></i>
         </div>
@@ -3696,7 +3697,7 @@
 <!-- 小说书架页面 -->
 <div id="readTogetherBookshelfScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToChat()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToChat()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">共读饭堂</div>
         <button class="nav-btn nav-right-action-btn" onclick="document.getElementById('uploadNovelInput').click()">
             <i class="ri-upload-cloud-2-line"></i>
@@ -3721,7 +3722,7 @@
         </div>
     </div>
 
-<div class="reader-nav-btn prev" onclick="prevPage()"><i class="ri-arrow-left-s-line"></i></div>
+<div class="reader-nav-btn prev" onclick="prevPage()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></div>
     <div class="reader-nav-btn next" onclick="nextPage()"><i class="ri-arrow-right-s-line"></i></div>
 
     <!-- 【修改】已删除原本在这里的 3个 reader-click-zone div -->
@@ -3729,7 +3730,7 @@
     <!-- 3. 顶部菜单栏 -->
 
     <div class="reader-menu-bar reader-top-bar" id="readerTopBar">
-        <i class="ri-arrow-left-s-line" style="font-size: 24px; cursor: pointer;" onclick="backToBookshelf()"></i>
+        <svg class="back-svg" style="font-size: 24px; cursor: pointer;" onclick="backToBookshelf()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         <span id="readerTitle" style="margin-left: 15px; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">小说阅读</span>
         <div style="flex: 1;"></div>
         <i class="ri-subtract-line" style="font-size: 24px; cursor: pointer;" onclick="minimizeReaderToFloat()"></i>
@@ -3887,7 +3888,7 @@
 <!-- 分组管理页面 -->
 <div id="momentGroupManageScreen" class="page">
     <div class="nav-bar" style="background: #fff;">
-        <button class="nav-btn" onclick="backToMomentsFromGroup()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToMomentsFromGroup()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">好友分组</div>
         <div></div>
     </div>
@@ -4266,7 +4267,7 @@
 <!-- ▼▼▼ 用这个新结构替换旧的 forumTrendDetailView ▼▼▼ -->
 <div id="forumTrendDetailView" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" id="trendDetailBackBtn"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" id="trendDetailBackBtn"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" id="trendDetailTitle">热搜详情</div>
         <div style="width: 40px;"></div> <!-- 占位，确保标题居中 -->
     </div>
@@ -4281,7 +4282,7 @@
 <!-- 新增：帖子详情页 -->
 <div id="forumDetailView" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToForumTimeline()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToForumTimeline()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">帖子</div>
         <div></div> <!-- 占位 -->
     </div>
@@ -4295,7 +4296,7 @@
     <!-- 顶部导航栏，增加了返回按钮 -->
     <!-- ▼▼▼ 替换代码 ▼▼▼ -->
 <div class="nav-bar">
-   <button class="nav-btn" onclick="backFromCharProfile()"><i class="ri-arrow-left-s-line"></i></button>
+   <button class="nav-btn" onclick="backFromCharProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
     <div class="nav-title" id="charProfileNavTitle">角色主页</div>
     <!-- 新增的右侧按钮容器 -->
     <div class="nav-right-actions">
@@ -4735,7 +4736,7 @@
 
 <div id="soundSettingsScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToSettingsMenu()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToSettingsMenu()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">提示音设置</div>
         <div></div>
     </div>
@@ -4814,7 +4815,7 @@
 <!-- 游戏中心主页 (黑白极简版) -->
 <div id="gamesApp" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">游戏中心</div>
 <button class="nav-btn nav-right-action-btn" onclick="openGameApiSettings()">
     <i class="ri-settings-4-line"></i>
@@ -4886,7 +4887,7 @@
 <!-- “你演我猜” 游戏界面 -->
 <div id="charadesGameScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="exitCharadesGame()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="exitCharadesGame()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">你演我猜</div>
         <div style="display: flex; align-items: center; gap: 5px; z-index: 20;">
         <button class="nav-btn" onclick="toggleCharadesRole()" title="切换角色">
@@ -5173,7 +5174,7 @@
        <div class="store-top-bar">
     <!-- 【新增】返回按钮在这里 -->
     <button class="store-back-btn" onclick="goHome()">
-        <i class="ri-arrow-left-s-line"></i>
+        <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
     </button>
 
     <!-- 原有的搜索框 -->
@@ -5271,7 +5272,7 @@
     <div id="storePendingShipmentView" class="store-page-view">
        <div class="store-top-bar">
     <button class="store-back-btn" onclick="switchStoreTab('me', document.querySelector('.store-tab-item[onclick*=\'me\']'))">
-        <i class="ri-arrow-left-s-line"></i>
+        <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
     </button>
     <div style="flex:1; text-align:center; font-weight:bold; font-size:16px;">待发货</div>
     
@@ -5374,7 +5375,7 @@
 <!-- 情侣空间主页 -->
 <div id="loversSpaceScreen" class="page">
     <div class="nav-bar">
-       <button class="nav-btn" onclick="goHome()"><i class="ri-arrow-left-s-line"></i></button>
+       <button class="nav-btn" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">情侣空间</div>
         <button class="nav-btn nav-right-action-btn" onclick="openLoversInviteModal()">+</button>
     </div>
@@ -5406,7 +5407,7 @@
        <div class="lovers-nav-bar">
             <!-- 【修复】添加 event.stopPropagation(); 阻止点击事件穿透到背景图 -->
             <button class="lovers-icon-btn-round" onclick="event.stopPropagation(); backToLoversList()">
-                <i class="fas fa-chevron-left"></i>
+                <svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
             </button>
             
             <!-- 这个按钮也顺便加一下，防止误触 -->
@@ -5531,7 +5532,7 @@
 <div id="loversAnniversaryScreen" class="page">
     <div class="lovers-anni-header">
         <button class="lovers-icon-btn-round" style="margin-bottom: 20px;" onclick="backToLoversHome()">
-            <i class="fas fa-chevron-left"></i>
+            <svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <div class="lovers-avatars-small">
             <!-- 头像会由 JS 动态填充 -->
@@ -5621,7 +5622,7 @@
 <div id="loversLetterListScreen" class="page">
     <div class="letter-header">
         <div style="display: flex; align-items: center;">
-            <button class="lovers-icon-btn-round" onclick="backToLoversDetail()"><i class="fas fa-chevron-left"></i></button>
+            <button class="lovers-icon-btn-round" onclick="backToLoversDetail()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
             <h2>我们的情书</h2>
         </div>
         <!-- 新增右侧按钮组 -->
@@ -5644,7 +5645,7 @@
 <!-- 拆信动画与阅读页 -->
 <div id="loversLetterAnimationScreen" class="page" style="background: #fff;">
     <!-- 悬浮返回按钮 -->
-    <div class="back-btn-float" onclick="closeLetterAnimation()"><i class="fas fa-chevron-left"></i></div>
+    <div class="back-btn-float" onclick="closeLetterAnimation()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></div>
     
     <!-- 大信封动画容器 -->
     <div class="big-envelope-container" id="anim-envelope">
@@ -5668,7 +5669,7 @@
 <div id="account-page" class="page">
     <!-- 头部 -->
     <div class="account-header">
-        <button class="lovers-icon-btn-round" onclick="backToLoversDetail()"><i class="fas fa-chevron-left"></i></button>
+        <button class="lovers-icon-btn-round" onclick="backToLoversDetail()"><svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="account-title" id="acc-page-title">恋爱账本</div>
         <button class="theme-btn" onclick="toggleLoversAccountTheme()"><i class="fas fa-palette"></i> 皮肤</button>
     </div>
@@ -5784,7 +5785,7 @@
 <div id="loversSpyScreen" class="page">
     <div class="spy-header">
         <button class="lovers-icon-btn-round" onclick="backToLoversDetail()">
-            <i class="fas fa-arrow-left" style="color: #000;"></i>
+            <svg class="back-svg fas" style="color: #000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <h2 style="font-weight: 800; letter-spacing: 1px; font-size: 18px;">TA的动态</h2>
         <div class="spy-status-dot"></div> <!-- 在线状态点 -->
@@ -5813,13 +5814,13 @@
     <div class="mood-header">
         <!-- 左侧：返回 -->
         <button class="lovers-icon-btn-round" onclick="backToLoversDetail()">
-            <i class="fas fa-chevron-left"></i>
+            <svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         
         <!-- 中间：月份切换 -->
         <div class="mood-month-switcher">
             <button class="month-nav-btn" onclick="changeLoversMoodMonth(-1)">
-                <i class="fas fa-chevron-left"></i>
+                <svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
             </button>
             <div class="mood-month-title" id="mood-month-display">2025年12月</div>
             <button class="month-nav-btn" onclick="changeLoversMoodMonth(1)">
@@ -5853,7 +5854,7 @@
 <div id="loversMoodSummaryScreen" class="page">
     <div class="mood-header">
         <button class="lovers-icon-btn-round" onclick="backToLoversMoodCalendar()">
-            <i class="fas fa-chevron-left"></i>
+            <svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <div class="mood-month-title">本月心情罐头</div>
         <div style="width: 40px;"></div> <!-- 占位保持平衡 -->
@@ -5931,7 +5932,7 @@
     <div class="whisper-header">
         <div style="display: flex; align-items: center;">
             <button class="lovers-icon-btn-round" onclick="backToLoversDetail()">
-                <i class="fas fa-chevron-left"></i>
+                <svg class="back-svg fas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
             </button>
             <h2>悄悄话</h2>
         </div>
@@ -6016,7 +6017,7 @@
 <!-- 用户写情书页面 -->
 <div id="loversWriteLetterScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToLetterList()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToLetterList()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">写情书</div>
         <button class="nav-btn" onclick="submitUserLetter()" style="font-weight: bold; color: #ff69b4;">发送</button>
     </div>
@@ -6108,7 +6109,7 @@
 <!-- 新增：悄悄话详情页 (传纸条模式) -->
 <div id="loversWhisperDetailScreen" class="page">
     <div class="nav-bar" style="background: transparent; z-index: 100;">
-        <button class="nav-btn" onclick="backToWhisperList()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToWhisperList()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">纸条</div>
         <div style="width: 40px;"></div>
     </div>
@@ -6135,7 +6136,7 @@
 <!-- 写悄悄话页面 -->
 <div id="loversWriteWhisperScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToWhisperList()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToWhisperList()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">写悄悄话</div>
         <button class="nav-btn" onclick="submitUserWhisper()" style="font-weight: bold; color: #ff69b4;">贴上</button>
     </div>
@@ -6260,7 +6261,7 @@
     <!-- 左侧按钮组：返回 + 心声(五角星) -->
     <div style="display: flex; align-items: center; gap: 5px;">
         <button class="nav-btn" onclick="exitOfflineMode()">
-            <i class="ri-arrow-left-s-line"></i>
+            <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <button class="nav-btn" onclick="openHeartsVoiceModal()" title="查看心声">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
@@ -6548,7 +6549,7 @@
 <!-- 3. 游戏主界面 (全新布局) -->
 <div id="undercoverGameScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="quitUndercoverGame()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="quitUndercoverGame()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" id="ucRoundInfo">谁是卧底</div>
         <button class="nav-btn" style="width: 40px;"></button>
     </div>
@@ -6716,7 +6717,7 @@
     <div class="nav-bar" style="background-color: #fff; border-bottom: 1px solid #e6eff5; z-index: 100;">
         <!-- 返回按钮：直接绑定退出函数，确保有效 -->
         <button class="nav-btn" onclick="quitUndercoverGame()">
-            <i class="ri-arrow-left-s-line"></i>
+            <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <div class="nav-title" style="color: #333; font-weight: bold;">本局内心独白</div>
         <div style="width: 40px;"></div>
@@ -6748,7 +6749,7 @@
 <div id="heartsVoiceHistoryScreen" class="page">
     <div class="nav-bar">
         <!-- 返回按钮 -->
-        <button class="nav-btn" onclick="backToChat()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToChat()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">心声记录簿</div>
         <!-- 新增：选择按钮 -->
        <button class="nav-btn nav-right-action-btn" id="heartsVoiceManageBtn" onclick="toggleHeartsVoiceSelectionMode()">
@@ -6903,7 +6904,7 @@
 <!-- 2. 指定汤选择页面 (白底列表) -->
 <div id="turtleSoupSelectScreen" class="page">
     <div class="nav-bar" style="background:#ffffff; border-bottom:1px solid #f0f0f0;">
-        <button class="nav-btn" onclick="backToSoupSetup()"><i class="ri-arrow-left-s-line" style="color:#000;"></i></button>
+        <button class="nav-btn" onclick="backToSoupSetup()"><svg class="back-svg" style="color:#000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color:#000;">选择汤底</div>
         <div></div>
     </div>
@@ -7081,7 +7082,7 @@
     <!-- 导航栏 -->
     <div class="nav-bar" style="background: #ffffff; border-bottom: 1px solid #f0f0f0;">
         <button class="nav-btn" onclick="quitTruthDareGame()" style="color: #ff69b4;">
-            <i class="ri-arrow-left-s-line"></i>
+            <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <div class="nav-title" style="color: #333; font-weight: 800;">真心话大冒险</div>
         <div style="display: flex; gap: 5px;">
@@ -7204,7 +7205,7 @@
 <div class="nav-bar" style="display: flex; align-items: center; padding: 0 10px; height: 50px; background: #fff;">
     <!-- 1. 返回按钮 (保持之前的 Remix Icon) -->
     <button class="nav-btn" onclick="backToForumMessages()" style="margin-right: 5px; padding: 5px;">
-        <i class="ri-arrow-left-line" style="font-size: 24px; color: #000;"></i>
+        <svg class="back-svg" style="font-size: 24px; color: #000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
     </button>
 
     <!-- 2. 头像 -->
@@ -7283,7 +7284,7 @@
 <!-- 用户写日记页面 -->
 <div id="userWriteDiaryScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToMyDiaryList()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToMyDiaryList()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">写日记</div>
         <button class="nav-btn" onclick="saveUserDiary()" style="font-weight: bold; color: #000;">完成</button>
     </div>
@@ -7354,7 +7355,7 @@
     <!-- 顶部导航 (透明，悬浮) -->
     <div class="nav-bar" style="background: transparent; border: none; z-index: 20; position: absolute; top: 0; width: 100%;">
         <button class="nav-btn" onclick="backToChat()" style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-            <i class="ri-arrow-left-s-line" style="font-size: 26px;"></i>
+            <svg class="back-svg" style="font-size: 26px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <div class="nav-title"></div>
         <button class="nav-btn" style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5);" onclick="triggerQQProfileRegeneration()"> 
@@ -7460,7 +7461,7 @@
 <!-- 新增：匿名提问列表页 (仿图2布局，黑白风) -->
 <div id="qqAnonymousQAScreen" class="page">
     <div class="nav-bar" style="background: #fff; border-bottom: 1px solid #f0f0f0;">
-        <button class="nav-btn" onclick="backToQQProfile()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToQQProfile()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">匿问我答</div>
         <div style="display: flex; gap: 5px;">
             <!-- 生成按键 (换成了魔术棒图标) -->
@@ -7599,7 +7600,7 @@
 <!-- 1. 入梦 - 角色选择页 -->
 <div id="dreamCharacterSelectScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToDiscover()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToDiscover()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">选择入梦对象</div>
         <div></div>
     </div>
@@ -7613,7 +7614,7 @@
 <!-- 2. 入梦 - 梦境列表页 -->
 <div id="dreamListScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToDreamCharSelect()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToDreamCharSelect()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" id="dreamListTitle">梦境碎片</div>
         <!-- 左上角加号改为右上角，符合习惯 -->
         <button class="nav-btn nav-right-action-btn" onclick="openCreateDreamModal()">
@@ -7796,7 +7797,7 @@
 <!-- [新增] 救赎模式 - 角色选择页 -->
 <div id="redemptionCharacterSelectScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToDiscover()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToDiscover()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">选择救赎对象</div>
         <div></div>
     </div>
@@ -7810,7 +7811,7 @@
 <!-- [新增] 救赎模式 - 时间轴节点页 -->
 <div id="redemptionTimelineScreen" class="page">
     <div class="nav-bar">
-        <button class="nav-btn" onclick="backToRedemptionCharSelect()"><i class="ri-arrow-left-s-line"></i></button>
+        <button class="nav-btn" onclick="backToRedemptionCharSelect()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">命运节点</div>
         <!-- 右上角刷新按钮 -->
         <button class="nav-btn nav-right-action-btn" id="refreshRedemptionBtn" onclick="refreshRedemptionNodes()">
@@ -7880,7 +7881,7 @@
 <!-- 2. 孩子列表页面 -->
 <div id="babyListScreen" class="page" style="background: #FDF8F5;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 2px dashed #E6CCB2;">
-        <button class="nav-btn" onclick="backToDiscover()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToDiscover()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">养崽</div>
         <div style="display: flex; gap: 5px;">
             <button class="nav-btn" onclick="openBabyAdoptionModal()"><i class="ri-add-line" style="color: #8C6239; font-size: 24px;"></i></button>
@@ -7942,7 +7943,7 @@
         <!-- 左侧按钮组：返回 + 投喂小卖部 -->
         <div style="display: flex; gap: 10px; align-items: center;">
             <button class="nav-btn" onclick="backToBabyList()" style="background: rgba(255,255,255,0.7); border-radius: 50%; width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(212,163,115,0.2);">
-                <i class="ri-arrow-left-s-line" style="color: #8C6239; font-size: 20px;"></i>
+                <svg class="back-svg" style="color: #8C6239; font-size: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
             </button>
             
             <button class="nav-btn" onclick="openBabyFeedModal()" style="background: rgba(255,255,255,0.9); border-radius: 50%; width: 36px; height: 36px; padding: 0; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(231,111,81,0.2); border: 1px solid #F5E6D3;">
@@ -8022,7 +8023,7 @@
 <!-- 5.1 成长档案 独立页面 -->
 <div id="babyInfoScreen" class="page" style="background: #FDF8F5; z-index: 105;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToBabyRoom()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToBabyRoom()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">成长档案</div>
         <div></div>
     </div>
@@ -8048,7 +8049,7 @@
 <!-- 5.2 家族群聊 独立列表页 -->
 <div id="babyChatListScreen" class="page" style="background: #FDF8F5; z-index: 105;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToBabyRoom()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToBabyRoom()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">聊天</div>
         <div></div>
     </div>
@@ -8062,7 +8063,7 @@
 <!-- 5.3 涂鸦手账 独立页面 -->
 <div id="babyDiaryScreen" class="page" style="background: #FDF8F5; z-index: 105;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToBabyRoom()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToBabyRoom()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">日记手账</div>
         <button onclick="generateBabyDiary()" style="background: #D4A373; color: white; border: none; padding: 4px 10px; border-radius: 12px; font-size: 12px; margin-right: 15px; font-weight: bold;">辅导</button>
     </div>
@@ -8079,7 +8080,7 @@
 <!-- 6. 家庭独立聊天详情页 -->
 <div id="babyChatDetailScreen" class="page" style="background: #FDF8F5; z-index: 2000;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="closeBabyChatDetail()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="closeBabyChatDetail()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" id="babyChatTitle" style="color: #8C6239;">相亲相爱一家人</div>
         <div></div>
     </div>
@@ -8099,7 +8100,7 @@
 <!-- 活动列表页 -->
 <div id="babyActivityScreen" class="page" style="background: #FDF8F5; z-index: 105;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToBabyRoom()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToBabyRoom()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">活动中心</div>
         <div></div>
     </div>
@@ -8163,7 +8164,7 @@
 <!-- 入学(属性养成)主页 -->
 <div id="babySchoolScreen" class="page" style="background: #FDF8F5; z-index: 106;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToActivityList()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToActivityList()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">宝宝学堂</div>
         <div></div>
     </div>
@@ -8262,7 +8263,7 @@
 <!-- 2. 旅行列表页 -->
 <div id="babyTravelListScreen" class="page" style="background: #FDF8F5; z-index: 106;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToActivityList()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToActivityList()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">旅行相册</div>
         <button class="nav-btn nav-right-action-btn" id="startTravelBtn" onclick="startBabyTravel()">
             <i class="ri-add-line" style="font-size: 24px; color: #8C6239;"></i>
@@ -8278,7 +8279,7 @@
 <!-- 3. 旅行详情页 (报纸 UI) -->
 <div id="babyTravelDetailScreen" class="page" style="background: #FDF8F5; z-index: 107;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToBabyTravelList()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToBabyTravelList()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">奇遇时报</div>
         <div></div>
     </div>
@@ -8290,7 +8291,7 @@
 <!-- 2. 探索分类列表页 -->
 <div id="babyExploreListScreen" class="page" style="background: #FDF8F5; z-index: 106;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3;">
-        <button class="nav-btn" onclick="backToActivityList()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToActivityList()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">了解宝宝</div>
         <div></div>
     </div>
@@ -8304,7 +8305,7 @@
 <!-- 3. 探索详情通用页 -->
 <div id="babyExploreDetailScreen" class="page" style="background: #FDF8F5; z-index: 107;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3; z-index: 10;">
-        <button class="nav-btn" onclick="backToBabyExploreList()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToBabyExploreList()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" id="exploreDetailTitle" style="color: #8C6239; font-weight: bold;">详情</div>
         <!-- 刷新按钮放在右上角 -->
         <button class="nav-btn nav-right-action-btn" id="refreshExploreBtn" onclick="refreshExploreContent()">
@@ -8324,7 +8325,7 @@
 <!-- ========================================== -->
 <div id="babyWishBottleScreen" class="page" style="background: #FDF8F5; z-index: 106;">
     <div class="nav-bar" style="background: #FFF3E0; border-bottom: 1px solid #F5E6D3; z-index: 100;">
-        <button class="nav-btn" onclick="backToActivityList()"><i class="ri-arrow-left-s-line" style="color: #8C6239;"></i></button>
+        <button class="nav-btn" onclick="backToActivityList()"><svg class="back-svg" style="color: #8C6239;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title" style="color: #8C6239; font-weight: bold;">家庭许愿瓶</div>
         <div style="width:40px"></div>
     </div>

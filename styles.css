@@ -844,12 +844,6 @@ html {
             bottom: 15px;
             z-index: 101;
         }
-        #chatScreen .send-btn {
-            position: absolute;
-            right: 12px;
-            bottom: 15px;
-            z-index: 102;
-        }
 
         .chat-btn {
             width: 35px;
@@ -6418,7 +6412,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     align-items: center;
     z-index: 50;
     flex-shrink: 0; 
-    margin: 0 auto; 
+    margin: 0 auto 15px auto; 
 }
 
 #desktop-page-2 {
@@ -22222,3 +22216,147 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
     
+/* ============================================================
+   全局返回键图标（统一 SVG）
+   width/height 用 1em，跟随原来 <i> 的 font-size，
+   颜色用 currentColor，暗色/主题色会自动继承
+   ============================================================ */
+.back-svg {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: middle;
+    flex: none;
+    fill: currentColor;
+}
+
+/* ============================================================
+   聊天页（#chatScreen）顶部导航 + 底部输入区
+   ============================================================ */
+
+/* 1. 心声按钮：JS 会把它设成 flex，这里永久隐藏 */
+#chatScreen #navBarHeartsVoiceButton {
+    display: none !important;
+}
+
+/* 2. 更多按钮：三条横线图标 */
+#chatScreen #navBarMoreButton svg.nav-more-svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+}
+
+/* 3. 标题 + 副标题（原来 .nav-title 是绝对定位，这里改由外层容器定位） */
+#chatScreen .nav-title-block {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    max-width: 62%;
+    pointer-events: none;
+}
+#chatScreen .nav-title-block .nav-title {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    max-width: 100%;
+    line-height: 1.15;
+    font-size: var(--nav-font-size, 17px);
+}
+#chatScreen .nav-subtitle {
+    font-size: 10px;
+    line-height: 1.1;
+    letter-spacing: 0.2px;
+    color: #b0b0b0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.wechat-dark-mode #chatScreen .nav-subtitle {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* 4. 分割线：导航栏下方 0.5px，输入区上方 0.5px */
+#chatScreen .nav-bar {
+    border-bottom: 0.5px solid #dcdcdc !important;
+}
+.wechat-dark-mode #chatScreen .nav-bar {
+    border-bottom-color: #3a3a3c !important;
+}
+#chatScreen .chat-input {
+    border-top: 0.5px solid #dcdcdc !important;
+}
+
+/* 5. 输入区背景铺到屏幕最底部，不再漏出聊天壁纸；
+      键盘弹起时整体上移（--kb-h 由 JS 写入），输入内容始终可见 */
+#chatScreen .chat-input-area {
+    bottom: var(--kb-h, 0px) !important;
+    background: #ededed;
+    padding-bottom: 14px;
+    transition: bottom 0.2s ease;
+}
+.wechat-dark-mode #chatScreen .chat-input-area {
+    background: #2c2c2e;
+}
+
+/* 6. 抬高输入区：整体加高，输入行不再贴着最下面 */
+#chatScreen .chat-input {
+    min-height: 76px;
+    padding-bottom: 10px;
+}
+
+/* 消息列表底部留白同步加高，避免最后一条消息被输入区挡住 */
+#chatScreen .wechat-content {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+}
+
+/* 聊天页：导航栏 / 输入区统一微信灰 #ededed */
+#chatScreen .nav-bar,
+#chatScreen .chat-input-area,
+#chatScreen .chat-input {
+    background-color: #ededed !important;
+}
+.wechat-dark-mode #chatScreen .nav-bar,
+.wechat-dark-mode #chatScreen .chat-input-area,
+.wechat-dark-mode #chatScreen .chat-input {
+    background-color: #2c2c2e !important;
+}
+
+/* 输入区左侧三个按钮的 SVG 尺寸（对齐原来 24px 的字体图标） */
+#chatScreen .chat-btn svg.input-btn-svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+/* 表情 / 功能面板与输入区同色，展开时底部不会出现色条拼接 */
+#chatScreen .chat-functions,
+#chatScreen .emoji-picker {
+    background: #ededed !important;
+}
+.wechat-dark-mode #chatScreen .chat-functions,
+.wechat-dark-mode #chatScreen .emoji-picker {
+    background: #2c2c2e !important;
+}
+
+/* 输入框右边界停在表情键左侧，不再延伸到加号键下方 */
+#chatScreen .chat-input textarea {
+    margin-right: 82px;
+    padding-right: 15px;
+}
+
+/* ============================================================
+   防止 iOS 弹出键盘后点击穿透到下层页面（点输入框误开其他 App）
+   ============================================================ */
+.page:not(.active) {
+    pointer-events: none !important;
+}
+#homeScreen.inactive {
+    pointer-events: none !important;
+}
