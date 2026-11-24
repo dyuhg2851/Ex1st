@@ -249,9 +249,6 @@ let currentDesktopAvatarPlaceholderId = null;
 
 let doujin_selectedChars = []; // 用于存储当前选中的角色ID
 
-let isHeartsVoiceSelectMode = false;
-let selectedHeartsVoiceIds = new Set();
-
 let fontPresets = []; // 新增：字体预设数组
 
 let currentStickerTab = 'local'; // 当前选中的标签页
@@ -692,7 +689,7 @@ let isGameFloatBallEnabled = true; // 默认开启
 let beautificationSettings = {}; // 用来存放所有自定义图片
         let currentlyDisplayedMessageCount = 0; // 新增：记录当前显示了多少条消息
 let isLazyLoading = false; // 新增：防止在加载时重复触发
-const CHAT_PAGE_SIZE = 30; // 新增：定义每次加载的消息数量
+const CHAT_PAGE_SIZE = 50; // 每次渲染/加载的消息条数（上滑再补更早的）
 
         let currentMessageElement = null;
         // 把“是不是在回复”的开关，换成“正在回复的角色列表”
@@ -2009,73 +2006,6 @@ function getRandomColor() {
 
 
 
-/**
- * [V10 - 带历史记录版] 打开心声面板
- */
-function openHeartsVoiceModal() {
-    const friend = friends.find(f => f.id === currentChatFriendId);
-    if (!friend) return;
-
-    const modal = document.getElementById('heartsVoiceModal');
-    const modalContent = modal.querySelector('.modal-content');
-
-    modalContent.className = 'modal-content'; // 重置样式
-
-    // 读取当前数据
-    const heartsVoiceData = friend.heartsVoice || { 
-        emoji: '( ´• ω •` )', 
-        favorability: '...',
-        dressing: '...', 
-        action: '...', 
-        thought: '...' 
-    };
-    
-    modalContent.innerHTML = `
-        <div id="heartsVoiceHeader" style="display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 10px; padding-top: 5px;">
-            <div id="heartsVoiceAvatar" class="friend-avatar" style="width: 40px; height: 40px; border-radius: 6px; background-image: url(${friend.avatarImage || ''});">${friend.avatarImage ? '' : (friend.avatar || friend.name[0])}</div>
-            <div id="heartsVoiceName" style="font-size: 16px; font-weight: bold;">${friend.name}</div>
-        </div>
-        <div id="heartsVoiceEmoji" style="font-size: 48px; margin: 10px 0; line-height: 1.2;">${heartsVoiceData.emoji}</div>
-        <div id="heartsVoiceThought" style="min-height: 140px; text-align: left; margin-top: 15px;">
-            <div><strong>好感度：</strong><span>${heartsVoiceData.favorability}</span></div>
-            <div><strong>着装：</strong><span>${heartsVoiceData.dressing}</span></div>
-            <div><strong>动作：</strong><span>${heartsVoiceData.action}</span></div>
-            <div><strong>心声：</strong><span>${heartsVoiceData.thought}</span></div>
-        </div>
-        
-        <!-- 【新增】查看历史记录按钮 -->
-        <button class="view-history-btn" onclick="openHeartsVoiceHistory()">
-            <i class="ri-history-line"></i> 查看心声记录
-        </button>
-    `;
-
-    modal.classList.add('show');
-    // 绑定点击外部关闭
-    modal.onclick = (e) => {
-        if (e.target === modal) closeHeartsVoiceModal();
-    };
-}
-
-function closeHeartsVoiceModal() {
-    const modal = document.getElementById('heartsVoiceModal');
-    modal.classList.remove('show');
-    // 核心修复：确保在关闭时，能正确地移除事件监听器
-    modal.removeEventListener('click', closeHeartsVoiceModalOnClickOutside);
-}
-
-/**
- * [V2 - 修复版] 当点击心声面板外部时，关闭面板
- */
-function closeHeartsVoiceModalOnClickOutside(event) {
-    // 核心修复：
-    // 我们将原来的 event.target.id === 'heartsVoiceModal' 判断，
-    // 更换为更可靠的 event.target === event.currentTarget 判断。
-    // 这能确保只有当用户确实点击在半透明的背景上，而不是内容卡片上时，才会关闭弹窗。
-    if (event.target === event.currentTarget) {
-        closeHeartsVoiceModal();
-    }
-}
-
         function showToast(message, duration = 3000) {
             let toast = document.getElementById('toast-notification');
             if (!toast) {
@@ -3045,7 +2975,6 @@ friends = loadedFriends || [];
                     if (f.diaryWritingUrge === undefined) f.diaryWritingUrge = 0;
                     if (f.balance === undefined) f.balance = Infinity;
                     if (f.patAction === undefined) f.patAction = `拍了拍 "${f.name}"`;
-                    if (f.heartsVoice === undefined) f.heartsVoice = { emoji: '( ´• ω •` )', thought: '...', dressing: '...', action: '...', favorability: '...' };
                 });
 
                 // 恢复聊天记录
@@ -3655,28 +3584,63 @@ userPersonas = [userProfile];
             document.querySelectorAll('#wallpaperGrid .background-option').forEach(opt => opt.classList.remove ('selected'));
         }
 
+        // 把图片压到「屏幕实际像素」尺寸再转 dataURL：壁纸原图动辄几 MB，
+        // 直接存会拖慢渲染、占满内存（iOS 上尤其明显）
+        function compressImageForScreen(file, quality = 0.85) {
+            return new Promise((resolve, reject) => {
+                const url = URL.createObjectURL(file);
+                const img = new Image();
+                img.onload = () => {
+                    try {
+                        const dpr = Math.min(window.devicePixelRatio || 1, 3);
+                        const maxW = Math.round((window.screen.width || window.innerWidth) * dpr);
+                        const maxH = Math.round((window.screen.height || window.innerHeight) * dpr);
+                        const scale = Math.min(1, maxW / img.width, maxH / img.height);
+                        const canvas = document.createElement('canvas');
+                        canvas.width = Math.max(1, Math.round(img.width * scale));
+                        canvas.height = Math.max(1, Math.round(img.height * scale));
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        URL.revokeObjectURL(url);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    } catch (err) {
+                        URL.revokeObjectURL(url);
+                        reject(err);
+                    }
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    reject(new Error('图片解码失败'));
+                };
+                img.src = url;
+            });
+        }
+
         function handleWallpaperUpload(event) {
             const file = event.target.files[0];
-            if (file) {
+            if (!file) return;
+            const applyUploadedWallpaper = (dataUrl) => {
+                customWallpaperImage = dataUrl;
+                selectedWallpaper = 'custom';
+                document.querySelectorAll('#wallpaperGrid .background-option').forEach(opt => opt.classList.remove('selected'));
+                let customOption = document.querySelector('#wallpaperGrid .background-option.custom');
+                if (!customOption) {
+                    const grid = document.getElementById('wallpaperGrid'), uploadOption = grid. children[1];
+                    customOption = document.createElement('div');
+                    customOption.className = 'background-option custom';
+                    customOption.onclick = () => selectWallpaper('custom');
+                    grid.insertBefore(customOption, uploadOption.nextSibling);
+                }
+                customOption.style.backgroundImage = `url(${dataUrl})`;
+                customOption.classList.add('selected');
+                customOption.textContent = '';
+            };
+            compressImageForScreen(file).then(applyUploadedWallpaper).catch(() => {
+                // 压缩失败（如特殊格式）时回退为原图
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    customWallpaperImage = e.target.result;
-                    selectedWallpaper = 'custom';
-                    document.querySelectorAll('#wallpaperGrid .background-option').forEach(opt => opt.classList.remove('selected'));
-                    let customOption = document.querySelector('#wallpaperGrid .background-option.custom');
-                    if (!customOption) {
-                        const grid = document.getElementById('wallpaperGrid'), uploadOption = grid. children[1];
-                        customOption = document.createElement('div');
-                        customOption.className = 'background-option custom';
-                        customOption.onclick = () => selectWallpaper('custom');
-                        grid.insertBefore(customOption, uploadOption.nextSibling);
-                    }
-                    customOption.style.backgroundImage = `url(${e.target.result})`;
-                    customOption.classList.add('selected');
-                    customOption.textContent = '';
-                };
+                reader.onload = (e) => applyUploadedWallpaper(e.target.result);
                 reader.readAsDataURL(file);
-            }
+            });
         }
 
         async function saveWallpaper() {
@@ -4519,7 +4483,6 @@ function renderEmojiPicker() {
     activeUserPersonaId: 'default_user', // <--- 核心改动就是增加了这一行！
     timestampSettings: { enabled: false, style: 'below_bubble' },
     avatarHidingSettings: { enabled: false, mode: 'both' },
-    heartsVoice: { emoji: '( ´• ω •` )', thought: '...', dressing: '...', action: '...', favorability: '...' },
     turnCountSinceLastMemory: 0, 
     proactiveMessageDebt: 0,
     shoppingRecordsCache: {},
@@ -4774,12 +4737,6 @@ if (!friend.proactiveMessageDebt || friend.proactiveMessageDebt <= 0) {
     }
     // --- 【【【新增结束】】】 ---
     
-    // --- 【核心修改】: 我们现在获取的是按钮的容器，而不是按钮本身 ---
-    const heartsVoiceBtn = document.getElementById('navBarHeartsVoiceButton');
-    if(heartsVoiceBtn) {
-        heartsVoiceBtn.style.display = friend.isGroup ? 'none' : 'flex';
-    }
-    
     const functionMenu = document.getElementById('chatFunctions').querySelector('.function-menu');
     const listenTogetherButton = functionMenu.querySelector('.function-item[onclick="openListenTogether()"]');
     let redEnvelopeButton = functionMenu.querySelector('.function-item[onclick="openRedEnvelopeModal()"]');
@@ -4920,7 +4877,7 @@ if (friend.isOfflineMode && currentOfflineMode === 'float') {
 }
 
     renderInitialMessages();
-    document.getElementById('chatMessages').onscroll = handleChatScroll;
+    document.getElementById('chatMessages').addEventListener('scroll', handleChatScroll, { passive: true });
     updateBlockedInputUI(); 
 }
 // ↑↑↑ 请在这里结束复制 ---
@@ -5142,6 +5099,7 @@ if (friendOrGroup && friendOrGroup.readReceiptSettings && friendOrGroup.readRece
 // ▲▲▲ 添加到此结束 ▲▲▲
 
     let contentHTML;
+    let quotedHTML = '';
     
     const hasImage = msg.contentType === 'image';
     const hasGroupRedEnvelope = msg.contentType === 'group_red_envelope';
@@ -5484,8 +5442,12 @@ if (msg.isOfflineMessage) {
     contentHTML = rawContent.replace(/\n/g, '<br>');
 
     if (msg.quoted) {
-        let quotedContent = (msg.quoted || '').replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
-        contentHTML = `<div class="quoted-message">${quotedContent}</div>${contentHTML}`;
+        const quotedContent = String(msg.quoted).replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '<br>');
+        // 我引用对方 → 显示我给对方设的备注；对方引用我 → 显示我的名字
+        const quotedName = msg.type === 'sent'
+            ? (friendOrGroup.remark || friendOrGroup.name || '')
+            : ((typeof userProfile !== 'undefined' && userProfile && userProfile.name) ? userProfile.name : '我');
+        quotedHTML = `<div class="quoted-message"><span class="quoted-name">${quotedName}：</span>${quotedContent}</div>`;
     }
     
     // ▼▼▼ 新增：渲染翻译结果的 HTML 结构 ▼▼▼
@@ -5548,6 +5510,7 @@ const blockedIconHtml = msg.isBlockedMsg ? `<div class="blocked-error-icon">!</d
         <div class="message-body">
             ${senderNameHtml}
             <div class="${contentClass}">${contentHTML}</div>
+            ${quotedHTML}
             ${blockedIconHtml} 
             ${footerHtml}
         </div>`;
@@ -5777,8 +5740,8 @@ async function loadPreviousMessages() {
 
 // 新增：处理滚动事件的函数
 function handleChatScroll(event) {
-    // 当滚动到最顶部时，触发加载
-    if (event.target.scrollTop === 0) {
+    // 滚动到接近顶部时触发加载（iOS 惯性滚动很少精确停在 0）
+    if (event.target.scrollTop <= 40) {
         loadPreviousMessages();
     }
 }
@@ -6351,7 +6314,6 @@ const DEFAULT_PRIVATE_CHAT_PROMPT = `
 ## 6. 动作工具箱 (Action Toolbox)
 你只能通过返回 **JSON 数组** 来行动。请根据人设和情境，**自由组合**以下动作模板（直接复制对应格式并替换内容）：
 
-- **更新心声** (建议每次回复都包含，展示内心戏): \`{"type": "hearts_voice", "data": {"favorability": "数值/100 (描述)", "dressing": "当前穿搭", "action": "动作描写", "thought": "内心独白", "emoji": "颜文字"}}\`
 - **发送文本** (最常用的对话方式): \`{"type": "text", "content": "消息内容"}\`
 - **发送语音** (想亲口说话、撒娇或吼叫时): \`{"type": "voice", "content": "语音的文字内容"}\`
 - **发送表情** (可用表情: {{stickers}}): \`{"type": "send_emoji", "data": {"name": "表情名", "url": "URL"}}\`
@@ -6376,7 +6338,6 @@ const DEFAULT_PRIVATE_CHAT_PROMPT = `
 ## 7. 输出格式 (Output Format)
 必须返回纯净的 JSON 数组 \`[]\`。
 **JSON 示例**：[
-  { "type": "hearts_voice", "data": { "thought": "被他逗笑了...", "emoji": "(≧∇≦)", "action": "捂嘴偷笑", "dressing": "居家睡衣", "favorability": "85 (+1)" } },
   { "type": "text", "content": "哈哈哈哈你认真的吗？" },
   { "type": "pat_pat" },
   { "type": "send_emoji", "data": { "name": "爆笑", "url": "..." } }
@@ -7313,40 +7274,6 @@ try {
                 let lastMessageId = null;
                 for (const action of responseActions) {
                     switch (action.type) {
-                        case 'hearts_voice':
-                            if (action.data) {
-                                // --- 【核心修改开始】 ---
-                                // 1. 确保历史数组存在
-                                if (!friend.heartsVoiceHistory) {
-                                    friend.heartsVoiceHistory = [];
-                                }
-
-                                // 2. 创建一个新的历史记录对象
-                                const historyItem = {
-                                    id: generateUniqueId(),
-                                    timestamp: new Date().toISOString(),
-                                    data: {
-                                        favorability: action.data.favorability || '...',
-                                        dressing: action.data.dressing || '...',
-                                        action: action.data.action || '...',
-                                        thought: action.data.thought || '...',
-                                        emoji: action.data.emoji || '( ´• ω •` )'
-                                    }
-                                };
-
-                                // 3. 存入数组最前面
-                                friend.heartsVoiceHistory.unshift(historyItem);
-                                
-                                // (可选) 限制历史记录数量，比如只保留最近50条，防止数据太大
-                                if (friend.heartsVoiceHistory.length > 50) {
-                                    friend.heartsVoiceHistory.pop();
-                                }
-                                // --- 【核心修改结束】 ---
-
-                                // 更新当前状态 (原逻辑)
-                                friend.heartsVoice = historyItem.data;
-                            }
-                            break;
                         case 'text':
                         case 'voice':
                             if (action.content) {
@@ -13440,7 +13367,6 @@ function renderBeautificationSettings() {
             items: [
                 { key: 'topNavBarBg', label: '顶部导航背景' },
                 { key: 'navBarBackButton', label: '返回按钮' },
-                { key: 'navBarHeartsVoiceButton', label: '心声按钮' },
                 { key: 'navBarMoreButton', label: '更多按钮(…)' },
             ]
         },
@@ -13617,7 +13543,7 @@ function applyBeautificationSettings() {
     let cssString = '';
 
     const iconKeys = [
-        'navBarGoHomeButton', 'navBarBackButton', 'navBarHeartsVoiceButton', 'navBarMoreButton',
+        'navBarGoHomeButton', 'navBarBackButton', 'navBarMoreButton',
         'chatInputReceiveButton', 'chatInputEmojiButton',
         'chatInputPlusButton', 'plusMenuPhoto', 'plusMenuCamera',
         'plusMenuVoiceCall', 'plusMenuTransfer', 'plusMenuGroupRedEnvelope','plusMenuListen', 'plusMenuLocation',
@@ -13792,7 +13718,6 @@ function getSelectorForKey(key) {
         // 导航栏按钮 (这里是关键修改)
         'navBarBackButton': '.nav-bar > .nav-btn:first-child', // 目标：导航栏里最左边的那个按钮
         'navBarGoHomeButton': '.nav-bar > .nav-btn:first-child', // 目标：同样是导航栏里最左边的那个按钮
-        'navBarHeartsVoiceButton': '#navBarHeartsVoiceButton', // 目标：心声按钮 (这个ID是唯一的，可以保留)
         
         // 目标：导航栏右侧的 “更多(...)” 或 “加号(+)” 按钮
       // 这是【修改后】的代码行
@@ -16440,22 +16365,12 @@ ${chatHistoryContext} `;
             - --- 文风结束 ---
             
    【【【输出格式铁律 (必须严格遵守)】】】
-1.  **【双重输出】**: 你的回复**必须**包含两个部分：小说正文和心声JSON。
-2.  **【第一部分：故事】**: 首先，直接输出续写的小说正文（纯文本）。
-3.  **【第二部分：心声】**: 在小说正文结束后，**必须另起一行**，写下这个独一无二的分隔符：\`[HEARTS_VOICE_SEPARATOR]\`，然后**必须附上**一个完整、语法正确的心声JSON对象。
-4.  **【禁止HTML】**: **严禁**生成任何 \`[HTML_SKIT_SEPARATOR]\` 分隔符或HTML代码。
+1.  **【故事】**: 直接输出续写的小说正文（纯文本）。
+2.  **【禁止HTML】**: **严禁**生成任何 \`[HTML_SKIT_SEPARATOR]\` 分隔符或HTML代码。
 
 
 【格式示例】:
 他看着你的消息，嘴角不自觉地上扬。_原来你还记得..._ 他拿起手机，指尖在屏幕上飞舞：“当然记得，那可是我们第一次见面。”
-[HEARTS_VOICE_SEPARATOR]
-{
-  "favorability": "90/100 (非常开心)",
-  "dressing": "穿着一件干净的白衬衫。",
-  "action": "坐在窗边，微笑着回复你的消息。",
-  "thought": "看到你的消息，今天一整天的疲惫都消失了。",
-  "emoji": "˃ᴗ˂̵͈̑"
-}
 `;
         } 
         // 第三步：处理特殊情况（选择了小剧场）
@@ -16495,20 +16410,11 @@ ${personInstruction}
 1.  **【第一部分：故事】**: 首先，直接输出续写的小说正文（纯文本）。
 2.  **【第二部分：分隔符】**: 在小说正文结束后，**必须另起一行**，写下这个独一无二的分隔符：\`[HTML_SKIT_SEPARATOR]\`
 3.  **【第三部分：HTML模块】**: 在分隔符之后，再附上你生成的、纯净的、完整的HTML代码。
-4.  **【第四部分：心声】**: 必须更新心声，请在HTML模块之后，再另起一行，写下分隔符 \`[HEARTS_VOICE_SEPARATOR]\`，然后附上心声JSON对象。
 
 【格式示例】:
 他看着你的消息，嘴角不自觉地上扬。_原来你还记得..._ 他拿起手机，指尖在屏幕上飞舞：“当然记得，那可是我们第一次见面。”
 [HTML_SKIT_SEPARATOR]
 <div style="padding:10px; background:white; border-radius:8px;"><h3>回忆相册</h3><p>一张褪色的照片，上面是你们的合影...</p></div>
-[HEARTS_VOICE_SEPARATOR]
-{
-  "favorability": "90/100 (非常开心)",
-  "dressing": "穿着一件干净的白衬衫。",
-  "action": "坐在窗边，微笑着回复你的消息。",
-  "thought": "看到你的消息，今天一整天的疲惫都消失了。",
-  "emoji": "˃ᴗ˂̵͈̑"
-}
 
 `;
         }
@@ -16548,44 +16454,8 @@ if (!data || !data.choices || data.choices.length === 0) {
 
         // 1. 定义我们的两个“暗号”
         const htmlSeparator = '[HTML_SKIT_SEPARATOR]';
-        const heartsVoiceSeparator = '[HEARTS_VOICE_SEPARATOR]';
 
-        // 2. 先处理心声，把它从主要内容中分离出来
         let storyAndHtmlPart = responseText;
-        const heartsVoiceParts = responseText.split(heartsVoiceSeparator);
-        if (heartsVoiceParts.length > 1) {
-            storyAndHtmlPart = heartsVoiceParts[0]; // 分隔符前面的部分是故事和HTML
-            const heartsVoiceJsonString = heartsVoiceParts[1];
-            try {
-                const heartsVoiceData = JSON.parse(heartsVoiceJsonString);
-                if (heartsVoiceData) {
-                    // 1. 更新当前显示的心声
-                    friend.heartsVoice = heartsVoiceData;
-
-                    // 2. 【核心修复】必须同时存入历史记录数组
-                    if (!friend.heartsVoiceHistory) {
-                        friend.heartsVoiceHistory = [];
-                    }
-
-                    const historyItem = {
-                        id: generateUniqueId(),
-                        timestamp: new Date().toISOString(),
-                        data: {
-                            favorability: heartsVoiceData.favorability || '...',
-                            dressing: heartsVoiceData.dressing || '...',
-                            action: heartsVoiceData.action || '...',
-                            thought: heartsVoiceData.thought || '...',
-                            emoji: heartsVoiceData.emoji || '( ´• ω •` )'
-                        }
-                    };
-                    
-                    // 存入数组开头
-                    friend.heartsVoiceHistory.unshift(historyItem);
-                }
-            } catch (e) {
-                console.error("解析心声JSON失败:", e);
-            }
-        }
 
       // 3. 接着，处理故事和HTML模块
         const parts = storyAndHtmlPart.split(htmlSeparator);
@@ -19727,7 +19597,7 @@ function applyChatInterfaceCSS(css) {
     // 步骤2：【新增】智能分析并生成“隐藏代码”
     let autoGeneratedHidingCss = '';
     const iconKeys = [
-        'navBarBackButton', 'navBarGoHomeButton', 'navBarHeartsVoiceButton', 'navBarMoreButton',
+        'navBarBackButton', 'navBarGoHomeButton', 'navBarMoreButton',
         'chatInputReceiveButton', 'chatInputEmojiButton',
         'chatInputPlusButton', 'plusMenuPhoto', 'plusMenuCamera',
         'plusMenuVoiceCall', 'plusMenuTransfer', 'plusMenuGroupRedEnvelope', 'plusMenuListen', 'plusMenuLocation',
@@ -19766,7 +19636,7 @@ function copyInterfaceFormat() {
 .nav-bar {
   /* background: #f8f8f8; */
 }
-#navBarBackButton, #navBarHeartsVoiceButton, #navBarMoreButton { /* 导航栏上的所有按钮 */
+#navBarBackButton, #navBarMoreButton { /* 导航栏上的所有按钮 */
   /* color: #333; */
 }
 .nav-title { /* 导航栏中间的标题 */
@@ -21549,26 +21419,30 @@ document.getElementById('wallpaper-upload-input').addEventListener('change', asy
     const file = event.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-        const imageUrl = e.target.result;
-        
-        // 1. 更新全局变量
-        simPhoneGlobalWallpaper = imageUrl;
-        
-        // 2. 立即更新当前的显示
-        const homeScreen = document.getElementById('sim-home-screen-content');
-        if (homeScreen) {
-            homeScreen.style.backgroundImage = `url(${imageUrl})`;
-        }
-        
-        // 3. 保存到全局数据库
-        await saveData();
-        
-        alert('手机壁纸已更新，所有角色通用！');
-    };
-    
-    reader.readAsDataURL(file);
+    let imageUrl;
+    try {
+        imageUrl = await compressImageForScreen(file);
+    } catch (e) {
+        imageUrl = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => resolve(ev.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // 1. 更新全局变量
+    simPhoneGlobalWallpaper = imageUrl;
+
+    // 2. 立即更新当前的显示
+    const homeScreen = document.getElementById('sim-home-screen-content');
+    if (homeScreen) {
+        homeScreen.style.backgroundImage = `url(${imageUrl})`;
+    }
+
+    // 3. 保存到全局数据库
+    await saveData();
+
+    alert('手机壁纸已更新，所有角色通用！');
     event.target.value = ''; // 清空，允许重复上传同一张
 });
 
@@ -23220,12 +23094,17 @@ function handleCharAvatarUpload(event) {
         const dots = document.querySelectorAll('#home-screen-dots .dot');
 
         if (pager && dots.length > 0) {
+            let pagerRaf = 0;
             pager.addEventListener('scroll', () => {
-                const pageIndex = Math.round(pager.scrollLeft / pager.clientWidth);
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === pageIndex);
+                if (pagerRaf) return;
+                pagerRaf = requestAnimationFrame(() => {
+                    pagerRaf = 0;
+                    const pageIndex = Math.round(pager.scrollLeft / pager.clientWidth);
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === pageIndex);
+                    });
                 });
-            });
+            }, { passive: true });
         }
         // --- 分页逻辑结束 ---
 
@@ -37043,9 +36922,6 @@ ${chatTimePoints || "（这段时间无聊天记录）"}
 function openSpyDetailModal(time, iconClass, summaryEncoded, detailEncoded, thoughtEncoded) {
     const summary = decodeURIComponent(summaryEncoded);
     const detail = decodeURIComponent(detailEncoded);
-    // 解码心声，如果没有则显示默认文案
-    const thought = thoughtEncoded ? decodeURIComponent(thoughtEncoded) : "（此刻内心一片平静...）";
-    
     document.getElementById('spyModalTime').textContent = time;
     
     // 设置图标
@@ -37055,9 +36931,6 @@ function openSpyDetailModal(time, iconClass, summaryEncoded, detailEncoded, thou
     // 设置摘要和正文
     document.getElementById('spyModalSummary').textContent = summary;
     document.getElementById('spyModalDetail').textContent = detail;
-    
-    // 【新增】设置心声内容
-    document.getElementById('spyModalThoughtContent').textContent = thought;
     
     // 显示弹窗
     document.getElementById('spyDetailModal').classList.add('show');
@@ -41519,92 +41392,6 @@ function updateBlockedInputUI() {
 }
 
 /**
- * [新增] 打开心声历史记录页面
- */
-function openHeartsVoiceHistory() {
-    const friend = friends.find(f => f.id === currentChatFriendId);
-    if (!friend) return;
-
-    // 1. 关闭当前的心声弹窗
-    closeHeartsVoiceModal();
-
-    // 2. 切换页面
-    setActivePage('heartsVoiceHistoryScreen');
-
-    // 3. 渲染列表
-    renderHeartsVoiceHistoryList(friend);
-}
-
-/**
- * [替换旧函数] 渲染历史记录列表 (支持多选模式)
- */
-function renderHeartsVoiceHistoryList(friend) {
-    const container = document.getElementById('heartsVoiceHistoryList');
-    container.innerHTML = '';
-
-    const history = friend.heartsVoiceHistory || [];
-
-    if (history.length === 0) {
-        container.innerHTML = '<div style="text-align:center; padding:50px; color:#999;">暂无历史记录</div>';
-        // 如果没有记录，强制退出选择模式
-        if (isHeartsVoiceSelectMode) toggleHeartsVoiceSelectionMode();
-        return;
-    }
-
-    history.forEach(item => {
-        const date = new Date(item.timestamp);
-        const timeStr = `${date.getMonth()+1}月${date.getDate()}日 ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
-        const data = item.data;
-
-        const card = document.createElement('div');
-        // 如果被选中，添加 selected 类
-        const isSelected = selectedHeartsVoiceIds.has(item.id);
-        card.className = `voice-history-card ${isSelected ? 'selected' : ''}`;
-        
-        // 点击事件：如果是选择模式，切换选中；否则无操作
-        card.onclick = () => {
-            if (isHeartsVoiceSelectMode) {
-                toggleHeartsVoiceItem(item.id);
-            }
-        };
-
-        card.innerHTML = `
-            <!-- 复选框 -->
-            <div class="message-checkbox"></div>
-
-            <div class="voice-history-time">
-                <span>记录时间</span>
-                <span>${timeStr}</span>
-            </div>
-            
-            <div class="voice-history-content">
-                <div class="voice-history-item">
-                    <span class="voice-history-label">状态：</span>
-                    <span class="voice-history-text" style="font-size: 16px; color: #333;">${data.emoji}</span>
-                </div>
-                <div class="voice-history-item">
-                    <span class="voice-history-label">好感：</span>
-                    <span class="voice-history-text" style="color: #ff69b4;">${data.favorability}</span>
-                </div>
-                <div class="voice-history-item">
-                    <span class="voice-history-label">着装：</span>
-                    <span class="voice-history-text">${data.dressing}</span>
-                </div>
-                <div class="voice-history-item">
-                    <span class="voice-history-label">动作：</span>
-                    <span class="voice-history-text">${data.action}</span>
-                </div>
-                <div class="voice-history-item">
-                    <span class="voice-history-label">心声：</span>
-                    <span class="voice-history-text" style="color: #555;">“${data.thought}”</span>
-                </div>
-            </div>
-        `;
-        container.appendChild(card);
-    });
-}
-
-/**
  * 启动视频通话（包装器）
  */
 function startVideoCallWrapper() {
@@ -43254,108 +43041,6 @@ function retryTdRequest() {
     else showToast(`已撤销 ${removedCount} 条记录，正在重试...`);
     
     manualTriggerTdGameLoop();
-}
-
-/**
- * [修改版] 切换选择模式（图标 <-> 取消）
- */
-function toggleHeartsVoiceSelectionMode() {
-    isHeartsVoiceSelectMode = !isHeartsVoiceSelectMode;
-    
-    const container = document.getElementById('heartsVoiceContentContainer');
-    const toolbar = document.getElementById('heartsVoiceToolbar');
-    const btn = document.getElementById('heartsVoiceManageBtn');
-    
-    if (isHeartsVoiceSelectMode) {
-        // === 进入多选模式 ===
-        container.classList.add('hearts-voice-select-mode');
-        toolbar.classList.add('show');
-        
-        // 按钮变成文字“取消”
-        btn.innerHTML = '<span style="font-size: 15px;">取消</span>';
-        
-        selectedHeartsVoiceIds.clear(); 
-        updateHeartsVoiceSelectCount();
-    } else {
-        // === 退出多选模式 ===
-        container.classList.remove('hearts-voice-select-mode');
-        toolbar.classList.remove('show');
-        
-        // 按钮变回图标
-        btn.innerHTML = '<i class="ri-list-check-2" style="font-size: 22px;"></i>';
-        
-        selectedHeartsVoiceIds.clear();
-        document.querySelectorAll('.voice-history-card.selected').forEach(el => el.classList.remove('selected'));
-    }
-}
-
-/**
- * [新增] 切换单个项目的选中状态
- */
-function toggleHeartsVoiceItem(id) {
-    if (selectedHeartsVoiceIds.has(id)) {
-        selectedHeartsVoiceIds.delete(id);
-    } else {
-        selectedHeartsVoiceIds.add(id);
-    }
-    
-    // 重新渲染以更新UI（简单直接）
-    // 或者只切换 class 以优化性能，这里为了代码简单直接重绘
-    const friend = friends.find(f => f.id === currentChatFriendId);
-    if (friend) renderHeartsVoiceHistoryList(friend);
-    
-    updateHeartsVoiceSelectCount();
-}
-
-/**
- * [新增] 更新底部“已选 X 项”
- */
-function updateHeartsVoiceSelectCount() {
-    document.getElementById('heartsVoiceSelectCount').textContent = `已选 ${selectedHeartsVoiceIds.size} 项`;
-}
-
-/**
- * [新增] 全选/取消全选
- */
-function toggleHeartsVoiceSelectAll() {
-    const friend = friends.find(f => f.id === currentChatFriendId);
-    if (!friend || !friend.heartsVoiceHistory) return;
-
-    // 如果当前已经全选了，就取消全选
-    if (selectedHeartsVoiceIds.size === friend.heartsVoiceHistory.length) {
-        selectedHeartsVoiceIds.clear();
-    } else {
-        // 否则全选
-        friend.heartsVoiceHistory.forEach(item => selectedHeartsVoiceIds.add(item.id));
-    }
-    
-    renderHeartsVoiceHistoryList(friend);
-    updateHeartsVoiceSelectCount();
-}
-
-/**
- * [新增] 删除选中的记录
- */
-function deleteSelectedHeartsVoice() {
-    if (selectedHeartsVoiceIds.size === 0) return showToast("请先选择要删除的记录");
-
-    showConfirm(`确定要删除这 ${selectedHeartsVoiceIds.size} 条心声记录吗？`, async (confirmed) => {
-        if (!confirmed) return;
-
-        const friend = friends.find(f => f.id === currentChatFriendId);
-        if (!friend) return;
-
-        // 过滤掉被选中的ID
-        friend.heartsVoiceHistory = friend.heartsVoiceHistory.filter(item => !selectedHeartsVoiceIds.has(item.id));
-        
-        await saveData();
-        
-        // 退出选择模式并刷新
-        toggleHeartsVoiceSelectionMode(); // 这会自动重置UI和清空Set
-        renderHeartsVoiceHistoryList(friend); // 刷新列表显示
-        
-        showToast("删除成功");
-    });
 }
 
 // [新增] 切换免密支付状态
@@ -48854,20 +48539,28 @@ function applyPageTopOffset() {
 (function () {
     const root = document.documentElement;
 
+    let kbRaf = 0;
     function syncKeyboardInset() {
-        const vv = window.visualViewport;
-        if (!vv) return;
-        const layoutH = window.innerHeight || root.clientHeight || 0;
-        // 布局视口高度 - 可视视口高度 - 可视视口偏移 = 键盘占位高度
-        const kb = Math.round(layoutH - vv.height - vv.offsetTop);
-        root.style.setProperty('--kb-h', (kb > 40 ? kb : 0) + 'px');
+        if (kbRaf) return;
+        kbRaf = requestAnimationFrame(() => {
+            kbRaf = 0;
+            const vv = window.visualViewport;
+            if (!vv) return;
+            const layoutH = window.innerHeight || root.clientHeight || 0;
+            // 布局视口高度 - 可视视口高度 - 可视视口偏移 = 键盘占位高度
+            const kb = Math.round(layoutH - vv.height - vv.offsetTop);
+            const val = (kb > 40 ? kb : 0) + 'px';
+            if (root.style.getPropertyValue('--kb-h') !== val) {
+                root.style.setProperty('--kb-h', val);
+            }
+        });
     }
 
     if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', syncKeyboardInset);
-        window.visualViewport.addEventListener('scroll', syncKeyboardInset);
+        window.visualViewport.addEventListener('resize', syncKeyboardInset, { passive: true });
+        window.visualViewport.addEventListener('scroll', syncKeyboardInset, { passive: true });
     }
-    window.addEventListener('resize', syncKeyboardInset);
+    window.addEventListener('resize', syncKeyboardInset, { passive: true });
     window.addEventListener('orientationchange', () => setTimeout(syncKeyboardInset, 300));
     document.addEventListener('focusin', () => setTimeout(syncKeyboardInset, 100));
     document.addEventListener('focusout', () => setTimeout(syncKeyboardInset, 80));

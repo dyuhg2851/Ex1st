@@ -27,7 +27,7 @@ html {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     color: var(--text-color, #000);
 }
 
@@ -39,7 +39,7 @@ html {
     overflow: hidden;
     touch-action: manipulation; 
     border-radius: var(--phone-radius, 0px);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
         body {
@@ -53,7 +53,7 @@ html {
             position: relative;
             overflow: hidden;
             border-radius: var(--screen-radius, 0px);
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         
@@ -251,7 +251,7 @@ html {
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, opacity 0.2s ease;
             width: 100%;
         }
 
@@ -264,7 +264,7 @@ html {
             justify-content: center;
             background: rgba(255,255,255,0.8);
             border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease;
             background-size: cover;
             background-position: center;
         }
@@ -686,50 +686,42 @@ html {
 
         #chatScreen .message.received .message-content {
             background-color: #ffffff;
-            border: 1px solid #e5e5e5;
+            border: none;
             color: #000000;
         }
 
         #chatScreen .message.sent .message-content {
-            background-color: #888888;
-            border: 1px solid #777777;
-            color: #ffffff;
+            background-color: #95ec69;
+            border: none;
+            color: #000000;
         }
 
-        /* === 小三角气泡尾巴（双层伪元素解决边框缝隙） === */
+        /* === 小三角气泡尾巴：单层实心、紧贴气泡边缘 === */
         #chatScreen .message-content::before,
         #chatScreen .message-content::after {
             content: '';
             position: absolute;
+            display: none;
             width: 0;
             height: 0;
-            border: 6px solid transparent;
         }
         /* 收到方：左边尾巴 */
         #chatScreen .message.received .message-content::before {
-            left: -12px;
-            top: 11px;
-            border-right-color: #e5e5e5;
-            border-left: none;
-        }
-        #chatScreen .message.received .message-content::after {
-            left: -11px;
+            display: block;
+            left: -6px;
             top: 12px;
+            border: 6px solid transparent;
+            border-left: 0;
             border-right-color: #ffffff;
-            border-left: none;
         }
         /* 发出方：右边尾巴 */
         #chatScreen .message.sent .message-content::before {
-            right: -12px;
-            top: 11px;
-            border-left-color: #777777;
-            border-right: none;
-        }
-        #chatScreen .message.sent .message-content::after {
-            right: -11px;
+            display: block;
+            right: -6px;
             top: 12px;
-            border-left-color: #888888;
-            border-right: none;
+            border: 6px solid transparent;
+            border-right: 0;
+            border-left-color: #95ec69;
         }
         /* 图片/emoji/位置/撤回/拍一拍 不要尾巴 */
         #chatScreen .message-content.has-image::before,
@@ -1457,7 +1449,7 @@ html {
         
         #playlistModal { z-index: 1001; }
         #addMusicModal { z-index: 1002; }
-        #alertModal, #confirmModal, #worldBookBindingModal, #heartsVoiceModal { z-index: 10000; }
+        #alertModal, #confirmModal, #worldBookBindingModal { z-index: 10000; }
        
 #exportDataModal { z-index: 10001; } 
 
@@ -3745,55 +3737,6 @@ html {
         }
         .incoming-call-btn.accept .voice-call-btn-icon { background: #34c759; }
 
-        /* [MODIFIED] Heart's Voice Modal Styles */
-        #heartsVoiceModal .modal-content {
-            text-align: center;
-            padding-bottom: 25px;
-        }
-        #heartsVoiceHeader {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px; /* MODIFIED: Reduced gap */
-            margin-bottom: 10px;
-        }
-        #heartsVoiceAvatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-        }
-        #heartsVoiceName {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        #heartsVoiceEmoji {
-            font-size: 48px;
-            margin: 10px 0;
-            line-height: 1.2;
-        }
-        #heartsVoiceThought {
-            background-color: var(--bg-hover, #f5f5f5);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 15px;
-            line-height: 1.8;
-            color: var(--text-secondary, #666);
-            min-height: 140px;
-            text-align: left;
-            margin-top: 15px;
-        }
-        #heartsVoiceThought div {
-            margin-bottom: 8px;
-        }
-        #heartsVoiceThought div:last-child {
-            margin-bottom: 0;
-        }
-        #heartsVoiceThought strong {
-            color: var(--text-color, #333);
-            font-weight: 600;
-        }
-
-       
         .moments-delete-icon {
             cursor: pointer;
             fill: #586b95; 
@@ -17942,80 +17885,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     color: #fff !important;
 }
 
-/* --- 新增：心声历史记录样式 --- */
-
-/* 历史记录卡片 */
-.voice-history-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border: 1px solid #f0f0f0;
-    position: relative;
-}
-
-/* 顶部时间 */
-.voice-history-time {
-    font-size: 12px;
-    color: #999;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px dashed #eee;
-    display: flex;
-    justify-content: space-between;
-}
-
-/* 核心内容区 */
-.voice-history-content {
-    font-size: 14px;
-    color: #333;
-    line-height: 1.6;
-}
-
-.voice-history-item {
-    margin-bottom: 6px;
-    display: flex;
-}
-
-.voice-history-label {
-    color: #999;
-    min-width: 60px; /* 标签宽度固定，对齐好看 */
-    flex-shrink: 0;
-}
-
-.voice-history-text {
-    flex: 1;
-    font-weight: 500;
-}
-
-/* 那个大大的颜文字 */
-.voice-history-emoji {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 24px;
-    opacity: 0.2; /* 淡一点作为背景装饰 */
-    pointer-events: none;
-}
-
-/* 查看历史按钮样式 (放在弹窗里的) */
-.view-history-btn {
-    margin-top: 15px;
-    width: 100%;
-    padding: 10px;
-    background-color: #f0f2f5;
-    color: #666;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.view-history-btn:active {
-    background-color: #e5e5e5;
-}
-
 /* --- [最终合并版] 视频通话专属样式 --- */
 
 /* 1. 视频通话主容器 */
@@ -18742,66 +18611,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .wechat-dark-mode .game-card-icon, .wechat-dark-mode .game-card-title { color: #fff; }
 .wechat-dark-mode .game-card-desc { color: #666; }
 .wechat-dark-mode .td-narration { color: #777; background-color: rgba(255,255,255,0.05); }
-
-/* --- 心声记录多选模式样式 --- */
-
-/* 1. 复选框样式 */
-.voice-history-card .message-checkbox {
-    left: 10px; /* 距离左边 10px */
-    display: none; /* 默认隐藏 */
-    z-index: 10;
-    background-color: #fff; /* 确保背景不透明 */
-}
-
-/* 2. 选中状态 */
-.voice-history-card.selected .message-checkbox {
-    background: #07c160;
-    border-color: #07c160;
-}
-.voice-history-card.selected .message-checkbox::after {
-    content: '✓';
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 12px;
-}
-
-/* 3. 进入选择模式时 */
-.hearts-voice-select-mode .voice-history-card {
-    padding-left: 45px; /* 给内容腾出空间放复选框 */
-    cursor: pointer;
-}
-
-.hearts-voice-select-mode .voice-history-card .message-checkbox {
-    display: block; /* 显示复选框 */
-}
-
-/* 4. 调整卡片过渡效果 */
-.voice-history-card {
-    transition: padding-left 0.3s ease;
-    /* 确保相对定位，以便复选框定位 */
-    position: relative; 
-}
-
-/* --- 修复心声记录页面的底部操作栏位置 --- */
-#heartsVoiceToolbar {
-    /* 强制固定在最底部，覆盖默认的 bottom: 50px */
-    bottom: 0 !important;
-    /* 适配 iPhone 底部小黑条 */
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    /* 增加一点高度，让按钮不至于太贴底 */
-    height: auto !important;
-    min-height: 60px;
-    padding-top: 10px;
-    background: #f7f7f7; /* 保持背景色一致 */
-}
-
-/* 微调全选/删除按钮的样式，让它们在底部更好看 */
-#heartsVoiceToolbar .multi-select-btn {
-    margin-bottom: 5px; 
-}
 
 /* --- 🎁 礼物功能专属样式 (优化版) --- */
 
@@ -22234,11 +22043,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
    聊天页（#chatScreen）顶部导航 + 底部输入区
    ============================================================ */
 
-/* 1. 心声按钮：JS 会把它设成 flex，这里永久隐藏 */
-#chatScreen #navBarHeartsVoiceButton {
-    display: none !important;
-}
-
 /* 2. 更多按钮：三条横线图标 */
 #chatScreen #navBarMoreButton svg.nav-more-svg {
     width: 22px;
@@ -22359,4 +22163,115 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 #homeScreen.inactive {
     pointer-events: none !important;
+}
+
+/* ============================================================
+   聊天页最终视觉：整页同色、底部无缝、按钮统一、气泡间距
+   ============================================================ */
+
+/* 1. 整页统一微信灰，输入区上方不再出现那块浅色/白色带 */
+#chatScreen {
+    background: #ededed !important;
+}
+.wechat-dark-mode #chatScreen {
+    background: #2c2c2e !important;
+}
+
+/* 2. 去掉输入区上方的分割线，底部整块连成一片 */
+#chatScreen .chat-input,
+#chatScreen .chat-functions,
+#chatScreen .emoji-picker {
+    border-top: 0 !important;
+}
+#chatScreen .wechat-content {
+    padding-bottom: 0 !important;
+}
+
+/* 3. 按钮和输入框整体上移，不只是背景上移 */
+#chatScreen .chat-input-area {
+    padding: 8px 0 24px !important;
+    background: transparent !important;
+}
+
+/* 4. 三个按钮统一 40px、图标 26px，与输入框垂直居中 */
+#chatScreen .chat-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#chatScreen .chat-btn svg.input-btn-svg {
+    width: 26px;
+    height: 26px;
+}
+#chatScreen .chat-input {
+    align-items: center !important;
+    min-height: 0 !important;
+    padding: 6px 10px !important;
+    background: transparent !important;
+}
+#chatScreen #chatRightButtons {
+    top: 50%;
+    bottom: auto !important;
+    right: 10px;
+    transform: translateY(-50%);
+}
+#chatScreen .chat-input textarea {
+    margin-right: 90px;
+    padding: 8px 12px;
+    max-height: 110px;
+}
+
+/* 5. 气泡与顶部导航、底部输入区之间留出间距 */
+#chatScreen .chat-messages {
+    padding: 88px 15px 104px;
+}
+
+/* 6. 头像圆角 4px（气泡本身已是 4px） */
+#chatScreen .chat-avatar {
+    border-radius: 4px !important;
+}
+
+/* ============================================================
+   引用消息：独立在气泡下方（白底 + 0.5px 浅灰边 + 灰色小字）
+   ============================================================ */
+#chatScreen .message-body .quoted-message {
+    margin: 5px 0 0 0;
+    padding: 4px 8px;
+    background: #ffffff;
+    border: 0.5px solid #d9d9d9;
+    border-radius: 4px;
+    color: #999999;
+    font-size: 10px;
+    line-height: 1.35;
+    max-width: 90%;
+    word-break: break-word;
+    white-space: pre-wrap;
+    cursor: default;
+}
+#chatScreen .message-body .quoted-message .quoted-name {
+    color: #b0b0b0;
+}
+.wechat-dark-mode #chatScreen .message-body .quoted-message {
+    background: #3a3a3c;
+    border-color: #4a4a4c;
+    color: #9a9a9c;
+}
+.wechat-dark-mode #chatScreen .message-body .quoted-message .quoted-name {
+    color: #8e8e90;
+}
+
+/* 输入框占位符：更浅的灰 */
+#chatScreen #messageInput::placeholder {
+    color: #c2c2c2;
+    opacity: 1;
+}
+#chatScreen #messageInput::-webkit-input-placeholder {
+    color: #c2c2c2;
+    opacity: 1;
 }

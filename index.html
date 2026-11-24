@@ -595,9 +595,6 @@
                         <div class="nav-subtitle">2 hearts that beat as 1</div>
                     </div>
                     <div style="display: flex; align-items: center;">
-                        <button class="nav-btn" id="navBarHeartsVoiceButton" onclick="openHeartsVoiceModal()" title="心声" style="display:none !important;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                        </button>
                       <button class="nav-btn nav-right-action-btn" id="navBarMoreButton" onclick="openChatSettings()" title="更多"><svg class="nav-more-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 7q-.425 0-.712-.288T3 6t.288-.712T4 5h16q.425 0 .713.288T21 6t-.288.713T20 7zm0 12q-.425 0-.712-.288T3 18t.288-.712T4 17h16q.425 0 .713.288T21 18t-.288.713T20 19zm0-6q-.425 0-.712-.288T3 12t.288-.712T4 11h16q.425 0 .713.288T21 12t-.288.713T20 13z"/></svg></button>
                     </div>
                 </div>
@@ -3117,12 +3114,6 @@
 <!-- ↑↑↑ 第一步：代码粘贴到此结束 ↑↑↑ -->
 
     
-    <!-- [MODIFIED] Heart's Voice Modal -->
-<div id="heartsVoiceModal" class="modal">
-    <div class="modal-content">
-        <!-- 面板内容将由 JavaScript 动态生成在这里 -->
-    </div>
-</div>
     <!-- ↓↓↓ 第2步：从这里开始复制所有新增的HTML代码 ↓↓↓ -->
 
 <!-- 新增：人设列表页面 -->
@@ -6181,11 +6172,6 @@
             这里是详细的动作描写...
         </div>
 
-        <!-- 【新增】心声显示区域 (模仿心声卡片样式) -->
-        <div id="spyModalThought" style="background: #f5f5f5; padding: 12px; border-radius: 8px; font-size: 14px; color: #555; line-height: 1.6; width: 100%; box-sizing: border-box; border-left: 3px solid #7d9d8f;">
-            <strong style="color: #333; display: block; margin-bottom: 4px; font-size: 12px;">当时的心声：</strong>
-            <span id="spyModalThoughtContent">...</span>
-        </div>
     </div>
 </div>
 
@@ -6258,13 +6244,10 @@
   <div id="offlineModeScreen" class="page">
 
 <div class="nav-bar" style="background: #f0f2f5;">
-    <!-- 左侧按钮组：返回 + 心声(五角星) -->
+    <!-- 左侧按钮组：返回 -->
     <div style="display: flex; align-items: center; gap: 5px;">
         <button class="nav-btn" onclick="exitOfflineMode()">
             <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
-        </button>
-        <button class="nav-btn" onclick="openHeartsVoiceModal()" title="查看心声">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
         </button>
     </div>
 
@@ -6741,35 +6724,6 @@
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-cancel" onclick="handleUnblockDecision(false)">拒绝</button>
             <button class="modal-btn modal-btn-confirm" onclick="handleUnblockDecision(true)">同意</button>
-        </div>
-    </div>
-</div>
-
-<!-- 新增：心声历史记录页面 (修正版 + 删除功能) -->
-<div id="heartsVoiceHistoryScreen" class="page">
-    <div class="nav-bar">
-        <!-- 返回按钮 -->
-        <button class="nav-btn" onclick="backToChat()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
-        <div class="nav-title">心声记录簿</div>
-        <!-- 新增：选择按钮 -->
-       <button class="nav-btn nav-right-action-btn" id="heartsVoiceManageBtn" onclick="toggleHeartsVoiceSelectionMode()">
-    <i class="ri-list-check-2" style="font-size: 22px;"></i>
-</button>
-    </div>
-    
-    <!-- 内容区域 -->
-    <div class="wechat-content" id="heartsVoiceContentContainer" style="background-color: #f7f7f7; padding: 20px; padding-top: 84px;">
-        <div id="heartsVoiceHistoryList" style="padding-bottom: 60px;">
-            <!-- JS 将在这里生成历史卡片 -->
-        </div>
-    </div>
-
-    <!-- 新增：底部批量操作栏 (默认隐藏) -->
-    <div id="heartsVoiceToolbar" class="multi-select-toolbar">
-        <div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
-            <button class="multi-select-btn" style="background: #fff; color: #333; border: 1px solid #ccc;" onclick="toggleHeartsVoiceSelectAll()">全选</button>
-            <span class="multi-select-count" id="heartsVoiceSelectCount" style="font-size: 14px;">已选 0 项</span>
-            <button class="multi-select-btn delete" onclick="deleteSelectedHeartsVoice()">删除</button>
         </div>
     </div>
 </div>
