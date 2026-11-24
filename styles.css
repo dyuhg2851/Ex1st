@@ -6332,7 +6332,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background-size: cover;
     background-position: center;
     padding: 0;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
     display: flex;
     flex-direction: column; 
     margin-top: 0;
@@ -6374,7 +6373,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #home-screen-dots {
     position: absolute; 
-    bottom: calc(120px + env(safe-area-inset-bottom, 0px));      
+    bottom: 120px;      
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -6403,7 +6402,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 
 .bottom-dock {
-    /* 移除 position: absolute 和 transform */
+    /* 回到文档流并贴住屏幕底部，忽略底部安全区留白 */
+    position: relative;
+    top: auto;
+    bottom: 0;
+    left: auto;
+    transform: none;
     width: calc(100% - 30px);
     max-width: 380px;
     height: 95px;
@@ -6416,7 +6420,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     align-items: center;
     z-index: 50;
     flex-shrink: 0; 
-    margin: 0 auto 0px auto; 
+    margin: 0 auto; 
 }
 
 #desktop-page-2 {
