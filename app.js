@@ -2536,6 +2536,7 @@ function updateAppLabelColorFromInput(color) {
             if (toggle) toggle.checked = darkModeEnabled;
             document.body.classList.toggle('wechat-dark-mode', darkModeEnabled);
             document.querySelector('.phone').classList.toggle('wechat-dark-mode', darkModeEnabled);
+            syncBrowserThemeColor();
         }
 
         async function toggleRoundedCorners() {
@@ -3694,6 +3695,23 @@ userPersonas = [userProfile];
         async function confirmChangeName() { const newName = document.getElementById('newNameInput').value.trim(); if (newName) { userProfile.name = newName; updateProfileDisplay(); await saveData(); closeNameModal(); } }
         
         
+        function syncBrowserThemeColor() {
+            const themeMeta = document.querySelector('meta[name="theme-color"]');
+            if (!themeMeta) return;
+            requestAnimationFrame(() => {
+                const activePage = document.querySelector('.page.active');
+                const phone = document.querySelector('.phone');
+                if (!activePage || !phone) return;
+                const header = activePage.querySelector('.nav-bar, .live-top-tabs, .reader-top-bar, .forum-nav-bar, .lovers-nav-bar, .account-header, .spy-header, .mood-header, .whisper-header, .letter-header, .lovers-dm-nav');
+                const isTransparent = color => !color || color === 'transparent' || color === 'rgba(0, 0, 0, 0)';
+                let color = header ? getComputedStyle(header).backgroundColor : '';
+                if (isTransparent(color)) color = getComputedStyle(activePage).backgroundColor;
+                if (isTransparent(color)) color = getComputedStyle(phone).backgroundColor;
+                if (isTransparent(color)) color = darkModeEnabled ? '#000000' : '#f7f7f7';
+                themeMeta.setAttribute('content', color);
+            });
+        }
+
         function setActivePage(pageId) {
     const phoneDiv = document.querySelector('.phone');
     
@@ -3803,6 +3821,7 @@ else if (pageId === 'liveApp') {
     }
     
     updateGameFloatBallVisibility(); // 每次切页面都检查一下要不要显示球
+    syncBrowserThemeColor();
 }
                 function openApp(appName) {
     const appMap = { 
@@ -12836,7 +12855,7 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
     // 任务A: 创建一个“模拟进度条”的Promise
     const loadingAnimationPromise = new Promise(resolve => {
         let progress = 0;
-        const animationDuration = 0; // 动画总时长
+        const animationDuration = 4800; // 每次进入至少完整播放 4.8 秒，数据未加载完仍会继续等待
         let startTime = null;
 
         function animate(currentTime) {
@@ -12875,6 +12894,9 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
 
         // 已移除账号登录系统，直接进入 App
         enterApp();
+
+        // 100% 完成后停留片刻，让用户看清完整开屏，再平滑淡出
+        await new Promise(resolve => setTimeout(resolve, 700));
         splashAnimationStopped = true;
         if (loadingOverlay) {
             loadingOverlay.style.opacity = '0';
@@ -13647,6 +13669,14 @@ if (key === 'topNavBarBg') {
             background-position: center calc(0px - 30px - env(safe-area-inset-top, 0px)) !important;
             border-bottom: none !important;
         }
+        .phone.in-wechat-app .nav-bar::before {
+            background-image: url('${imageUrl}') !important;
+            background-attachment: fixed !important;
+            background-size: cover !important;
+            background-repeat: no-repeat !important;
+            background-position: center top !important;
+            background-color: transparent !important;
+        }
 
         /* --- 核心修改：让所有字体和图标颜色跟随主题 --- */
         
@@ -13749,6 +13779,7 @@ if (key.startsWith('bottomNavIcon')) {
     }
     
     styleTag.textContent = cssString;
+    syncBrowserThemeColor();
 }
 
 // ↑↑↑ 请在这里结束复制 ↑↑↑

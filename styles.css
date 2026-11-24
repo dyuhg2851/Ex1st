@@ -7912,6 +7912,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #loadingOverlay .logo-section {
     margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: opacity, transform;
+    animation: jrsy_splash_logoIn 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s forwards;
 }
 
 #loadingOverlay .logo {
@@ -7927,22 +7931,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #loadingOverlay .logo span {
     display: inline-block;
-    opacity: 0;
-    transform: translateY(14px);
-    will-change: opacity, transform;
-    animation: jrsy_splash_letterIn 1s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
-#loadingOverlay .logo span:nth-child(1) { animation-delay: 0.05s; }
-#loadingOverlay .logo span:nth-child(2) { animation-delay: 0.13s; }
-#loadingOverlay .logo span:nth-child(3) { animation-delay: 0.21s; }
-#loadingOverlay .logo span:nth-child(4) { animation-delay: 0.29s; }
-#loadingOverlay .logo span:nth-child(5) { animation-delay: 0.37s; }
-
-@keyframes jrsy_splash_letterIn {
+@keyframes jrsy_splash_logoIn {
     from {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(28px);
     }
     to {
         opacity: 1;
@@ -7956,8 +7950,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-weight: 600;
     color: #666;
     letter-spacing: 3px;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.6s ease-out 0.8s forwards;
 }
 
 
@@ -21983,8 +21975,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* --- 页面整体下移核心 CSS --- */
 :root {
     --page-top-offset: 0px;
-    /* 已改用手机系统状态栏，页面内不再预留 30px 仿状态栏空间，统一上收 30px */
-    --ios-safe-shift: -30px;
+    /* 系统状态栏背景延伸到顶部，导航及正文落在真实安全区下方 */
+    --ios-safe-shift: calc(-30px + env(safe-area-inset-top, 0px));
 }
 
 /* 所有正常的 Page 容器往下推（只处理顶层页面，避免嵌套页面重复位移；插件自带安全区布局的页面不位移） */
@@ -21993,7 +21985,33 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: calc(100% - var(--page-top-offset, 0px) - var(--ios-safe-shift, 0px)) !important;
 }
 
-/* 导航栏背景往上反向延伸，填补所有的空隙（30px 原状态栏 + 动态偏移量） */
+/* 这些页面已经在内部导航中处理刘海安全区，保留原布局，避免重复下移 */
+#loversDetailScreen,
+#loversAnniDetailScreen,
+#loversLetterListScreen,
+#account-page,
+#loversSpyScreen,
+#loversMoodScreen,
+#loversMoodSummaryScreen,
+#loversWhisperScreen,
+#babyRoomScreen,
+#babyListScreen,
+#babyInfoScreen,
+#babyChatListScreen,
+#babyDiaryScreen,
+#babyChatDetailScreen,
+#babyActivityScreen,
+#babySchoolScreen,
+#babyExamPaperScreen,
+#babyTravelListScreen,
+#babyTravelDetailScreen,
+#babyExploreListScreen,
+#babyExploreDetailScreen,
+#babyWishBottleScreen {
+    --ios-safe-shift: -30px;
+}
+
+/* 导航栏的纯色和图片背景都向上延伸，覆盖系统状态栏区域 */
 .nav-bar::before,
 .forum-nav-bar::before,
 .lovers-nav-bar::before,
@@ -22001,7 +22019,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .spy-header::before,
 .account-header::before,
 .whisper-header::before {
-    height: calc(30px + var(--page-top-offset, 0px)) !important;
+    height: calc(30px + var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px)) !important;
+    background: inherit;
 }
 
 /* 修复特殊定位头部 */
@@ -22022,15 +22041,22 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background-color: inherit;
 }
 
-/* 排除整页下移的特殊全屏页面，给它们的内部容器加推力 */
+/* 排除整页下移的特殊全屏页面，背景保持贴顶，交互内容避开系统状态栏 */
 #homeScreen .home-screen {
-    padding-top: var(--page-top-offset, 0px);
+    padding-top: calc(var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px));
 }
 #listenTogetherScreen .listen-main {
-    padding-top: calc(44px + var(--page-top-offset, 0px)) !important;
+    padding-top: calc(44px + var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px)) !important;
 }
 #listenTogetherScreen .listen-header {
-    top: calc(44px + var(--page-top-offset, 0px)) !important;
+    top: calc(44px + var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px)) !important;
+}
+#listenTogetherScreen .listen-avatars-container {
+    top: calc(120px + var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px)) !important;
+}
+#videoCallScreen,
+#incomingVideoCallScreen {
+    padding-top: calc(60px + var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px)) !important;
 }
 #videoCallScreen .video-top-bar,
 #incomingCallScreen .voice-call-header,
@@ -22038,7 +22064,19 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     margin-top: var(--page-top-offset, 0px) !important;
 }
 #videoCallScreen .video-self-preview {
-    top: calc(60px + var(--page-top-offset, 0px)) !important;
+    top: calc(60px + var(--page-top-offset, 0px) + env(safe-area-inset-top, 0px)) !important;
+}
+#readTogetherReaderScreen #readerContent {
+    padding-top: calc(20px + env(safe-area-inset-top, 0px)) !important;
+}
+#readTogetherReaderScreen .reader-top-bar {
+    height: calc(50px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: env(safe-area-inset-top, 0px) !important;
+}
+#loversWhisperDetailScreen .nav-bar {
+    top: 0 !important;
+    height: calc(44px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: env(safe-area-inset-top, 0px) !important;
 }
 #dreamPlayScreen .nav-bar {
     top: var(--page-top-offset, 0px) !important;

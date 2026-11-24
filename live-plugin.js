@@ -69,20 +69,25 @@ function _injectLiveCSS() {
     display: none !important;
 }
 
-/* 顶部标签栏：改为纯色背景，位于最顶层 */
+/* 顶部标签栏：纯色背景延伸进系统状态栏，内容避开刘海 */
 .live-top-tabs {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 50px;
+    height: calc(50px + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
     z-index: 100;
-    background-color: #121212; /* 改为纯黑背景，不再透明悬浮 */
+    background-color: #121212;
     border-bottom: 1px solid #222;
+}
+
+#liveApp > .wechat-content {
+    padding-top: calc(50px + env(safe-area-inset-top, 0px)) !important;
 }
 
 .live-tab-item {

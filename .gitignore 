@@ -1,0 +1,8 @@
+# Mac 系统文件
+.DS_Store
+# Trae 临时分享打包文件
+.trae-html-share-packages/
+# 依赖、环境密钥、日志
+node_modules/
+.env
+*.log
