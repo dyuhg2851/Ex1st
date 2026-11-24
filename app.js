@@ -3633,8 +3633,17 @@ userPersonas = [userProfile];
 
             const homeScreen = document.querySelector('.home-screen');
             if (!homeScreen) return;
-            homeScreen.style.backgroundImage = (selectedWallpaper === 'custom' && customWallpaperImage) ? `url(${customWallpaperImage})` : 'none';
+            const homePage = document.getElementById('homeScreen');
+            const wallpaper = (selectedWallpaper === 'custom' && customWallpaperImage) ? `url(${customWallpaperImage})` : 'none';
+            // 首页整页也铺同一张壁纸，避免页面底部露出底色白边
+            [homeScreen, homePage].forEach(el => {
+                if (!el) return;
+                el.style.backgroundImage = wallpaper;
+                el.style.backgroundSize = 'cover';
+                el.style.backgroundPosition = 'center';
+            });
             homeScreen.style.backgroundColor = (selectedWallpaper === 'default' && !customWallpaperImage) ? 'var(--theme-bg, #f7f7f7)' : 'transparent';
+            syncBrowserThemeColor();
         }
 
         function applyWidgetBackground() {}
@@ -3709,6 +3718,20 @@ userPersonas = [userProfile];
                 if (isTransparent(color)) color = getComputedStyle(phone).backgroundColor;
                 if (isTransparent(color)) color = darkModeEnabled ? '#000000' : '#f7f7f7';
                 themeMeta.setAttribute('content', color);
+
+                // 把当前页底色同步到画布与机身，填满底部安全区，避免露出白色底
+                let pageBg = getComputedStyle(activePage).backgroundColor;
+                if (isTransparent(pageBg)) pageBg = getComputedStyle(phone).backgroundColor;
+                if (isTransparent(pageBg)) pageBg = darkModeEnabled ? '#000000' : '#f7f7f7';
+                const onHome = activePage.id === 'homeScreen';
+                const wallpaper = (onHome && selectedWallpaper === 'custom' && customWallpaperImage) ? `url(${customWallpaperImage})` : 'none';
+                [document.documentElement, document.body, phone].forEach(el => {
+                    if (!el) return;
+                    el.style.backgroundColor = pageBg;
+                    el.style.backgroundImage = wallpaper;
+                    el.style.backgroundSize = 'cover';
+                    el.style.backgroundPosition = 'center';
+                });
             });
         }
 
@@ -12855,7 +12878,7 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
     // 任务A: 创建一个“模拟进度条”的Promise
     const loadingAnimationPromise = new Promise(resolve => {
         let progress = 0;
-        const animationDuration = 4800; // 每次进入至少完整播放 4.8 秒，数据未加载完仍会继续等待
+        const animationDuration = 2600; // 开屏最短播放 2.6 秒，数据未加载完仍会继续等待
         let startTime = null;
 
         function animate(currentTime) {
@@ -12895,8 +12918,8 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
         // 已移除账号登录系统，直接进入 App
         enterApp();
 
-        // 100% 完成后停留片刻，让用户看清完整开屏，再平滑淡出
-        await new Promise(resolve => setTimeout(resolve, 700));
+        // 100% 完成后短暂停留，再平滑淡出
+        await new Promise(resolve => setTimeout(resolve, 300));
         splashAnimationStopped = true;
         if (loadingOverlay) {
             loadingOverlay.style.opacity = '0';

@@ -35,6 +35,7 @@ html {
         .phone {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     background: var(--theme-bg, #f7f7f7);
     position: relative;
     overflow: hidden;
@@ -43,11 +44,8 @@ html {
     transition: all 0.3s ease;
 }
 
-
-@media not all and (display-mode: standalone) {
-    .phone {
-        height: 100dvh;
-    }
+        body {
+    height: 100%;
 }
 
         .screen {
@@ -6334,6 +6332,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background-size: cover;
     background-position: center;
     padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     display: flex;
     flex-direction: column; 
     margin-top: 0;
@@ -6375,7 +6374,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #home-screen-dots {
     position: absolute; 
-    bottom: 120px;      
+    bottom: calc(120px + env(safe-area-inset-bottom, 0px));      
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -7911,7 +7910,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 
 #loadingOverlay .logo-section {
-    margin-bottom: 80px;
+    margin-bottom: 48px;
     opacity: 0;
     transform: translateY(28px);
     will-change: opacity, transform;
@@ -7989,7 +7988,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 进度条区域 */
 #loadingOverlay .progress-wrapper {
     position: relative;
-    width: 420px;
+    width: min(72vw, 420px);
 }
 
 #loadingOverlay .loading-text {
