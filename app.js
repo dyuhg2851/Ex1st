@@ -3633,17 +3633,10 @@ userPersonas = [userProfile];
 
             const homeScreen = document.querySelector('.home-screen');
             if (!homeScreen) return;
-            const homePage = document.getElementById('homeScreen');
-            const wallpaper = (selectedWallpaper === 'custom' && customWallpaperImage) ? `url(${customWallpaperImage})` : 'none';
-            // 首页整页也铺同一张壁纸，避免页面底部露出底色白边
-            [homeScreen, homePage].forEach(el => {
-                if (!el) return;
-                el.style.backgroundImage = wallpaper;
-                el.style.backgroundSize = 'cover';
-                el.style.backgroundPosition = 'center';
-            });
+            homeScreen.style.backgroundImage = (selectedWallpaper === 'custom' && customWallpaperImage) ? `url(${customWallpaperImage})` : 'none';
+            homeScreen.style.backgroundSize = 'cover';
+            homeScreen.style.backgroundPosition = 'center';
             homeScreen.style.backgroundColor = (selectedWallpaper === 'default' && !customWallpaperImage) ? 'var(--theme-bg, #f7f7f7)' : 'transparent';
-            syncBrowserThemeColor();
         }
 
         function applyWidgetBackground() {}
@@ -3719,18 +3712,12 @@ userPersonas = [userProfile];
                 if (isTransparent(color)) color = darkModeEnabled ? '#000000' : '#f7f7f7';
                 themeMeta.setAttribute('content', color);
 
-                // 把当前页底色同步到画布与机身，填满底部安全区，避免露出白色底
+                // 画布与机身跟随当前页底色，避免露出默认白色
                 let pageBg = getComputedStyle(activePage).backgroundColor;
                 if (isTransparent(pageBg)) pageBg = getComputedStyle(phone).backgroundColor;
                 if (isTransparent(pageBg)) pageBg = darkModeEnabled ? '#000000' : '#f7f7f7';
-                const onHome = activePage.id === 'homeScreen';
-                const wallpaper = (onHome && selectedWallpaper === 'custom' && customWallpaperImage) ? `url(${customWallpaperImage})` : 'none';
                 [document.documentElement, document.body, phone].forEach(el => {
-                    if (!el) return;
-                    el.style.backgroundColor = pageBg;
-                    el.style.backgroundImage = wallpaper;
-                    el.style.backgroundSize = 'cover';
-                    el.style.backgroundPosition = 'center';
+                    if (el) el.style.backgroundColor = pageBg;
                 });
             });
         }
@@ -12871,6 +12858,44 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
     const percentageElement = document.getElementById('percentage');
     const progressBar = document.getElementById('progressBar');
 
+    // iOS 主屏幕模式：用物理屏幕高度铺满，绕开 WebView 视口偏短造成的底部留白
+    function syncIOSAppHeight() {
+        const root = document.documentElement;
+        if (!root.classList.contains('ios-fullscreen')) return;
+        const landscape = (window.innerWidth || 0) > (window.innerHeight || 0);
+        // 竖屏用物理屏幕高度补足底部；横屏直接用可见高度，避免超出屏幕
+        const h = landscape
+            ? (window.innerHeight || 0)
+            : Math.max(
+                window.innerHeight || 0,
+                root.clientHeight || 0,
+                (window.screen && window.screen.height) || 0
+            );
+        if (h > 0) root.style.setProperty('--app-height', h + 'px');
+    }
+    syncIOSAppHeight();
+    window.addEventListener('resize', syncIOSAppHeight);
+    window.addEventListener('pageshow', syncIOSAppHeight);
+    window.addEventListener('orientationchange', () => setTimeout(syncIOSAppHeight, 300));
+    setTimeout(syncIOSAppHeight, 500);
+
+    // 开屏隐藏兜底：任何加载异常都不能把用户卡在开屏
+    let splashHidden = false;
+    function hideLoadingOverlay() {
+        if (splashHidden) return;
+        splashHidden = true;
+        splashAnimationStopped = true;
+        if (!loadingOverlay) return;
+        loadingOverlay.style.opacity = '0';
+        setTimeout(() => { loadingOverlay.style.display = 'none'; }, 500);
+    }
+    setTimeout(() => {
+        if (loadingOverlay && getComputedStyle(loadingOverlay).display !== 'none') {
+            console.warn('开屏加载超时，强制进入应用');
+            hideLoadingOverlay();
+        }
+    }, 9000);
+
     // 启动视觉动画 (打字效果、状态提示)
     setTimeout(typeText, 0);
     setTimeout(showHint, 0);
@@ -12920,11 +12945,7 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
 
         // 100% 完成后短暂停留，再平滑淡出
         await new Promise(resolve => setTimeout(resolve, 300));
-        splashAnimationStopped = true;
-        if (loadingOverlay) {
-            loadingOverlay.style.opacity = '0';
-            setTimeout(() => { loadingOverlay.style.display = 'none'; }, 500);
-        }
+        hideLoadingOverlay();
 
         // 首帧之后再执行不影响首屏的初始化，避免开屏卡顿
         const deferredInit = async () => {

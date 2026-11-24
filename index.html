@@ -44,23 +44,35 @@
          页面内原本为 30px 状态栏预留的空间统一上收 30px
          ============================================================ -->
     <style id="iosFullscreenStyle">
-        /* iOS 主屏幕模式：忽略底部安全区，整屏铺满，避免底部露出空白层 */
-        html.ios-fullscreen {
-            height: calc(100% + env(safe-area-inset-bottom, 0px)) !important;
-        }
-
+        /* iOS 主屏幕模式：根节点只用 100%，不再使用 dvh/vh */
+        html.ios-fullscreen,
         html.ios-fullscreen body {
             height: 100% !important;
+            height: -webkit-fill-available !important;
+            overflow: hidden !important;
             background: var(--theme-bg, #f7f7f7);
             overscroll-behavior: none;
         }
 
-        /* 整屏铺满；横屏时避让左右两侧刘海 */
+        /* 关键：固定外壳四边贴住屏幕，绕开 WebKit 在 standalone 下把底部安全区从视口里扣除的问题 */
         html.ios-fullscreen .phone {
+            position: fixed !important;
+            top: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
             width: 100vw !important;
             height: 100% !important;
+            height: -webkit-fill-available !important;
+            height: var(--app-height, -webkit-fill-available) !important;
             padding-left: env(safe-area-inset-left, 0px);
             padding-right: env(safe-area-inset-right, 0px);
+        }
+
+        /* 固定覆盖层同样铺满物理屏幕，避免底部露出 */
+        html.ios-fullscreen #loadingOverlay,
+        html.ios-fullscreen .modal {
+            height: var(--app-height, 100%) !important;
         }
 
         /* 不在 .phone 内的独立页面（含插件挂载容器里的页面）同样避让横屏刘海 */
