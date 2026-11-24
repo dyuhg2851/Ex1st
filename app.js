@@ -3706,7 +3706,10 @@ userPersonas = [userProfile];
                 if (!activePage || !phone) return;
                 const header = activePage.querySelector('.nav-bar, .live-top-tabs, .reader-top-bar, .forum-nav-bar, .lovers-nav-bar, .account-header, .spy-header, .mood-header, .whisper-header, .letter-header, .lovers-dm-nav');
                 const isTransparent = color => !color || color === 'transparent' || color === 'rgba(0, 0, 0, 0)';
-                let color = header ? getComputedStyle(header).backgroundColor : '';
+                // 主屏幕 PWA 下，屏幕底部露出的那一条由系统用 theme-color 填充，
+                // 它压在页面正文上，所以这里必须跟随页面底色而不是顶部导航色
+                const isStandalone = document.documentElement.classList.contains('ios-fullscreen');
+                let color = (!isStandalone && header) ? getComputedStyle(header).backgroundColor : '';
                 if (isTransparent(color)) color = getComputedStyle(activePage).backgroundColor;
                 if (isTransparent(color)) color = getComputedStyle(phone).backgroundColor;
                 if (isTransparent(color)) color = darkModeEnabled ? '#000000' : '#f7f7f7';
@@ -12857,27 +12860,6 @@ async function processAiVote(messageId, aiVoterId, choiceIndex) { // --- 修改�
 
     const percentageElement = document.getElementById('percentage');
     const progressBar = document.getElementById('progressBar');
-
-    // iOS 主屏幕模式：用物理屏幕高度铺满，绕开 WebView 视口偏短造成的底部留白
-    function syncIOSAppHeight() {
-        const root = document.documentElement;
-        if (!root.classList.contains('ios-fullscreen')) return;
-        const landscape = (window.innerWidth || 0) > (window.innerHeight || 0);
-        // 竖屏用物理屏幕高度补足底部；横屏直接用可见高度，避免超出屏幕
-        const h = landscape
-            ? (window.innerHeight || 0)
-            : Math.max(
-                window.innerHeight || 0,
-                root.clientHeight || 0,
-                (window.screen && window.screen.height) || 0
-            );
-        if (h > 0) root.style.setProperty('--app-height', h + 'px');
-    }
-    syncIOSAppHeight();
-    window.addEventListener('resize', syncIOSAppHeight);
-    window.addEventListener('pageshow', syncIOSAppHeight);
-    window.addEventListener('orientationchange', () => setTimeout(syncIOSAppHeight, 300));
-    setTimeout(syncIOSAppHeight, 500);
 
     // 开屏隐藏兜底：任何加载异常都不能把用户卡在开屏
     let splashHidden = false;
