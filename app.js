@@ -3800,7 +3800,13 @@ else if (pageId === 'liveApp') {
     updateGameFloatBallVisibility(); // 每次切页面都检查一下要不要显示球
     syncBrowserThemeColor();
 }
-                function openApp(appName) {
+                function openApp(appName, forceOpen) {
+    // 只允许在主屏幕前台时打开 App。
+    // iOS 弹出键盘会产生一次坐标错位的合成点击，若落到主屏幕图标上就会误开应用
+    // （表现为“点输入框却跳进游戏 App”）。程序内部调用传 forceOpen=true 可绕过。
+    const homeEl = document.getElementById('homeScreen');
+    if (homeEl && !homeEl.classList.contains('active') && forceOpen !== true) return;
+
     const appMap = { 
         'wechat': 'wechatApp', 
         'settings': 'settingsApp', 
@@ -12893,7 +12899,7 @@ if (isBackgroundKeepAliveEnabled) {
                 if(document.getElementById('wechatApp').classList.contains('active')) {
                     openChat(friendId);
                 } else {
-                    openApp('wechat');
+                    openApp('wechat', true);
                     setTimeout(() => openChat(friendId), 50);
                 }
             }
@@ -48564,4 +48570,64 @@ function applyPageTopOffset() {
     window.addEventListener('orientationchange', () => setTimeout(syncKeyboardInset, 300));
     document.addEventListener('focusin', () => setTimeout(syncKeyboardInset, 100));
     document.addEventListener('focusout', () => setTimeout(syncKeyboardInset, 80));
+})();
+
+// 通用键盘避让：外壳是 fixed + overflow:hidden，iOS 不会自动把输入框滚到键盘上方，
+// 这里在键盘弹出后手动把输入框滚进可视区域（仅在键盘真的弹起时生效）
+(function initKeyboardAvoidance() {
+    if (!window.visualViewport) return;
+    let focusedEl = null;
+    let avoidTimer = 0;
+
+    function keyboardHeight() {
+        const vv = window.visualViewport;
+        return Math.max(0, (window.innerHeight || 0) - vv.height - vv.offsetTop);
+    }
+
+    function revealFocusedInput() {
+        const el = focusedEl;
+        if (!el || !document.contains(el)) return;
+        const vv = window.visualViewport;
+        if (keyboardHeight() < 40) return; // 键盘未弹起
+
+        const rect = el.getBoundingClientRect();
+        const visibleBottom = vv.offsetTop + vv.height - 24; // 键盘上方留 24px
+        if (rect.bottom <= visibleBottom) return; // 本来就可见
+
+        const delta = rect.bottom - visibleBottom;
+        let node = el.parentElement;
+        while (node && node !== document.body) {
+            const style = getComputedStyle(node);
+            if (/(auto|scroll)/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 4) {
+                node.scrollTop += delta;
+                return;
+            }
+            node = node.parentElement;
+        }
+        // 没有可滚动祖先（如弹窗里的表单）：交给浏览器自身滚动
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+
+    function scheduleReveal(delay) {
+        clearTimeout(avoidTimer);
+        avoidTimer = setTimeout(revealFocusedInput, delay);
+    }
+
+    document.addEventListener('focusin', (e) => {
+        const el = e.target;
+        if (!el) return;
+        const isField = /^(input|textarea)$/i.test(el.tagName) || el.isContentEditable;
+        if (!isField || el.readOnly || el.disabled) return;
+        focusedEl = el;
+        scheduleReveal(350); // 等键盘弹出动画结束再校正
+    }, { passive: true });
+
+    document.addEventListener('focusout', () => {
+        focusedEl = null;
+        clearTimeout(avoidTimer);
+    }, { passive: true });
+
+    window.visualViewport.addEventListener('resize', () => {
+        if (focusedEl) scheduleReveal(120);
+    }, { passive: true });
 })();

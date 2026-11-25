@@ -6621,11 +6621,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 .message.sent .avatar-container {
-    margin: 0 0 0 8px;
+    margin: 0 0 0 9px;
     order: 2;
 }
 .message.received .avatar-container {
-    margin: 0 8px 0 0;
+    margin: 0 9px 0 0;
 }
 
 
@@ -22170,6 +22170,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
    ============================================================ */
 
 /* 1. 整页统一微信灰，输入区上方不再出现那块浅色/白色带 */
+/* 聊天顶部导航栏整体（含背景）上移 1px */
+#chatScreen .nav-bar {
+    top: 29px !important;
+}
 #chatScreen {
     background: #ededed !important;
 }
@@ -22189,8 +22193,13 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 3. 按钮和输入框整体上移，不只是背景上移 */
 #chatScreen .chat-input-area {
-    padding: 8px 0 24px !important;
-    background: transparent !important;
+    padding: 8px 0 31px !important;
+    background: #ededed !important;
+    border-top: 0.5px solid #d9d9d9;
+}
+.wechat-dark-mode #chatScreen .chat-input-area {
+    background: #2c2c2e !important;
+    border-top-color: #3a3a3c;
 }
 
 /* 4. 三个按钮统一 40px、图标 26px，与输入框垂直居中 */
@@ -22206,8 +22215,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     justify-content: center;
 }
 #chatScreen .chat-btn svg.input-btn-svg {
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
 }
 #chatScreen .chat-input {
     align-items: center !important;
@@ -22222,7 +22231,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     transform: translateY(-50%);
 }
 #chatScreen .chat-input textarea {
-    margin-right: 90px;
+    margin-right: 85px;
     padding: 8px 12px;
     max-height: 110px;
 }
@@ -22232,8 +22241,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     padding: 88px 15px 104px;
 }
 
-/* 6. 头像圆角 4px（气泡本身已是 4px） */
+/* 6. 头像圆角 4px（气泡本身已是 4px）；尺寸比设置值小 2px */
 #chatScreen .chat-avatar {
+    width: calc(var(--chat-avatar-size, 45px) - 2px);
+    height: calc(var(--chat-avatar-size, 45px) - 2px);
     border-radius: 4px !important;
 }
 
