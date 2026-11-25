@@ -5619,14 +5619,64 @@ if (hasVoice) {
             }
         }
     }
+    if (msg.timestamp) {
+        const ts = new Date(msg.timestamp).getTime();
+        if (!isNaN(ts)) msgDiv.dataset.ts = ts;
+    }
+    if (!chatBulkRendering && containerId === 'chatMessages') {
+        refreshChatTimestamps(container);
+    }
             return msgDiv;
         }
 
-        let lastMessageTimestamp = null;
+        let chatBulkRendering = false; // 批量渲染时先不逐个插时间戳，结束后统一重排
+
+        // 聊天时间分隔：间隔超过 5 分钟插入一条时间戳
+        const CHAT_TIME_GAP_MS = 5 * 60 * 1000;
+        const WEEKDAY_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        function formatChatTimestamp(ts) {
+            const d = new Date(ts);
+            if (isNaN(d.getTime())) return '';
+            const now = new Date();
+            const startOfDay = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+            const dayDiff = Math.round((startOfDay(now) - startOfDay(d)) / 86400000);
+            const hh = String(d.getHours()).padStart(2, '0');
+            const mm = String(d.getMinutes()).padStart(2, '0');
+            const time = `${hh}:${mm}`;
+            if (dayDiff === 0) return `Today ${time}`;
+            if (dayDiff === 1) return `Yesterday ${time}`;
+            if (dayDiff >= 2 && dayDiff <= 6) return `${WEEKDAY_EN[d.getDay()]} ${time}`;
+            return `${d.getMonth() + 1}月${d.getDate()}日 ${time}`;
+        }
+
+        function createChatTimestampEl(ts) {
+            const el = document.createElement('div');
+            el.className = 'chat-timestamp';
+            el.textContent = formatChatTimestamp(ts);
+            return el;
+        }
+
+        // 按“相邻消息间隔超过 5 分钟就插入时间戳”整体重排时间戳
+        function refreshChatTimestamps(container) {
+            if (!container) return;
+            Array.from(container.children).forEach(el => {
+                if (el.classList && el.classList.contains('chat-timestamp')) el.remove();
+            });
+            const msgs = Array.from(container.children).filter(el => el.classList && el.classList.contains('message'));
+            let prevTs = 0;
+            msgs.forEach(el => {
+                const ts = Number(el.dataset.ts || 0);
+                if (!ts) return;
+                if (!prevTs || ts - prevTs > CHAT_TIME_GAP_MS) {
+                    el.parentNode.insertBefore(createChatTimestampEl(ts), el);
+                }
+                prevTs = ts;
+            });
+        }
                 function renderInitialMessages() {
             const container = document.getElementById('chatMessages');
             container.innerHTML = ''; // 清空容器
-            lastMessageTimestamp = null;
             const friend = friends.find(f => f.id === currentChatFriendId);
             if (!friend) return;
 
@@ -5668,23 +5718,14 @@ if (hasVoice) {
                 container.appendChild(loadMoreDiv);
             }
 
-            const fragment = document.createDocumentFragment();
+            chatBulkRendering = true;
             initialMessages.forEach(msg => {
-                const msgTimestamp = new Date(msg.timestamp);
-                if (lastMessageTimestamp && (msgTimestamp - lastMessageTimestamp) > 15 * 60 * 1000) {
-                    const timeDiv = document.createElement('div');
-                    timeDiv.className = 'chat-timestamp';
-                    timeDiv.textContent = msgTimestamp.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-                    fragment.appendChild(timeDiv);
-                }
-                lastMessageTimestamp = msgTimestamp;
                 // 注意：这里我们不再需要 `addMessageToDOM` 返回的元素了，因为它会直接操作DOM
                 addMessageToDOM(msg, friend); 
             });
+            chatBulkRendering = false;
+            refreshChatTimestamps(container);
             
-            // 由于 addMessageToDOM 直接添加，我们不需要再 append fragment
-            // container.appendChild(fragment);
-
             // 滚动到底部
             container.scrollTop = container.scrollHeight;
         }
@@ -5728,14 +5769,17 @@ async function loadPreviousMessages() {
     
     const fragment = document.createDocumentFragment();
 
+    chatBulkRendering = true;
     nextMessages.forEach(msg => {
         const msgElement = addMessageToDOM(msg, friend);
         if (msgElement) {
             fragment.appendChild(msgElement);
         }
     });
+    chatBulkRendering = false;
 
     container.insertBefore(fragment, container.firstChild.nextSibling);
+    refreshChatTimestamps(container);
     
     container.scrollTop = container.scrollHeight - oldScrollHeight;
 
@@ -48552,10 +48596,12 @@ function applyPageTopOffset() {
             kbRaf = 0;
             const vv = window.visualViewport;
             if (!vv) return;
-            const layoutH = window.innerHeight || root.clientHeight || 0;
+            // iOS 主屏幕模式下 innerHeight 会跟着键盘一起缩小，只有 layout viewport 才稳定
+            const layoutH = Math.max(window.innerHeight || 0, root.clientHeight || 0);
             // 布局视口高度 - 可视视口高度 - 可视视口偏移 = 键盘占位高度
             const kb = Math.round(layoutH - vv.height - vv.offsetTop);
-            const val = (kb > 40 ? kb : 0) + 'px';
+            // 额外多留 14px，避免输入框贴着键盘顶边
+            const val = (kb > 40 ? kb + 14 : 0) + 'px';
             if (root.style.getPropertyValue('--kb-h') !== val) {
                 root.style.setProperty('--kb-h', val);
             }

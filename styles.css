@@ -625,7 +625,7 @@ html {
             min-width: 0; 
             flex: 1; 
             position: relative; 
-            max-width: calc(100% - 55px); 
+            max-width: calc(100% - 70px); 
         }
 
         .message.received .message-body {
@@ -6621,11 +6621,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 .message.sent .avatar-container {
-    margin: 0 0 0 9px;
+    margin: 0 0 0 11px;
     order: 2;
 }
 .message.received .avatar-container {
-    margin: 0 9px 0 0;
+    margin: 0 11px 0 0;
 }
 
 
@@ -22120,11 +22120,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }
 
-/* 聊天页：导航栏 / 输入区统一微信灰 #ededed */
+/* 聊天页：导航栏 / 输入区统一微信灰 #ebebeb */
 #chatScreen .nav-bar,
 #chatScreen .chat-input-area,
 #chatScreen .chat-input {
-    background-color: #ededed !important;
+    background-color: #ebebeb !important;
 }
 .wechat-dark-mode #chatScreen .nav-bar,
 .wechat-dark-mode #chatScreen .chat-input-area,
@@ -22142,7 +22142,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 表情 / 功能面板与输入区同色，展开时底部不会出现色条拼接 */
 #chatScreen .chat-functions,
 #chatScreen .emoji-picker {
-    background: #ededed !important;
+    background: #ebebeb !important;
 }
 .wechat-dark-mode #chatScreen .chat-functions,
 .wechat-dark-mode #chatScreen .emoji-picker {
@@ -22175,7 +22175,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     top: 29px !important;
 }
 #chatScreen {
-    background: #ededed !important;
+    background: #ebebeb !important;
 }
 .wechat-dark-mode #chatScreen {
     background: #2c2c2e !important;
@@ -22194,7 +22194,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 3. 按钮和输入框整体上移，不只是背景上移 */
 #chatScreen .chat-input-area {
     padding: 8px 0 31px !important;
-    background: #ededed !important;
+    background: #ebebeb !important;
     border-top: 0.5px solid #d9d9d9;
 }
 .wechat-dark-mode #chatScreen .chat-input-area {
@@ -22285,4 +22285,31 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #chatScreen #messageInput::-webkit-input-placeholder {
     color: #c2c2c2;
     opacity: 1;
+}
+
+/* 画猜页插件里的 #drawGuessGameScreen { display:flex } 会盖掉 .page 的 display:none，
+   这里用更高优先级兜底：非激活状态必须真正隐藏（即使插件脚本被缓存成旧版本） */
+#drawGuessGameScreen:not(.active) {
+    display: none !important;
+}
+
+/* 聊天时间分隔：白底 + 0.5px 浅灰描边 + 10px 灰字，与引用消息卡片一致 */
+#chatScreen .chat-messages > .chat-timestamp {
+    display: block;
+    width: fit-content;
+    max-width: 90%;
+    margin: 10px auto;
+    padding: 4px 8px;
+    background: #ffffff;
+    border: 0.5px solid #d9d9d9;
+    border-radius: 4px;
+    color: #999;
+    font-size: 10px;
+    line-height: 1.4;
+    text-align: center;
+}
+.wechat-dark-mode #chatScreen .chat-messages > .chat-timestamp {
+    background: #2c2c2e;
+    border-color: #3a3a3c;
+    color: #9a9a9a;
 }

@@ -10,6 +10,12 @@
 // ----------------------------------------------------------------------------
 const dg_styles = `
 <style>
+/* 非激活时必须真正隐藏：下面这条 display:flex 会盖掉 .page 的 display:none，
+   导致离开游戏后画猜页面仍残留在屏幕上 */
+#drawGuessGameScreen:not(.active) {
+    display: none !important;
+}
+
 /* 游戏主界面容器 */
 #drawGuessGameScreen {
     background-color: #f7f8fa !important;
