@@ -1864,63 +1864,6 @@ html {
         }
 
 
-        /* --- [FIXED] Voice Message Styles --- */
-        .message-content.has-voice {
-            padding: 0;
-            background: transparent;
-            box-shadow: none;
-            display: flex;
-            align-items: center;
-        }
-        .voice-message-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            border-radius: var(--message-radius, 18px);
-            min-width: 80px;
-            transition: background-color 0.2s;
-            position: relative;
-        }
-        .voice-message-bar::before {
-            display: none; /* Hide bubble tail */
-        }
-        .message.sent .voice-message-bar {
-            background-color: var(--message-sent-bg, #FFEEF6);
-        }
-        .message.received .voice-message-bar {
-            background-color: var(--message-received-bg, #E6F2FF);
-        }
-        
-        .voice-play-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--text-color, #333);
-        }
-
-        .message.received .voice-play-icon svg {
-            transform: rotate(90deg);
-        }
-        .message.sent .voice-play-icon svg {
-            transform: rotate(-90deg);
-        }
-        
-        .voice-duration {
-            font-size: var(--font-size, 15px);
-            color: var(--text-color, #333);
-            margin: 0 4px;
-        }
-        .voice-text-content {
-            padding: 10px;
-            margin-top: 8px;
-            border-radius: 8px;
-            background: var(--bg-hover, #f0f0f0);
-            font-size: var(--font-size, 15px);
-            line-height: 1.4;
-            display: none; /* Hidden by default */
-        }
-
-
         .modal-title {
             font-size: var(--font-size, 18px);
             font-weight: 600;
@@ -6621,11 +6564,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 .message.sent .avatar-container {
-    margin: 0 0 0 11px;
+    margin: 0 0 0 16px;
     order: 2;
 }
 .message.received .avatar-container {
-    margin: 0 11px 0 0;
+    margin: 0 16px 0 0;
 }
 
 
@@ -16848,7 +16791,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 2. 核心修改：只让“气泡”和“卡片”执行动画，而不是整个消息行 */
 /* 这样头像就会静止，而气泡会从头像旁边弹出来 */
 .message.received.new-message-anim .message-content,
-.message.received.new-message-anim .voice-message-bar,
 .message.received.new-message-anim .transfer-card,
 .message.received.new-message-anim .red-envelope-card,
 .message.received.new-message-anim .location-card,
@@ -22132,10 +22074,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background-color: #2c2c2e !important;
 }
 
-/* 输入区左侧三个按钮的 SVG 尺寸（对齐原来 24px 的字体图标） */
+/* 输入区左侧三个按钮的 SVG 尺寸（线条已改为细描边，尺寸保持放大） */
 #chatScreen .chat-btn svg.input-btn-svg {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     display: block;
 }
 
@@ -22258,7 +22200,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     border: 0.5px solid #d9d9d9;
     border-radius: 4px;
     color: #999999;
-    font-size: 10px;
+    font-size: 13px;
     line-height: 1.35;
     max-width: 90%;
     word-break: break-word;
@@ -22312,4 +22254,70 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background: #2c2c2e;
     border-color: #3a3a3c;
     color: #9a9a9a;
+}
+
+/* ============================================================
+   动效优化：统一 iOS 运动曲线，页面切换只动 transform/opacity
+   ============================================================ */
+:root {
+    --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);      /* 位移：起步快、收尾缓，接近系统推入 */
+    --ease-ios-out: cubic-bezier(0.25, 0.1, 0.25, 1); /* 缩放/淡入 */
+}
+
+.page {
+    transition: transform 0.34s var(--ease-ios), opacity 0.2s linear;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+.page.active {
+    will-change: transform;
+}
+
+@keyframes pageEnterForward {
+    from { opacity: 0.35; transform: translate3d(16%, 0, 0); }
+    to   { opacity: 1;    transform: translate3d(0, 0, 0); }
+}
+@keyframes pageEnterBack {
+    from { opacity: 0.35; transform: translate3d(-12%, 0, 0); }
+    to   { opacity: 1;    transform: translate3d(0, 0, 0); }
+}
+@keyframes pageEnterFade {
+    from { opacity: 0.78; transform: scale(1.015); }
+    to   { opacity: 1;    transform: scale(1); }
+}
+.page.page-enter-forward { animation: pageEnterForward 0.34s var(--ease-ios) both; }
+.page.page-enter-back    { animation: pageEnterBack 0.34s var(--ease-ios) both; }
+.page.page-enter-fade    { animation: pageEnterFade 0.22s var(--ease-ios-out) both; }
+
+/* 点按反馈：图标/按钮/卡片按下时轻微回弹，触感更接近原生 */
+.app-icon-container,
+.chat-btn,
+.nav-btn,
+.function-item,
+.game-card,
+.app-drawer-item,
+.bottom-dock .app-icon-container {
+    transition: transform 0.16s var(--ease-ios-out),
+                background-color 0.16s ease,
+                opacity 0.16s ease;
+}
+.app:active .app-icon-container,
+.bottom-dock .app:active .app-icon-container,
+.game-card:active,
+.app-drawer-item:active {
+    transform: scale(0.93);
+}
+button.chat-btn:active,
+button.nav-btn:active {
+    transform: scale(0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page,
+    .app-icon-container,
+    .chat-btn,
+    .nav-btn {
+        transition: none !important;
+        animation: none !important;
+    }
 }

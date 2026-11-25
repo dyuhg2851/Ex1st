@@ -73,7 +73,7 @@
             stores: [
                 'friends', 'chatHistories', 'diaries', 'worldBooks', 'worldBookFolders', 
                 'favorites', 'moments', 'playlist', 'appSettings', 'apiSettings', 'customEmojis',
-                'memories', 'openingStatements' , 'writingStyles', 'skits', 'forumPosts' , 'forumRules', 'forumLikes' , 'bubbleCssPresets', 'stickerGroups','interfaceCssPresets', 'apiPresets', 'cloneApiSettings', 'offlineContentPresets',
+                'memories', 'openingStatements' , 'writingStyles', 'skits', 'forumPosts' , 'forumRules', 'forumLikes' , 'bubbleCssPresets', 'stickerGroups','interfaceCssPresets', 'apiPresets', 'offlineContentPresets',
         'voiceAudioCache' , 'fontPresets', 'offlineCssPresets' , 'gameApiSettings' , 'summaryPrompts' , 'babies', 'babyChats'
             ],
 
@@ -376,9 +376,6 @@ let pinyin; // <--- 像这样添加在这里
 let currentAddToCartItem = null;
 
 let currentSharingPostId = null;
-
-let isVoiceCloneEnabled = false;
-let cloneApiSettings = { groupId: '', apiKey: '' };
 
 let currentTransferMsgId = null; // 暂存当前操作的转账消息ID
 
@@ -2842,7 +2839,7 @@ globalLoversBackground,
                 const [
                     loadedFriends, loadedChatHistories, loadedDiaries, loadedWorldBooks, 
                     loadedWorldBookFolders, loadedFavorites, loadedMoments, loadedPlaylist, 
-                    loadedAppSettings, loadedApiSettings, loadedCustomEmojis, loadedMemories, loadedOpeningStatements, loadedWritingStyles, loadedSkits, loadedForumPosts, loadedForumRules, loadedForumLikes, loadedBubblePresets, loadedInterfacePresets, loadedApiPresets, loadedCloneApiSettings, loadedFontPresets , loadedOfflinePresets, loadedGameApiSettings, loadedStickerGroups, loadedOfflineContentPresets, loadedSummaryPrompts, loadedBabies, loadedBabyChats 
+                    loadedAppSettings, loadedApiSettings, loadedCustomEmojis, loadedMemories, loadedOpeningStatements, loadedWritingStyles, loadedSkits, loadedForumPosts, loadedForumRules, loadedForumLikes, loadedBubblePresets, loadedInterfacePresets, loadedApiPresets, loadedFontPresets , loadedOfflinePresets, loadedGameApiSettings, loadedStickerGroups, loadedOfflineContentPresets, loadedSummaryPrompts, loadedBabies, loadedBabyChats 
                 ] = await Promise.all([
                     dbManager.getAll('friends'), dbManager.getAll('chatHistories'), dbManager.getAll('diaries'),
                     dbManager.getAll('worldBooks'), dbManager.getAll('worldBookFolders'), dbManager.getAll('favorites'),
@@ -2867,8 +2864,6 @@ dbManager.getAll('interfaceCssPresets'),
 
 dbManager.getAll('apiPresets') ,
 
-dbManager.get('cloneApiSettings', 'settings'),
-
 dbManager.getAll('fontPresets'),
 
 dbManager.getAll('offlineCssPresets'),
@@ -2890,13 +2885,6 @@ dbManager.getAll('babies'), dbManager.getAll('babyChats')
                      await initDefaultData();
                      return;
                 }
-                if (loadedCloneApiSettings) {
-    isVoiceCloneEnabled = loadedCloneApiSettings.enabled || false;
-    cloneApiSettings = {
-        groupId: loadedCloneApiSettings.groupId || '',
-        apiKey: loadedCloneApiSettings.apiKey || ''
-    };
-}
                 
                 // 整理加载的记忆数据
 characterMemories = {};
@@ -3791,10 +3779,22 @@ else if (pageId === 'liveApp') {
     phoneDiv.classList.toggle('in-wechat-app', isInWechat);
 
     // 4. 切换页面显示
+    const prevActivePage = document.querySelector('.page.active');
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const targetPage = document.getElementById(pageId);
     if (targetPage) {
         targetPage.classList.add('active');
+        // 进入动画：首页↔App 横向推入，App 内部切页用轻微淡入缩放
+        if (prevActivePage && prevActivePage !== targetPage &&
+            !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            let animClass = 'page-enter-fade';
+            if (pageId === 'homeScreen') animClass = 'page-enter-back';
+            else if (prevActivePage.id === 'homeScreen') animClass = 'page-enter-forward';
+            targetPage.classList.remove('page-enter-fade', 'page-enter-back', 'page-enter-forward');
+            void targetPage.offsetWidth; // 强制回流，保证动画可重新触发
+            targetPage.classList.add(animClass);
+            setTimeout(() => targetPage.classList.remove(animClass), 400);
+        }
     }
     
     updateGameFloatBallVisibility(); // 每次切页面都检查一下要不要显示球
@@ -4492,7 +4492,6 @@ function renderEmojiPicker() {
     turnCountSinceLastMemory: 0, 
     proactiveMessageDebt: 0,
     shoppingRecordsCache: {},
-    cloneVoiceId: '',
     isOfflineMode: false, // <-- [新增] 为每个好友添加独立的线下模式开关
     offlineSettings: {
         charCount: 1000,
@@ -4944,13 +4943,6 @@ function addPatPatMessageToDOM(msg) {
     return patDiv; // 返回元素以便后续操作
 }
         
-        function toggleVoiceText(messageId) {
-            const textEl = document.getElementById(`voice-text-${messageId}`);
-            if (textEl) {
-                textEl.style.display = textEl.style.display === 'block' ? 'none' : 'block';
-            }
-        }
-
         function addMessageToDOM(msg, friendOrGroup, containerId = 'chatMessages') {
         if (msg.contentType === 'voice_call_dialogue' || msg.contentType === 'video_call_dialogue') {
         return; // 如果是通话记录，就直接跳过，不显示在主界面
@@ -5111,7 +5103,6 @@ if (friendOrGroup && friendOrGroup.readReceiptSettings && friendOrGroup.readRece
     const hasGroupRedEnvelope = msg.contentType === 'group_red_envelope';
     const hasPoll = msg.contentType === 'poll';
     const hasEmoji = msg.contentType === 'emoji';
-    const hasVoice = msg.contentType === 'voice';
     const hasLocation = msg.contentType === 'location';
     const hasVoiceCallEnd = msg.contentType === 'voice_call';
     const hasHtmlCard = msg.contentType === 'html_card';
@@ -5167,44 +5158,6 @@ const hasFamilyCard = msg.contentType === 'family_card';
         
    
 
-} else if (hasVoice) {
-    const textLength = msg.content.length;
-    const duration = Math.max(1, Math.min(60, Math.round(textLength / 4)));
-    const barWidth = Math.max(80, Math.min(220, 80 + textLength * 2.5));
-
-    // 核心修改：播放图标现在是一个按钮，点击后调用播放函数
-    // ▼▼▼ 请用这个最终修正版，完整替换旧的 playIconSVG 定义 ▼▼▼
-
-const playIconSVG = `
-    <svg id="play-icon-${msg.id}" viewBox="0 0 24 24">
-        <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" opacity="0.8"/>
-    </svg>
-`;
-
-// ▲▲▲ 替换到此结束 ▲▲▲
-
-    const sentContent = `<span class="voice-duration">${duration}"</span><div class="voice-play-icon">${playIconSVG}</div>`;
-const receivedContent = `<div class="voice-play-icon">${playIconSVG}</div><span class="voice-duration">${duration}"</span>`;
-
-contentHTML = `
-    <div class="message-body">
-        ${(friendOrGroup.isGroup && msg.type === 'received') ? `<div class="message-sender-name">${sender.name}</div>` : ''}
-        
-        <!-- 新增的包裹容器，让语音条和加载圈在同一行 -->
-        <div style="display: flex; align-items: center; gap: 8px;">
-
-            <!-- 这是原来的语音条 -->
-            <div class="voice-message-bar" style="width: ${barWidth}px;" onclick="toggleVoiceTextAndPlay('${msg.id}')">
-               ${msg.type === 'sent' ? sentContent : receivedContent}
-            </div>
-            
-            <!-- 这是移到外面的加载圆圈 -->
-            <div class="loading-spinner" id="spinner-${msg.id}" style="display: none; width: 20px; height: 20px; border-width: 2px; border-top-color: var(--text-color);"></div>
-
-        </div> 
-        
-        <div class="voice-text-content" id="voice-text-${msg.id}" style="display: none;">${msg.content.replace(/\n/g, '<br>')}</div>
-    </div>`;
             } else if (msg.contentType === 'listen_invite') {
             content = `(用户向你发起了“一起听歌”的邀请，这是一个特殊操作卡片，你必须对此作出回应。)`;
                  const cardTitle = msg.type === 'sent' ? '你发起了听歌邀请' : `${sender.name}邀请你一起听歌`;
@@ -5470,7 +5423,7 @@ if (msg.isOfflineMessage) {
             
 
 // 找到这一行定义 contentClass 的代码，确保 gift_card 的判断在里面
-const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${hasEmoji ? 'has-emoji' : ''} ${hasVoice ? 'has-voice' : ''} ${hasGroupRedEnvelope ? 'has-red-envelope' : ''} ${hasPoll ? 'has-poll' : ''} ${(msg.contentType.startsWith('listen_') || msg.contentType.startsWith('transfer_') || hasLocation || hasHtmlCard || msg.contentType === 'gift_card') ? 'has-image' : ''} ${msg.contentType === 'gift_card' ? 'has-gift-card' : ''} ${hasVoiceCallEnd ? 'has-voice-call-end' : ''}`;
+const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${hasEmoji ? 'has-emoji' : ''} ${hasGroupRedEnvelope ? 'has-red-envelope' : ''} ${hasPoll ? 'has-poll' : ''} ${(msg.contentType.startsWith('listen_') || msg.contentType.startsWith('transfer_') || hasLocation || hasHtmlCard || msg.contentType === 'gift_card') ? 'has-image' : ''} ${msg.contentType === 'gift_card' ? 'has-gift-card' : ''} ${hasVoiceCallEnd ? 'has-voice-call-end' : ''}`;
 
             const senderNameHtml = (friendOrGroup.isGroup && msg.type === 'received') ? `<div class="message-sender-name">${sender.name}</div>` : '';
             
@@ -5489,9 +5442,6 @@ const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${hasEmoji 
                         setTimeout(() => msgDiv.remove(), 4000);
                      }, 4000);
                  }, 50);
-            } else if (hasVoice) {
-                msgDiv.innerHTML = (msg.type === 'sent') ? `${contentHTML}${getAvatarHtml(sender)}` : `${getAvatarHtml(sender)}${contentHTML}`;
-                container.appendChild(msgDiv);
             } else {
                  // ▼▼▼ 步骤2：在这里粘贴 ▼▼▼
 
@@ -5528,16 +5478,11 @@ const avatarContainerHtml = `
         ${(friendOrGroup.readReceiptSettings && friendOrGroup.readReceiptSettings.enabled && friendOrGroup.readReceiptSettings.style === 'below_avatar') ? readReceiptHTML : ''}
     </div>`;
 
-// 语音消息有特殊结构，需要单独处理
-if (hasVoice) {
-     msgDiv.innerHTML = (msg.type === 'sent') ? `${contentHTML}${avatarContainerHtml}` : `${avatarContainerHtml}${contentHTML}`;
-} else {
     msgDiv.innerHTML = (msg.type === 'sent') ? `${messageBodyHtml}${avatarContainerHtml}` : `${avatarContainerHtml}${messageBodyHtml}`;
-}
                 container.appendChild(msgDiv);
             }
 
-            const contentEl = msgDiv.querySelector('.message-content, .voice-message-bar');
+            const contentEl = msgDiv.querySelector('.message-content');
             if(contentEl && containerId !== 'listenTogetherChatOverlay') {
                 contentEl.addEventListener('contextmenu', (e) => showMessageMenu(e, contentEl));
                 contentEl.addEventListener('touchstart', (e) => handleTouchStart(e, contentEl));
@@ -6154,7 +6099,7 @@ function showMessageMenu(event, el) {
         
         // 3. 清空输入框和状态
         input.value = '';
-        input.placeholder = '输入消息...';
+        input.placeholder = 'u are all i need..';
         toggleSendButtonActive(input);
         
        
@@ -6171,7 +6116,7 @@ function showMessageMenu(event, el) {
         
         // 3. 清空输入框
         input.value = '';
-        input.placeholder = '输入消息...';
+        input.placeholder = 'u are all i need..';
         toggleSendButtonActive(input);
         
        
@@ -6358,14 +6303,13 @@ const DEFAULT_PRIVATE_CHAT_PROMPT = `
 ## 5. 行为与防崩坏铁律 (Behavior & Anti-Break Guidelines)
 1.  **拒绝AI感**: 严禁使用“好的”、“我明白了”、“作为..."等服务型语言。说话要像真人，可以使用不完整的句子、语气词、口癖。
 2.  **多条回复**: 为了模拟真实聊天节奏，请**务必**将你的回复拆分成 **1-6条甚至更多** 短消息发送（在JSON数组中包含多个对象）。
-3.  **【【【防格式崩坏铁律 (CRITICAL)】】】**: 历史记录中的 \`[表情]\`、\`[语音消息]\`、\`[图片]\` 等方括号标签，是系统发给你的“视觉提示”。**轮到你输出时，绝对禁止在文本("text")的 content 字段中直接手打 "[表情]"、"[语音]" 等字样！** 想发表情或语音，必须严格使用下方工具箱中对应的 JSON 动作结构！
+3.  **【【【防格式崩坏铁律 (CRITICAL)】】】**: 历史记录中的 \`[表情]\`、\`[图片]\` 等方括号标签，是系统发给你的“视觉提示”。**轮到你输出时，绝对禁止在文本("text")的 content 字段中直接手打 "[表情]" 等字样！** 想发表情，必须严格使用下方工具箱中对应的 JSON 动作结构！
 4.  **主动性**: 根据人设，你可以主动开启话题、主动关心、甚至主动发起转账或购买。
 
 ## 6. 动作工具箱 (Action Toolbox)
 你只能通过返回 **JSON 数组** 来行动。请根据人设和情境，**自由组合**以下动作模板（直接复制对应格式并替换内容）：
 
 - **发送文本** (最常用的对话方式): \`{"type": "text", "content": "消息内容"}\`
-- **发送语音** (想亲口说话、撒娇或吼叫时): \`{"type": "voice", "content": "语音的文字内容"}\`
 - **发送表情** (可用表情: {{stickers}}): \`{"type": "send_emoji", "data": {"name": "表情名", "url": "URL"}}\`
 - **发送图片** (分享生活或自拍): \`{"type": "image", "description": "画面详细描述"}\`
 - **拍一拍用户** (打招呼/安慰/挑衅): \`{"type": "pat_pat"}\`
@@ -6866,7 +6810,7 @@ ${/* ▲▲▲ 新增代码到此结束 ▲▲▲ */''}
 【输出格式】(严格遵守)
 - 你的回复必须是纯净的JSON数组 []。
 - 数组中每个对象代表一个动作，必须包含 "sender_name", "action", "delay_seconds" 三个键。
-- 可用 action: {"type": "text", "content": "..."} | {"type": "voice", "content": "..."} | {"type": "image", "description": "..."} | {"type": "pat_pat", "target_name": "..."} | {"type": "transfer", "target_name": "...", "amount": 数字, "remark": "..."} | {"type": "accept_transfer", "target_name": "..."} | {"type": "send_emoji", "data": {"name": "表情名", "url": "表情图片URL"}} | {"type": "html_card", "content": "卡片的完整HTML代码"}
+- 可用 action: {"type": "text", "content": "..."} | {"type": "image", "description": "..."} | {"type": "pat_pat", "target_name": "..."} | {"type": "transfer", "target_name": "...", "amount": 数字, "remark": "..."} | {"type": "accept_transfer", "target_name": "..."} | {"type": "send_emoji", "data": {"name": "表情名", "url": "表情图片URL"}} | {"type": "html_card", "content": "卡片的完整HTML代码"}
 
 【剧本示例】:
 [
@@ -7912,10 +7856,6 @@ function backToChat() {
     document.getElementById('editFriendPatAction').value = friend.patAction || '';
     document.getElementById('editFriendRole').value = friend.role || '';
 
-    // 【核心修复】在这里重置克隆音色ID的显示文本
-    // 如果有ID就显示ID，没有就显示“未设置”
-    document.getElementById('currentCloneVoiceId').textContent = friend.cloneVoiceId || '未设置';
-
     // 3. 确保所有单聊该有的设置项都显示出来
     document.getElementById('editFriendNameLabel').textContent = '好友昵称';
     document.getElementById('editFriendRemarkGroup').style.display = 'block';
@@ -7973,7 +7913,6 @@ function backToChat() {
 
         document.getElementById('pinChatText').textContent = friend.pinned ? '取消置顶' : '置顶聊天';
         showAlert(friend.pinned ? '置顶成功' : '取消置顶成功');
-        document.getElementById('currentCloneVoiceId').textContent = friend.cloneVoiceId || '未设置';
 
         // 异步保存数据，不影响界面刷新
         await saveData();
@@ -13267,7 +13206,6 @@ ${chatContext || '刚开始聊天'}
 
 【动作工具箱】:
 - 文字: {"type": "text", "content": "内容"}
-- 语音: {"type": "voice", "content": "语音文字内容"}
 - 表情(可用:["${availableEmojis}"]): {"type": "send_emoji", "data": {"name": "表情名"}}
 - 图片: {"type": "image", "description": "画面详细描述"}
 - 拍一拍: {"type": "pat_pat"}
@@ -15515,24 +15453,20 @@ function copyBubbleFormat(formatType) {
 
     if (formatType === 'bubble_only') {
         successMessage = '气泡格式已复制到剪贴板！';
-        cssFormat = `/* “我”的气泡 (同时适配语音条) */
-.message.sent .message-content,
-.message.sent .voice-message-bar {
+        cssFormat = `/* “我”的气泡 */
+.message.sent .message-content {
   background: #C7F7C7;
   border-radius: 5px;
 }
 
-/* “对方”的气泡 (同时适配语音条) */
-.message.received .message-content,
-.message.received .voice-message-bar {
+/* “对方”的气泡 */
+.message.received .message-content {
   background: #EFEFEF;
 }  `;
     } else if (formatType === 'bubble_and_avatar') {
         successMessage = '气泡+头像格式已复制到剪贴板！';
         cssFormat = `/* “我”的气泡样式 */
-/* 关键：同时为普通气泡和语音条应用样式 */
-.message.sent .message-content,
-.message.sent .voice-message-bar {
+.message.sent .message-content {
   background-color: #D6EFFF; /* 气泡背景色: 淡蓝色 */
   border-radius: 18px;       /* 气泡圆角 */
   color: #333333;           /* 气泡内的文字颜色 */
@@ -15547,9 +15481,7 @@ function copyBubbleFormat(formatType) {
 }
 
 /* 好友的气泡样式 */
-/* 关键：同时为普通气泡和语音条应用样式 */
-.message.received .message-content,
-.message.received .voice-message-bar {
+.message.received .message-content {
   background-color: #F1F1F1; /* 气泡背景色: 浅灰色 */
   border-radius: 18px;       /* 气泡圆角 */
   color: #333333;           /* 气泡内的文字颜色 */
@@ -23900,217 +23832,6 @@ function cancelQuote() {
     
     // 3. (可选) 如果你希望取消引用后发送按钮也立刻消失，可以调用一下这个函数
     toggleSendButtonActive(input);
-}
-
-// 新增函数：打开克隆音色设置页面
-function openCloneApiSettings() {
-    document.getElementById('voiceCloneToggle').checked = isVoiceCloneEnabled;
-    document.getElementById('minimaxGroupId').value = cloneApiSettings.groupId;
-    document.getElementById('minimaxApiKey').value = cloneApiSettings.apiKey;
-    setActivePage('cloneApiSettingsScreen');
-}
-
-// 新增函数：保存克隆音色设置
-async function saveCloneApiSettings() {
-    isVoiceCloneEnabled = document.getElementById('voiceCloneToggle').checked;
-    cloneApiSettings.groupId = document.getElementById('minimaxGroupId').value.trim();
-    cloneApiSettings.apiKey = document.getElementById('minimaxApiKey').value.trim();
-    
-    // 我们将这个设置存入数据库
-    await dbManager.set('cloneApiSettings', { id: 'settings', ...cloneApiSettings, enabled: isVoiceCloneEnabled });
-
-    showAlert('克隆音色设置已保存！');
-    backToSettingsMenu();
-}
-
-// 新增函数：打开音色ID输入弹窗
-function openVoiceIdModal() {
-    const friend = friends.find(f => f.id === currentChatFriendId);
-    if (friend) {
-        document.getElementById('voiceIdInput').value = friend.cloneVoiceId || '';
-        document.getElementById('voiceIdModal').classList.add('show');
-    }
-}
-
-// 新增函数：关闭弹窗
-function closeVoiceIdModal() {
-    document.getElementById('voiceIdModal').classList.remove('show');
-}
-
-// 新增函数：保存音色ID
-async function saveVoiceId() {
-    const friend = friends.find(f => f.id === currentChatFriendId);
-    if (friend) {
-        const voiceId = document.getElementById('voiceIdInput').value.trim();
-        friend.cloneVoiceId = voiceId;
-        
-        // 更新好友设置页面的显示
-        document.getElementById('currentCloneVoiceId').textContent = voiceId || '未设置';
-        
-        await saveData(); // 保存到数据库
-        closeVoiceIdModal();
-        showAlert('音色ID已保存！');
-    }
-}
-
-// 全局音频播放器的一个引用，确保同一时间只有一个声音在播放
-let currentAudio = null;
-
-async function toggleVoiceTextAndPlay(messageId) { // 推荐在函数前加上 async
-    const textEl = document.getElementById(`voice-text-${messageId}`);
-    if (!textEl) return;
-
-    // --- 新增代码：在这里获取消息数据 ---
-    const msg = (chatHistories[currentChatFriendId] || []).find(m => m.id === messageId);
-
-    const isCurrentlyVisible = textEl.style.display === 'block';
-
-    if (isCurrentlyVisible) {
-        textEl.style.display = 'none';
-        if (currentAudio && currentAudio.dataset.messageId === messageId && !currentAudio.paused) {
-            currentAudio.pause();
-            const playIcon = document.getElementById(`play-icon-${messageId}`);
-            const spinner = document.getElementById(`spinner-${messageId}`);
-            if (playIcon) playIcon.style.display = 'block';
-            if (spinner) spinner.style.display = 'none';
-        }
-    } else {
-        textEl.style.display = 'block';
-        
-        // --- 核心修改在这里 ---
-        // 只有当语音克隆功能开启，并且消息是对方(received)发送的时候，才播放语音
-        if (isVoiceCloneEnabled && msg && msg.type === 'received') {
-            await playClonedVoice(messageId); // 调用播放函数
-        }
-    }
-}
-
-/**
- * [V2 - 文本净化版] 播放克隆语音
- * @param {string} messageId - 语音消息的ID
- */
-async function playClonedVoice(messageId) {
-    if (currentAudio && !currentAudio.paused) {
-        currentAudio.pause();
-        const previousPlayingId = currentAudio.dataset.messageId;
-        if (previousPlayingId) {
-            const prevSpinner = document.getElementById(`spinner-${previousPlayingId}`);
-            if (prevSpinner) prevSpinner.style.display = 'none';
-        }
-    }
-    
-    const spinner = document.getElementById(`spinner-${messageId}`);
-    const resetUI = () => {
-        if (spinner) spinner.style.display = 'none';
-    };
-
-    try {
-        const cachedAudio = await dbManager.get('voiceAudioCache', messageId);
-        if (cachedAudio && cachedAudio.audioBlob) {
-            console.log("从数据库缓存播放音频:", messageId);
-            if (spinner) spinner.style.display = 'block';
-
-            const audioUrl = URL.createObjectURL(cachedAudio.audioBlob);
-            currentAudio = new Audio(audioUrl);
-            currentAudio.dataset.messageId = messageId;
-            currentAudio.play();
-            currentAudio.onended = () => { resetUI(); currentAudio = null; URL.revokeObjectURL(audioUrl); };
-            currentAudio.onplaying = () => { if (spinner) spinner.style.display = 'none'; };
-            currentAudio.onerror = (e) => { console.error("缓存音频播放时出错:", e); showAlert("音频播放失败。"); resetUI(); };
-            return; 
-        }
-    } catch (dbError) {
-        console.error("检查语音缓存时数据库出错:", dbError);
-    }
-    
-    try {
-        const friend = friends.find(f => f.id === currentChatFriendId);
-        const msg = (chatHistories[currentChatFriendId] || []).find(m => m.id === messageId);
-        
-        if (!isVoiceCloneEnabled || !cloneApiSettings.groupId || !cloneApiSettings.apiKey || !friend || !friend.cloneVoiceId || !msg || !msg.content) {
-            showAlert("语音克隆所需配置不完整或消息内容为空。");
-            return;
-        }
-
-        // --- ▼▼▼ 核心修改在这里 ▼▼▼ ---
-        // 1. 使用正则表达式移除所有括号（中英文）及其内部内容
-        // 2. 移除所有不可见的空白字符
-        // 3. 使用 trim() 移除首尾空格
-        const cleanedText = msg.content
-            .replace(/\(.*?\)|（.*?）/g, '') // 净化括号
-            .replace(/[\s\u200B-\u200D\uFEFF]/g, ' ') // 净化特殊空格
-            .trim();
-        // --- ▲▲▲ 修改结束 ▲▲▲ ---
-
-        if (!cleanedText) {
-             showAlert("语音内容经净化后为空，无法生成音频。");
-            return;
-        }
-        
-        if (spinner) spinner.style.display = 'block';
-
-        const apiUrl = `https://api.minimax.chat/v1/t2a_v2?GroupId=${cloneApiSettings.groupId}`;
-
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Authorization': `Bearer ${cloneApiSettings.apiKey}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ "text": cleanedText, "model": "speech-02-hd", "voice_setting": { "voice_id": friend.cloneVoiceId } })
-        });
-
-        const responseData = await response.json();
-        if (responseData.base_resp && responseData.base_resp.status_code !== 0) {
-            throw new Error(responseData.base_resp.status_msg || 'API返回了一个未知的业务错误');
-        }
-
-        const hexAudio = responseData.data?.audio;
-        if (!hexAudio) throw new Error('API响应中不包含有效的音频数据。');
-
-        const audioBlob = hexToBlob(hexAudio, 'audio/mp3');
-        if (!audioBlob) throw new Error('将十六进制数据转换为音频Blob时失败。');
-
-        await dbManager.set('voiceAudioCache', { id: messageId, audioBlob: audioBlob });
-        console.log("音频已存入数据库缓存:", messageId);
-        
-        const audioUrl = URL.createObjectURL(audioBlob);
-        currentAudio = new Audio(audioUrl);
-        currentAudio.dataset.messageId = messageId;
-        currentAudio.play();
-        currentAudio.onended = () => { resetUI(); currentAudio = null; URL.revokeObjectURL(audioUrl); };
-        currentAudio.onplaying = () => { if (spinner) spinner.style.display = 'none'; };
-        currentAudio.onerror = (e) => {
-             console.error("音频播放时出错:", e);
-             throw new Error("音频文件解码或播放时发生错误。");
-        };
-        
-    } catch (error) {
-        console.error("语音克隆失败:", error);
-        showAlert(`语音播放失败:\n${error.message}`);
-        resetUI();
-    }
-}
-
-/**
- * [新增] 辅助函数：将 十六进制 (HEX) 字符串转换为 Blob 对象
- * @param {string} hex - 十六进制编码的字符串
- * @param {string} contentType - 内容类型, 例如 'audio/mp3'
- * @returns {Blob}
- */
-function hexToBlob(hex, contentType = '') {
-    // 移除可能存在的前缀，并确保长度是偶数
-    const hexString = hex.startsWith('0x') ? hex.slice(2) : hex;
-    if (hexString.length % 2 !== 0) {
-        console.error('无效的十六进制字符串，长度必须是偶数。');
-        return null;
-    }
-    
-    // 将十六进制字符串转换为字节数组
-    const bytes = new Uint8Array(hexString.length / 2);
-    for (let i = 0; i < hexString.length; i += 2) {
-        bytes[i / 2] = parseInt(hexString.substring(i, i + 2), 16);
-    }
-    
-    const blob = new Blob([bytes], {type: contentType});
-    return blob;
 }
 
 // [MODIFIED] J同人论坛App的专属脚本，所有函数已重命名以防止冲突
@@ -48596,14 +48317,37 @@ function applyPageTopOffset() {
             kbRaf = 0;
             const vv = window.visualViewport;
             if (!vv) return;
-            // iOS 主屏幕模式下 innerHeight 会跟着键盘一起缩小，只有 layout viewport 才稳定
-            const layoutH = Math.max(window.innerHeight || 0, root.clientHeight || 0);
+            // iOS 主屏幕模式下 innerHeight / clientHeight 都可能被键盘影响，
+            // 用物理屏幕高度作为布局高度的上界；其它环境仍用窗口高度
+            const portrait = (window.innerWidth || 0) <= (window.innerHeight || 0);
+            const sc = window.screen || {};
+            const screenH = portrait ? (sc.height || 0) : (sc.width || 0);
+            const isIOSFullscreen = root.classList.contains('ios-fullscreen');
+            const layoutH = isIOSFullscreen
+                ? Math.max(window.innerHeight || 0, root.clientHeight || 0, screenH)
+                : (window.innerHeight || root.clientHeight || 0);
             // 布局视口高度 - 可视视口高度 - 可视视口偏移 = 键盘占位高度
             const kb = Math.round(layoutH - vv.height - vv.offsetTop);
-            // 额外多留 14px，避免输入框贴着键盘顶边
-            const val = (kb > 40 ? kb + 14 : 0) + 'px';
+            // 额外多留 16px，避免输入框贴着键盘顶边（含键盘上方那条快捷栏）
+            const val = (kb > 40 ? kb + 16 : 0) + 'px';
             if (root.style.getPropertyValue('--kb-h') !== val) {
                 root.style.setProperty('--kb-h', val);
+            }
+            // 二次校正：iOS 键盘上方的快捷栏有时不被 visualViewport 计入，
+            // 等一帧后实测输入区是否仍被盖住，是则继续上抬
+            if (kb > 40) {
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    const area = document.getElementById('chatInputArea');
+                    const vv2 = window.visualViewport;
+                    if (!area || !vv2 || !area.offsetParent) return;
+                    const rect = area.getBoundingClientRect();
+                    const limit = vv2.offsetTop + vv2.height;
+                    const overflow = Math.round(rect.bottom - limit);
+                    if (overflow > 2) {
+                        const cur = parseInt(root.style.getPropertyValue('--kb-h'), 10) || 0;
+                        root.style.setProperty('--kb-h', (cur + overflow + 8) + 'px');
+                    }
+                }));
             }
         });
     }
@@ -48627,7 +48371,14 @@ function applyPageTopOffset() {
 
     function keyboardHeight() {
         const vv = window.visualViewport;
-        return Math.max(0, (window.innerHeight || 0) - vv.height - vv.offsetTop);
+        const rootEl = document.documentElement;
+        const portrait = (window.innerWidth || 0) <= (window.innerHeight || 0);
+        const sc = window.screen || {};
+        const screenH = portrait ? (sc.height || 0) : (sc.width || 0);
+        const layoutH = rootEl.classList.contains('ios-fullscreen')
+            ? Math.max(window.innerHeight || 0, rootEl.clientHeight || 0, screenH)
+            : (window.innerHeight || rootEl.clientHeight || 0);
+        return Math.max(0, layoutH - vv.height - vv.offsetTop);
     }
 
     function revealFocusedInput() {
@@ -48676,4 +48427,32 @@ function applyPageTopOffset() {
     window.visualViewport.addEventListener('resize', () => {
         if (focusedEl) scheduleReveal(120);
     }, { passive: true });
+})();
+
+// 兜底：iOS 键盘弹出瞬间会产生一次坐标错位的“幽灵点击”，
+// 若落在主屏幕图标上就会误开 App（表现为打字时突然跳进游戏）。
+// 输入框获得焦点后的 600ms 内，吞掉主屏幕上所有图标的点击。
+(function blockGhostAppTaps() {
+    let lastFieldFocusAt = 0;
+
+    document.addEventListener('focusin', (e) => {
+        const el = e.target;
+        if (!el) return;
+        if (/^(input|textarea)$/i.test(el.tagName) || el.isContentEditable) {
+            lastFieldFocusAt = Date.now();
+        }
+    }, { passive: true });
+
+    document.addEventListener('click', (e) => {
+        if (Date.now() - lastFieldFocusAt > 600) return;
+        const icon = e.target.closest ? e.target.closest('.app') : null;
+        if (!icon) return;
+        const home = document.getElementById('homeScreen');
+        if (!home) return;
+        // 只有主屏幕仍在渲染时才算“幽灵点击落到了桌面上”
+        const homeRendered = home.classList.contains('active') || getComputedStyle(home).display !== 'none';
+        if (!homeRendered) return;
+        e.stopPropagation();
+        e.preventDefault();
+    }, true);
 })();

@@ -616,15 +616,15 @@
 <div class="chat-input">
     <!-- 我们用这个新的div把四个默认按钮包了起来，并给了它一个ID -->
     <div id="chatDefaultButtons" style="display: flex; align-items: center; gap: 8px; transition: all 0.2s ease;">
-        <button class="chat-btn" id="chatInputReceiveButton" onclick="requestAIResponse()" title="接收消息"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4 10v4m4-7v10m4-13v16m4-13v10m4-7v4"/></svg> </button>
+        <button class="chat-btn" id="chatInputReceiveButton" onclick="requestAIResponse()" title="接收消息"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.3" d="M4 10v4m4-7v10m4-13v16m4-13v10m4-7v4"/></svg> </button>
     </div>
     
    <textarea id="messageInput" rows="1" placeholder="u are all i need.." onkeydown="handleKeyPress(event)" oninput="toggleSendButtonActive(this)" onclick="hideFunctionMenus()"></textarea>
     
     <!-- 我们也给右边的按钮们一个“家” -->
     <div id="chatRightButtons" style="display: flex; align-items: center; gap: 3px; transition: all 0.2s ease;">
-         <button class="chat-btn" id="chatInputEmojiButton" onclick="toggleEmojiPicker()" title="表情"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="15.5" cy="9.5" r="1.5" fill="currentColor"/><circle cx="8.5" cy="9.5" r="1.5" fill="currentColor"/><path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2M12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8m4.41-6.11a.745.745 0 0 0-1.03.24C14.64 15.3 13.38 16 12 16s-2.64-.7-3.38-1.88a.747.747 0 1 0-1.27.79C8.37 16.54 10.1 17.5 12 17.5s3.63-.97 4.65-2.58c.22-.35.11-.81-.24-1.03"/></svg> </button>
-         <button class="chat-btn plus-btn" id="chatInputPlusButton" onclick="toggleChatFunctions()" title="更多"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M11 13v3q0 .425.288.713T12 17t.713-.288T13 16v-3h3q.425 0 .713-.288T17 12t-.288-.712T16 11h-3V8q0-.425-.288-.712T12 7t-.712.288T11 8v3H8q-.425 0-.712.288T7 12t.288.713T8 13zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg> </button>
+         <button class="chat-btn" id="chatInputEmojiButton" onclick="toggleEmojiPicker()" title="表情"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.2 14.2c.9 1.35 2.3 2.1 3.8 2.1s2.9-.75 3.8-2.1"/></g><circle cx="9" cy="9.6" r="1.05" fill="currentColor"/><circle cx="15" cy="9.6" r="1.05" fill="currentColor"/></svg> </button>
+         <button class="chat-btn plus-btn" id="chatInputPlusButton" onclick="toggleChatFunctions()" title="更多"> <svg class="input-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.6v8.8M7.6 12h8.8"/></g></svg> </button>
     </div>
     
 </div>
@@ -1010,10 +1010,6 @@
 
         <!-- 高级功能 -->
         <div class="form-card">
-            <div class="form-group-row clickable" onclick="openVoiceIdModal()">
-                <label class="form-label">音色ID</label>
-                <div id="currentCloneVoiceId" class="form-value-display">未设置 <i class="ri-arrow-right-s-line"></i></div>
-            </div>
             <div class="form-group-row clickable" id="worldBookBindingGroup" onclick="openWorldBookBindingModal()">
                 <label class="form-label">世界书</label>
                 <div class="form-value-display">点击选择 <i class="ri-arrow-right-s-line"></i></div>
@@ -2020,11 +2016,6 @@
             </div>
             <!-- ▲▲▲ 新增结束 ▲▲▲ -->
 
-            <div class="form-group-row clickable" onclick="openCloneApiSettings()">
-                <label class="form-label">克隆音色设置</label>
-                <div class="form-value-display"><i class="ri-arrow-right-s-line"></i></div>
-            </div>
-            
 <div class="form-group-row clickable" onclick="handleFullScreenClick()">
     <label class="form-label">全屏/安装到桌面</label>
     <div class="form-value-display">点击开启 <i class="ri-fullscreen-fill"></i></div>
@@ -3462,64 +3453,6 @@
         <div class="settings-buttons">
             <button class="settings-btn btn-black" onclick="savePrivateChatPrompt()">保存提示词</button>
             <button class="settings-btn btn-cancel" onclick="resetPrivateChatPrompt()">恢复默认</button>
-        </div>
-    </div>
-</div>
-
-<div id="cloneApiSettingsScreen" class="page">
-    <div class="nav-bar">
-        <button class="nav-btn" onclick="backToSettingsMenu()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
-        <div class="nav-title">克隆音色设置</div>
-        <div></div>
-    </div>
-    
-    <div class="settings-content bw-style">
-        
-        <!-- 卡片 1：功能开关 -->
-        <div class="form-card">
-            <div class="form-group-row switch-row">
-                <label class="form-label">开启克隆音色</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="voiceCloneToggle">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-        </div>
-
-        <!-- 卡片 2：MiniMax 配置 -->
-        <div class="form-card">
-            <div class="form-group-row" style="border-bottom: none; padding-bottom: 10px;">
-                <label class="form-label" style="color: #999; font-size: 12px;">MiniMax 平台配置</label>
-            </div>
-
-            <!-- 【新增】跳转官网按钮 -->
-            <div class="form-group-row clickable" onclick="window.open('https://platform.minimaxi.com/', '_blank')">
-                <label class="form-label" style="color: #000;">前往开放平台注册/获取</label>
-                <div class="form-value-display"><i class="ri-external-link-line"></i></div>
-            </div>
-
-            <div class="form-group-row">
-                <label class="form-label">Group ID</label>
-                <input type="text" class="form-input" id="minimaxGroupId" placeholder="请输入 Group ID">
-            </div>
-
-            <div class="form-group-row">
-                <label class="form-label">API Key</label>
-                <div style="flex: 1; display: flex; align-items: center;">
-                    <input type="password" class="form-input" id="minimaxApiKey" placeholder="请输入 API Key">
-                    <i class="ri-close-circle-fill" style="color: #ccc; margin-left: 8px; cursor: pointer; font-size: 18px;" onclick="document.getElementById('minimaxApiKey').value = ''"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- 底部说明文字 -->
-        <div style="padding: 0 20px; text-align: center; color: #999; font-size: 12px; line-height: 1.5; margin-top: -10px;">
-            本功能基于 MiniMax T2A 接口。<br>配置后可让 AI 使用指定的音色发送语音。
-        </div>
-
-        <!-- 底部按钮 -->
-        <div class="settings-buttons">
-            <button class="settings-btn btn-black" onclick="saveCloneApiSettings()">保存设置</button>
         </div>
     </div>
 </div>
@@ -4968,18 +4901,6 @@
         <div id="gameFriendList" class="multi-select-list" style="max-height: 300px;"></div>
         <div class="modal-buttons" style="margin-top: 15px;">
             <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('gameFriendSelectModal').classList.remove('show')">取消</button>
-        </div>
-    </div>
-</div>
-
-<!-- 补全缺失的音色ID输入弹窗 -->
-<div id="voiceIdModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">设置音色ID</div>
-        <input type="text" class="modal-input" id="voiceIdInput" placeholder="请输入MiniMax音色ID">
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-cancel" onclick="closeVoiceIdModal()">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="saveVoiceId()">保存</button>
         </div>
     </div>
 </div>
