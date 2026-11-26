@@ -1603,6 +1603,36 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
     color: #333333;
 }
 
+/* 图片 / 表情 / 转账 / HTML 卡片：独立显示，不套气泡背景 */
+#chatScreen .message-content.has-image,
+#chatScreen .message-content.has-emoji,
+#chatScreen .message-content.has-location,
+#chatScreen .message-content.has-html-card {
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+#chatScreen .message.received .message-content.has-image,
+#chatScreen .message.sent .message-content.has-image,
+#chatScreen .message.received .message-content.has-html-card,
+#chatScreen .message.sent .message-content.has-html-card {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+#chatScreen .message-content.has-html-card {
+    max-width: 90%;
+}
+
+#chatScreen .message-content.has-image::before,
+#chatScreen .message-content.has-html-card::before,
+#chatScreen .message-content.has-emoji::before,
+#chatScreen .message-content.has-location::before {
+    display: none !important;
+}
+
 /* 小三角气泡尾巴 */
 #chatScreen .message-content::before,
 #chatScreen .message-content::after {
@@ -4564,7 +4594,7 @@ const clickHandler = (msg.type === 'received' && !isReceived) ? `onclick="openTr
                     <div class="transfer-card ${disabledClass}" ${clickHandler}>
                         <div class="transfer-card-body">
                             <div class="transfer-card-icon-container">
-                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v10c0 .55-.45 1-1 1zm-8-2h2v-4h4v-2h-4V8h-2v4H7v2h4v4z"/></svg>
+                                <svg viewBox="0 0 24 24"><g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path stroke-linejoin="round" d="M17 10L7 10L10.4375 7"/><path stroke-linejoin="round" d="M7 14L17 14L13.5625 17"/></g></svg>
                             </div>
                             <div class="transfer-card-info">
                                 <div class="transfer-card-amount">¥ ${amount}</div>
@@ -4782,7 +4812,7 @@ if (msg.isOfflineMessage) {
             
 
 // 找到这一行定义 contentClass 的代码，确保 gift_card 的判断在里面
-const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${hasEmoji ? 'has-emoji' : ''} ${hasGroupRedEnvelope ? 'has-red-envelope' : ''} ${hasPoll ? 'has-poll' : ''} ${(msg.contentType.startsWith('listen_') || msg.contentType.startsWith('transfer_') || hasLocation || hasHtmlCard || msg.contentType === 'gift_card') ? 'has-image' : ''} ${msg.contentType === 'gift_card' ? 'has-gift-card' : ''} ${hasVoiceCallEnd ? 'has-voice-call-end' : ''}`;
+const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${hasHtmlCard ? 'has-html-card' : ''} ${hasEmoji ? 'has-emoji' : ''} ${hasGroupRedEnvelope ? 'has-red-envelope' : ''} ${hasPoll ? 'has-poll' : ''} ${(msg.contentType.startsWith('listen_') || msg.contentType.startsWith('transfer_') || hasLocation || hasHtmlCard || msg.contentType === 'gift_card') ? 'has-image' : ''} ${msg.contentType === 'gift_card' ? 'has-gift-card' : ''} ${hasVoiceCallEnd ? 'has-voice-call-end' : ''}`;
 
             const senderNameHtml = (friendOrGroup.isGroup && msg.type === 'received') ? `<div class="message-sender-name">${sender.name}</div>` : '';
             
@@ -9167,8 +9197,8 @@ ${todayChats || '我们刚刚很安静，没有聊天。'}
                 const success = await generateDiaryForFriend(friend.id, false); 
                 
                 if (success) {
-                    // 【新增】生成成功后，弹出提示
-                    showAlert(`${friend.name} 刚刚写了一篇新日记`);
+                    // 改为轻提示，避免浏览其他页面/输入时被弹窗打断
+                    showToast(`${friend.name} 刚刚写了一篇新日记`);
                     
                     if (document.getElementById('diaryScreen').classList.contains('active')) {
                        showFriendDiary(friend.id); 
@@ -9358,7 +9388,8 @@ ${recentFriendMoments || '你最近没有发过朋友圈。'}
                             friend.lastMomentRefMsgTime = friend.lastMessageTimestamp;
                             await saveData();
 
-showAlert(`${friend.name} 发布了一条朋友圈`);
+                            // 改为轻提示，避免浏览其他页面/输入时被弹窗打断
+                            showToast(`${friend.name} 发布了一条朋友圈`);
 
                             if (document.getElementById('momentsScreen').classList.contains('active')) {
                                 updateMomentsList();
@@ -44159,8 +44190,9 @@ function applyPageTopOffset() {
             }
             node = node.parentElement;
         }
-        // 没有可滚动祖先（如弹窗里的表单）：交给浏览器自身滚动
-        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        // 没有可滚动祖先时不做任何事：
+        // iOS 上对 fixed 外壳调用 scrollIntoView 会滚动整个页面，
+        // 造成界面错位并引发“点输入框跳到别的页面”的幽灵点击
     }
 
     function scheduleReveal(delay) {
@@ -44189,10 +44221,12 @@ function applyPageTopOffset() {
 
 // 兜底：iOS 键盘弹出瞬间会产生一次坐标错位的“幽灵点击”，
 // 可能落到其他页面元素或主屏幕图标上（表现为点输入框却跳进别的 App / 页面）。
-// 输入框获得焦点后的 600ms 内，吞掉除“当前输入框自身”以外的所有点击。
+// 输入框获得焦点后的 1.2s 内（含键盘动画结束后的短暂窗口），
+// 吞掉除“当前输入框自身”以外的所有点击。
 (function blockGhostTaps() {
     let lastFieldFocusAt = 0;
-    let focusedField = null;
+    let lastField = null;
+    let viewportSettleUntil = 0;
 
     function isTextField(el) {
         return !!el && (/^(input|textarea)$/i.test(el.tagName) || el.isContentEditable);
@@ -44202,19 +44236,107 @@ function applyPageTopOffset() {
         const el = e.target;
         if (!isTextField(el)) return;
         lastFieldFocusAt = Date.now();
-        focusedField = el;
+        lastField = el;
     }, { passive: true });
+    // 故意不在 focusout 清空 lastField：
+    // iOS 可能在输入框失焦之后才补发坐标错位的幽灵点击
 
-    document.addEventListener('focusout', () => {
-        focusedField = null;
-    }, { passive: true });
+    // iOS 主屏 PWA：键盘弹出/收起会改变 visualViewport，
+    // 视口稳定后的 450ms 内继续拦截，覆盖迟到的幽灵点击
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+            if (!document.documentElement.classList.contains('ios-fullscreen')) return;
+            viewportSettleUntil = Date.now() + 450;
+        }, { passive: true });
+    }
 
     document.addEventListener('click', (e) => {
-        if (Date.now() - lastFieldFocusAt > 600) return;
+        const field = lastField;
+        if (!field) return;
+        const activeUntil = Math.max(lastFieldFocusAt + 1200, viewportSettleUntil);
+        if (Date.now() > activeUntil) return;
         // 点击输入框自身（例如 readonly 输入框点击展开下拉）必须放行
-        const field = focusedField;
-        if (field && (e.target === field || (field.contains && field.contains(e.target)))) return;
+        if (e.target === field || (field.contains && field.contains(e.target))) return;
         e.stopPropagation();
         e.preventDefault();
     }, true);
+})();
+
+// ============================================================
+// 键盘焦点后的导航保护（核心修复）
+// iOS 在输入框聚焦、键盘弹出期间可能补发坐标错位的点击，
+// 从而触发页面跳转（点 API 地址/密钥却跳到纸条或其他界面）。
+// 这里在聚焦后的 900ms 内直接拦截所有页面级跳转函数，
+// 从“结果”上彻底阻断这类误跳，而不再依赖点击目标判断。
+// ============================================================
+(function guardNavigationAfterFocus() {
+    let lockUntil = 0;
+    let lockedField = null;
+
+    function isField(el) {
+        return !!el && (/^(input|textarea|select)$/i.test(el.tagName) || el.isContentEditable);
+    }
+
+    document.addEventListener('focusin', (e) => {
+        if (!isField(e.target)) return;
+        // 同一个输入框重复触发 focusin 时不续期，避免锁定被无限刷新
+        if (e.target === lockedField) return;
+        lockedField = e.target;
+        lockUntil = Date.now() + 1200;
+    }, true);
+
+    document.addEventListener('focusout', (e) => {
+        if (e.target === lockedField) lockedField = null;
+    }, true);
+
+    const navNames = [
+        // 页面级跳转
+        'setActivePage', 'openApp', 'goHome', 'openChat', 'openWhisperDetail',
+        'toggleLoversWhisper', 'openLoversWhisperScreen', 'backToWhisperList',
+        'openLoversWriteWhisper', 'openLoversSpace', 'switchWechatTab',
+        'switchForumTab', 'switchStoreTab', 'switchStoreCategory', 'openMoments',
+        'openDiary', 'openStoreSearchModal', 'openStorePendingShipment',
+        // 常见弹窗/二级页面入口
+        'openApiPresetSelector', 'saveApiPreset', 'fetchModels',
+        'openChatSettings', 'openFriendSettings', 'openBackgroundSettings',
+        'openChatSearch', 'openPersonalSettings', 'openMySettings',
+        'openWallet', 'openFavorites', 'openMemoryScreen',
+        'openTransferModal', 'openRedEnvelopeModal', 'openLocationModal',
+        'openPollModal', 'openCameraModal', 'openAddEmojiModal',
+        'openAddFriend', 'openGroupChatModal', 'openAddWorldBook',
+        'openEditWorldBookModal', 'openAddWorldBookFolderModal',
+        'openWorldBookBindingModal', 'openListenTogether', 'openPlaylistModal',
+        'openAddMusicModal', 'openPromptCustomSettings', 'openBeautificationSettings',
+        'openIconSettings', 'openFontSettings', 'openComponentSettings',
+        'openGlobalChatBg', 'openWallpaperSettings', 'openBubbleSettings',
+        'showFriendDiary', 'showFullDiary', 'openAddMoment',
+        // 插件页面入口（插件可能在主脚本之后才注册，末尾会补挂一次）
+        'openNotebookScreen', 'openNotebookGenModal', 'openNotebookFontModal',
+        'openCRCharSelect', 'openCRList', 'openCRSetupModal',
+        'openBabyListScreen', 'openBabyAdoptionModal', 'openBabyRoom',
+        'openBabyInfoScreen', 'openBabyChatListScreen', 'openBabyDiaryScreen',
+        'openBabyChatDetail', 'openBabyActivityScreen', 'openStudySelectModal'
+    ];
+
+    function installWrappers() {
+        navNames.forEach((name) => {
+            const original = window[name];
+            if (typeof original !== 'function' || original.__navGuarded) return;
+            const wrapped = function(...args) {
+                if (Date.now() < lockUntil) {
+                    // 只拦一次：拦下幽灵跳转后立即解除锁定，保证后续正常操作不受影响
+                    lockUntil = 0;
+                    console.log('[nav-guard] 已拦截聚焦键盘期间的误跳转：' + name);
+                    return undefined;
+                }
+                return original.apply(this, args);
+            };
+            wrapped.__navGuarded = true;
+            window[name] = wrapped;
+        });
+    }
+
+    installWrappers();
+    // 插件脚本较晚注册全局函数，加载完成后再补挂一次
+    window.addEventListener('load', () => setTimeout(installWrappers, 300));
 })();

@@ -668,14 +668,29 @@ html {
             cursor: pointer;
         }
 
-        /* MODIFIED: Don't use bubble for images/emojis */
+        /* MODIFIED: 图片/表情/位置/转账/卡片不再使用气泡背景，内容独立显示 */
         #chatScreen .message-content.has-image,
         #chatScreen .message-content.has-emoji,
         #chatScreen .message-content.has-location {
-            padding: 0;
-            background-color: transparent;
-            box-shadow: none;
-            max-width: 250px; 
+            padding: 0 !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            max-width: 250px;
+        }
+
+        /* 覆盖收到/发出消息气泡背景（含用户自定义聊天 CSS 的情况） */
+        #chatScreen .message.received .message-content.has-image,
+        #chatScreen .message.sent .message-content.has-image,
+        #chatScreen .message.received .message-content.has-html-card,
+        #chatScreen .message.sent .message-content.has-html-card {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        /* HTML 卡片独立显示，允许比普通气泡更宽 */
+        #chatScreen .message-content.has-html-card {
+            max-width: 90%;
         }
         
         /* MODIFIED: Emoji size adjustment */
@@ -725,16 +740,18 @@ html {
         }
         /* 图片/emoji/位置/撤回/拍一拍 不要尾巴 */
         #chatScreen .message-content.has-image::before,
+        #chatScreen .message-content.has-html-card::before,
         #chatScreen .message-content.has-emoji::before,
         #chatScreen .message-content.has-location::before,
         #chatScreen .message-content.has-image::after,
+        #chatScreen .message-content.has-html-card::after,
         #chatScreen .message-content.has-emoji::after,
         #chatScreen .message-content.has-location::after,
         #chatScreen .message.recalled .message-content::before,
         #chatScreen .message.recalled .message-content::after,
         #chatScreen .message.pat_pat .message-content::before,
         #chatScreen .message.pat_pat .message-content::after {
-            display: none;
+            display: none !important;
         }
         
         #chatScreen .message.recalled .message-content,
@@ -1759,8 +1776,8 @@ html {
             background: #F9953F;
             color: white;
             padding: 10px 12px;
-            border-radius: 10px;
-            width: 200px;
+            border-radius: 4px;
+            width: 250px;
             cursor: pointer;
             transition: filter 0.2s;
             display: block; 
@@ -1781,6 +1798,10 @@ html {
         }
         .message-content .transfer-card.disabled .transfer-card-icon-container svg {
             fill: #D3A27F;
+        }
+        /* 新的圆形转账图标是描边样式，禁用状态同步换成米色描边 */
+        .message-content .transfer-card.disabled .transfer-card-icon-container svg g {
+            stroke: #D3A27F;
         }
         .message-content .transfer-card.disabled .transfer-card-footer {
             border-top: 1px solid rgba(211, 162, 127, 0.3);
@@ -1831,8 +1852,8 @@ html {
             background: #FDEFE1;
             color: #D3A27F;
             padding: 10px 12px;
-            border-radius: 10px;
-            width: 200px;
+            border-radius: 4px;
+            width: 250px;
             cursor: default;
         }
         .transfer-confirm-card .transfer-card-body {
@@ -20774,14 +20795,17 @@ html.ios-fullscreen #doujinForumApp .top-header::before {
 /* ============================================================
    iOS 聚焦输入框时字号必须 ≥16px，否则系统会自动放大页面，
    导致输入框位置错位并产生“点输入框却跳去其他页面”的幽灵点击
+   （@supports 同时覆盖主屏幕 PWA 与 Safari 内打开两种情况）
    ============================================================ */
-html.ios-fullscreen .bw-style .form-input,
-html.ios-fullscreen .bw-style .form-textarea,
-html.ios-fullscreen .settings-content input[type="text"],
-html.ios-fullscreen .settings-content input[type="password"],
-html.ios-fullscreen .settings-content input[type="number"],
-html.ios-fullscreen .settings-content textarea {
-    font-size: 16px;
+@supports (-webkit-touch-callout: none) {
+    .bw-style .form-input,
+    .bw-style .form-textarea,
+    .settings-content input[type="text"],
+    .settings-content input[type="password"],
+    .settings-content input[type="number"],
+    .settings-content textarea {
+        font-size: 16px;
+    }
 }
 
 /* ============================================================
