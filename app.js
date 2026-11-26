@@ -3070,12 +3070,33 @@ userPersonas = [userProfile];
                 if (isTransparent(color)) color = getComputedStyle(activePage).backgroundColor;
                 if (isTransparent(color)) color = getComputedStyle(phone).backgroundColor;
                 if (isTransparent(color)) color = darkModeEnabled ? '#333333' : '#f7f7f7';
+
+                // 商店 / 论坛 / 同人：底部有白色固定栏，系统填充条必须跟底栏同色，
+                // 否则底栏下方会露出一条灰色带
+                const bottomBarSelectors = ['.store-bottom-bar', '.forum-bottom-nav', '#doujinForumApp .bottom-nav'];
+                let bottomBarColor = '';
+                for (const sel of bottomBarSelectors) {
+                    const bar = document.querySelector(sel);
+                    if (!bar || !activePage.contains(bar)) continue;
+                    const barStyle = getComputedStyle(bar);
+                    const barRect = bar.getBoundingClientRect();
+                    const barVisible = barStyle.display !== 'none' && barStyle.visibility !== 'hidden'
+                        && barRect.height > 0 && barRect.top < window.innerHeight && barRect.bottom > 0;
+                    const barColor = barStyle.backgroundColor;
+                    if (barVisible && !isTransparent(barColor)) {
+                        bottomBarColor = barColor;
+                        color = barColor;
+                        break;
+                    }
+                }
                 themeMeta.setAttribute('content', color);
 
                 // 画布与机身跟随当前页底色，避免露出默认白色
                 let pageBg = getComputedStyle(activePage).backgroundColor;
                 if (isTransparent(pageBg)) pageBg = getComputedStyle(phone).backgroundColor;
                 if (isTransparent(pageBg)) pageBg = darkModeEnabled ? '#333333' : '#f7f7f7';
+                // 有底部固定栏时，页面外露出的那一条也必须是底栏颜色
+                if (bottomBarColor) pageBg = bottomBarColor;
                 [document.documentElement, document.body, phone].forEach(el => {
                     if (el) el.style.backgroundColor = pageBg;
                 });
