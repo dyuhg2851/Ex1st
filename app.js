@@ -8187,26 +8187,22 @@ function selectFont(fontType) {
             });
         }
         
-        // --- 【这是修改后的正确版本，请用它完整替换旧函数】 ---
+        // 缓存 HTML 中的默认 SVG，初始化、自定义图标和恢复默认时都沿用同一套图形
+const defaultAppSvgIcons = {};
+['wechat', 'theme', 'settings', 'doujin', 'worldbook', 'store', 'forum', 'lovers', 'phone'].forEach(id => {
+    const svg = document.querySelector(`#icon-${id} .app-icon-svg`);
+    if (svg) defaultAppSvgIcons[id] = svg.outerHTML;
+});
+
 function getDefaultIconHtml(appId) {
-    // 我们将原来的 SVG 代码换成了 <i> 标签
+    if (defaultAppSvgIcons[appId]) return defaultAppSvgIcons[appId];
+
     const icons = {
-        wechat: '<i class="ri-wechat-fill"></i>',
-        settings: '<i class="ri-settings-3-fill"></i>',
-        worldbook: '<i class="ri-book-3-fill"></i>',
-        theme: '<i class="ri-palette-fill"></i>',
-        phone: '<i class="ri-phone-fill"></i>',
-        forum: '<i class="ri-discuss-fill"></i>',
         shopping: '<i class="ri-shopping-bag-3-fill"></i>',
-        // 同时，我们把第二页的图标也加进来，以备后用
-        doujin: '<i class="ri-quill-pen-line"></i>',
         games: '<i class="ri-gamepad-line"></i>',
-        store: '<i class="ri-shopping-bag-line"></i>',
-        lovers: '<i class="ri-hearts-line"></i>',
         live: '<i class="ri-live-fill"></i>',
         appstore: '<i class="ri-app-store-line"></i>',
     };
-    // 如果找不到对应的图标，就返回一个问号图标
     return icons[appId] || '<i class="ri-question-mark"></i>';
 }
 
@@ -8233,9 +8229,8 @@ function getDefaultIconHtml(appId) {
             previewEl.style.backgroundSize = 'cover';
             previewEl.style.backgroundPosition = 'center';
             
-            // 关键：找到里面的默认图标（i标签），把它隐藏掉
-            // 这样图片就不会被文字图标挡住了
-            const defaultIcon = previewEl.querySelector('i'); 
+            // 隐藏默认字体或 SVG 图标，避免遮挡自定义图片
+            const defaultIcon = previewEl.querySelector('i, svg.app-icon-svg'); 
             // 注意：我们要避开 .edit-overlay 里面的那支小铅笔图标
             if (defaultIcon && !defaultIcon.parentElement.classList.contains('edit-overlay')) {
                 defaultIcon.style.display = 'none';
@@ -8270,7 +8265,7 @@ function applyCustomIcons() {
     }
 
     // 包含主屏幕第一页和第二页的所有图标ID
-    const allIconIds = ['wechat', 'settings', 'worldbook', 'theme', 'phone', 'forum', 'appstore', 'doujin', 'games', 'store', 'live'];
+    const allIconIds = ['wechat', 'settings', 'worldbook', 'theme', 'phone', 'forum', 'appstore', 'doujin', 'games', 'store', 'lovers', 'live'];
 
     // 检查并恢复那些没有自定义图标的默认样式
     allIconIds.forEach(id => {

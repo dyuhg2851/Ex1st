@@ -283,6 +283,23 @@ html {
 .wechat-dark-mode .app-icon-container i {
     color: #fff;
 }
+
+.app-icon-container .app-icon-svg {
+    width: 30px;
+    height: 30px;
+    display: block;
+    flex-shrink: 0;
+    color: #333333;
+}
+
+.bottom-dock .app-icon-container .app-icon-svg {
+    width: 28px;
+    height: 28px;
+}
+
+.wechat-dark-mode .app-icon-container .app-icon-svg {
+    color: #fff;
+}
         
         .app.wechat .app-icon { 
             fill: #333333; 
@@ -4819,7 +4836,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     right: 0;
     
     
-    bottom: 49px;
+    /* 与微信一致：内容区不缩短，底栏覆盖在上方，滚动预留同高空间 */
+    bottom: 0;
+    padding-bottom: calc(49px + env(safe-area-inset-bottom, 0px));
     
     
     
@@ -4854,17 +4873,17 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 
 .forum-bottom-nav {
-    /* 忽略 iOS 底部安全区：底栏直接贴底 */
-    height: 49px;
-    background: var(--nav-bg, #f7f7f7);
-    border-top: 1px solid var(--border-color, #e0e0e0);
+    /* 与微信底栏一致：49px 操作区 + 安全区背景延伸 */
+    height: calc(49px + env(safe-area-inset-bottom, 0px));
+    background: #ffffff;
+    border-top: 1px solid #f0f0f0;
     display: flex;
     position: absolute;
     bottom: 0;
     width: 100%;
     z-index: 100;
     box-sizing: border-box;
-    padding-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .forum-tab {
@@ -6991,9 +7010,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 
-#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 49px; background: white; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-around; padding: 0; box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
+#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(49px + env(safe-area-inset-bottom, 0px)); background: white; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-around; padding: 0 0 env(safe-area-inset-bottom, 0px); box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
 #doujinForumApp .bottom-nav.hidden { transform: translateY(100px); }
-#doujinForumApp .nav-item { flex: 1; text-align: center; text-decoration: none; color: #999; display: flex; flex-direction: column; align-items: center; padding: 5px 0; transition: all 0.3s; cursor: pointer; }
+#doujinForumApp .nav-item { flex: 1; height: 100%; min-height: 0; text-align: center; text-decoration: none; color: #999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0; transition: all 0.3s; cursor: pointer; }
 #doujinForumApp .nav-item.active { color: #7d9d8f; }
 #doujinForumApp .nav-icon { font-size: 22px; margin-bottom: 4px; transition: all 0.3s; }
 #doujinForumApp .nav-item.active .nav-icon { transform: scale(1.1); }
@@ -7021,7 +7040,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #doujinForumApp .modal-btn:active { transform: scale(0.98); }
 
 
-#doujinForumApp .page-container { display: none; }
+#doujinForumApp .page-container { display: none; padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important; }
 
 
 #doujinForumApp .page-container.active {
@@ -9823,6 +9842,17 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-size: 28px;
 }
 
+.bw-style .bw-icon-preview .app-icon-svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+    color: #333333;
+}
+
+.wechat-dark-mode .bw-style .bw-icon-preview .app-icon-svg {
+    color: #fff;
+}
+
 /* 点击效果 */
 .bw-style .bw-icon-preview:active {
     transform: scale(0.95);
@@ -12200,8 +12230,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-page-view {
     height: 100%;           /* 强制占满屏幕高度 */
     overflow-y: auto;       /* 开启垂直滚动 */
-    /* 底部留出与底栏相同的高度，防止内容被导航栏挡住（忽略安全区） */
-    padding-bottom: 61px;
+    /* 底部预留底栏高度，内容与微信一样不会被挤压或遮挡 */
+    padding-bottom: calc(61px + env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
 }
 
@@ -12210,11 +12240,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: 30px;
 }
 
-/* --- 底部导航栏：忽略 iOS 底部安全区，直接贴底 --- */
+/* --- 底部导航栏：与微信一致，操作区 49px，背景铺满底部安全区 --- */
 .store-bottom-bar {
-    height: 49px !important;
+    height: calc(49px + env(safe-area-inset-bottom, 0px)) !important;
     padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     align-items: center !important;
     background: #fff !important;
 }
