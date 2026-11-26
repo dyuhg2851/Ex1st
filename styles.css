@@ -668,10 +668,11 @@ html {
             cursor: pointer;
         }
 
-        /* MODIFIED: 图片/表情/位置/转账/卡片不再使用气泡背景，内容独立显示 */
+        /* MODIFIED: 图片/表情/位置/转账/卡片/红包不再使用气泡背景，内容独立显示 */
         #chatScreen .message-content.has-image,
         #chatScreen .message-content.has-emoji,
-        #chatScreen .message-content.has-location {
+        #chatScreen .message-content.has-location,
+        #chatScreen .message-content.has-red-envelope {
             padding: 0 !important;
             background-color: transparent !important;
             box-shadow: none !important;
@@ -682,7 +683,9 @@ html {
         #chatScreen .message.received .message-content.has-image,
         #chatScreen .message.sent .message-content.has-image,
         #chatScreen .message.received .message-content.has-html-card,
-        #chatScreen .message.sent .message-content.has-html-card {
+        #chatScreen .message.sent .message-content.has-html-card,
+        #chatScreen .message.received .message-content.has-red-envelope,
+        #chatScreen .message.sent .message-content.has-red-envelope {
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
@@ -743,10 +746,12 @@ html {
         #chatScreen .message-content.has-html-card::before,
         #chatScreen .message-content.has-emoji::before,
         #chatScreen .message-content.has-location::before,
+        #chatScreen .message-content.has-red-envelope::before,
         #chatScreen .message-content.has-image::after,
         #chatScreen .message-content.has-html-card::after,
         #chatScreen .message-content.has-emoji::after,
         #chatScreen .message-content.has-location::after,
+        #chatScreen .message-content.has-red-envelope::after,
         #chatScreen .message.recalled .message-content::before,
         #chatScreen .message.recalled .message-content::after,
         #chatScreen .message.pat_pat .message-content::before,
@@ -1823,6 +1828,11 @@ html {
             width: 28px;
             height: 28px;
             fill: white;
+        }
+        /* 转账条图标在原有基础放大 10px */
+        .message-content .transfer-card .transfer-card-icon-container svg {
+            width: 38px;
+            height: 38px;
         }
         .transfer-card-info {
             flex-grow: 1;
@@ -4809,7 +4819,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     right: 0;
     
     
-    bottom: calc(49px + env(safe-area-inset-bottom, 0px));
+    bottom: 49px;
     
     
     
@@ -4844,8 +4854,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 
 .forum-bottom-nav {
-    
-    height: calc(49px + env(safe-area-inset-bottom, 0px));
+    /* 忽略 iOS 底部安全区：底栏直接贴底 */
+    height: 49px;
     background: var(--nav-bg, #f7f7f7);
     border-top: 1px solid var(--border-color, #e0e0e0);
     display: flex;
@@ -4854,7 +4864,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 100%;
     z-index: 100;
     box-sizing: border-box;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: 0;
 }
 
 .forum-tab {
@@ -6981,7 +6991,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 
-#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(49px + env(safe-area-inset-bottom, 0px)); background: white; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-around; padding: 0 0 env(safe-area-inset-bottom, 0px); box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
+#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 49px; background: white; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-around; padding: 0; box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
 #doujinForumApp .bottom-nav.hidden { transform: translateY(100px); }
 #doujinForumApp .nav-item { flex: 1; text-align: center; text-decoration: none; color: #999; display: flex; flex-direction: column; align-items: center; padding: 5px 0; transition: all 0.3s; cursor: pointer; }
 #doujinForumApp .nav-item.active { color: #7d9d8f; }
@@ -12190,8 +12200,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-page-view {
     height: 100%;           /* 强制占满屏幕高度 */
     overflow-y: auto;       /* 开启垂直滚动 */
-    /* 底部留出与微信底部栏相同的高度，防止内容被导航栏挡住 */
-    padding-bottom: calc(61px + env(safe-area-inset-bottom, 0px));
+    /* 底部留出与底栏相同的高度，防止内容被导航栏挡住（忽略安全区） */
+    padding-bottom: 61px;
     box-sizing: border-box;
 }
 
@@ -12200,11 +12210,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: 30px;
 }
 
-/* --- 底部导航栏与微信 App 消息列表底部栏同高同位置 --- */
+/* --- 底部导航栏：忽略 iOS 底部安全区，直接贴底 --- */
 .store-bottom-bar {
-    height: calc(49px + env(safe-area-inset-bottom, 0px)) !important;
+    height: 49px !important;
     padding-top: 0 !important;
-    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    padding-bottom: 0 !important;
     align-items: center !important;
     background: #fff !important;
 }
@@ -20457,6 +20467,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     max-width: 62%;
     pointer-events: none;
 }
+/* 聊天页备注名固定 16px：即使旧的自定义聊天 CSS 用 var 也会得到 16px，
+   后续在聊天 CSS 里显式写 font-size 仍然可以覆盖 */
+#chatScreen {
+    --nav-font-size: 16px;
+}
 #chatScreen .nav-title-block .nav-title {
     position: static;
     left: auto;
@@ -20464,7 +20479,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     transform: none;
     max-width: 100%;
     line-height: 1.15;
-    font-size: var(--nav-font-size, 17px);
+    font-size: 16px;
     font-weight: 550;
 }
 #chatScreen .nav-subtitle {
@@ -20896,4 +20911,22 @@ body.wechat-dark-mode #chatCssEditor .nav-btn {
 body.wechat-dark-mode #chatCssEditorArea {
     background: #1c1c1e;
     color: #e8e8e8;
+}
+
+/* ============================================================
+   输入框聚焦期间：悬浮元素不吃点击
+   键盘弹出后悬浮球/通知条等会被顶到输入框附近，
+   容易把“点输入框”误判成“点悬浮球”而弹出别的界面
+   ============================================================ */
+html.field-focusing #globalApiFloatBall,
+html.field-focusing #message-notification,
+html.field-focusing #floatingPlayer,
+html.field-focusing #floatingNovelWindow {
+    pointer-events: none !important;
+}
+
+/* 在设置 / API 设置页时，悬浮 API 球不接收点击，避免遮挡输入框导致误弹面板 */
+body:has(#settingsApp.active) #globalApiFloatBall,
+body:has(#apiSettingsScreen.active) #globalApiFloatBall {
+    pointer-events: none !important;
 }

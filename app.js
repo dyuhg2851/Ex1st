@@ -1500,7 +1500,7 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
     transform: none;
     max-width: 100%;
     line-height: 1.15;
-    font-size: var(--nav-font-size, 17px);
+    font-size: 16px;
     font-weight: 550;
 }
 
@@ -1603,11 +1603,12 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
     color: #333333;
 }
 
-/* 图片 / 表情 / 转账 / HTML 卡片：独立显示，不套气泡背景 */
+/* 图片 / 表情 / 转账 / HTML 卡片 / 红包：独立显示，不套气泡背景 */
 #chatScreen .message-content.has-image,
 #chatScreen .message-content.has-emoji,
 #chatScreen .message-content.has-location,
-#chatScreen .message-content.has-html-card {
+#chatScreen .message-content.has-html-card,
+#chatScreen .message-content.has-red-envelope {
     padding: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
@@ -1616,7 +1617,9 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
 #chatScreen .message.received .message-content.has-image,
 #chatScreen .message.sent .message-content.has-image,
 #chatScreen .message.received .message-content.has-html-card,
-#chatScreen .message.sent .message-content.has-html-card {
+#chatScreen .message.sent .message-content.has-html-card,
+#chatScreen .message.received .message-content.has-red-envelope,
+#chatScreen .message.sent .message-content.has-red-envelope {
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
@@ -1629,7 +1632,8 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
 #chatScreen .message-content.has-image::before,
 #chatScreen .message-content.has-html-card::before,
 #chatScreen .message-content.has-emoji::before,
-#chatScreen .message-content.has-location::before {
+#chatScreen .message-content.has-location::before,
+#chatScreen .message-content.has-red-envelope::before {
     display: none !important;
 }
 
@@ -3177,9 +3181,18 @@ userPersonas = [userProfile];
 
     // 4. 切换页面显示
     const prevActivePage = document.querySelector('.page.active');
-    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const targetPage = document.getElementById(pageId);
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+        // 非激活页面必须彻底不渲染：
+        // 部分页面用 ID 规则强制了 display:block/flex，只是被平移到屏幕右侧，
+        // iOS 键盘弹出导致视口横移时会把这些“藏起来”的页面露出来（纸条/游戏等套在设置页上面）
+        if (page !== targetPage) {
+            page.style.setProperty('display', 'none', 'important');
+        }
+    });
     if (targetPage) {
+        targetPage.style.removeProperty('display');
         targetPage.classList.add('active');
         // 进入动画：首页↔App 横向推入，App 内部切页用轻微淡入缩放
         if (prevActivePage && prevActivePage !== targetPage &&
@@ -4812,7 +4825,7 @@ if (msg.isOfflineMessage) {
             
 
 // 找到这一行定义 contentClass 的代码，确保 gift_card 的判断在里面
-const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${hasHtmlCard ? 'has-html-card' : ''} ${hasEmoji ? 'has-emoji' : ''} ${hasGroupRedEnvelope ? 'has-red-envelope' : ''} ${hasPoll ? 'has-poll' : ''} ${(msg.contentType.startsWith('listen_') || msg.contentType.startsWith('transfer_') || hasLocation || hasHtmlCard || msg.contentType === 'gift_card') ? 'has-image' : ''} ${msg.contentType === 'gift_card' ? 'has-gift-card' : ''} ${hasVoiceCallEnd ? 'has-voice-call-end' : ''}`;
+const contentClass = `message-content ${hasImage ? 'has-image' : ''} ${(hasHtmlCard || msg.contentType === 'forum_post_share') ? 'has-html-card' : ''} ${hasEmoji ? 'has-emoji' : ''} ${hasGroupRedEnvelope ? 'has-red-envelope' : ''} ${hasPoll ? 'has-poll' : ''} ${(msg.contentType.startsWith('listen_') || msg.contentType.startsWith('transfer_') || hasLocation || hasHtmlCard || msg.contentType === 'gift_card' || msg.contentType === 'forum_post_share') ? 'has-image' : ''} ${msg.contentType === 'gift_card' ? 'has-gift-card' : ''} ${hasVoiceCallEnd ? 'has-voice-call-end' : ''}`;
 
             const senderNameHtml = (friendOrGroup.isGroup && msg.type === 'received') ? `<div class="message-sender-name">${sender.name}</div>` : '';
             
@@ -9181,6 +9194,10 @@ ${todayChats || '我们刚刚很安静，没有聊天。'}
 }
              
                                         async function simulateAiBehavior() {
+    // 正在输入时跳过本轮后台行为，避免随机提示/弹窗打断输入
+    const activeEl = document.activeElement;
+    if (activeEl && (/^(input|textarea|select)$/i.test(activeEl.tagName) || activeEl.isContentEditable)) return;
+
     const settings = await dbManager.get('apiSettings', 'settings') || {};
     if (!settings.apiUrl || !settings.apiKey || !settings.modelName || friends.filter(f => !f.isGroup).length === 0) return;
 
@@ -9628,9 +9645,8 @@ ${characterInfos}
         }
 
     } catch (error) {
-        console.error("批量评论生成失败:", error);
-        // 报错提示保留
-        showAlert(`朋友圈互动生成失败: ${error.message}`);
+        // 后台批量互动失败只记录日志，不弹窗打断用户
+        console.warn("批量评论生成失败:", error);
     }
 }
             
@@ -43373,6 +43389,10 @@ function openApiPresetSelectorForGlobalFloat() {
 
 // 4. 打开快捷设置弹窗 (读取当前最新 API 数据)
 async function openGlobalApiSettingsFromFloat() {
+    // 已经在设置 / API 设置页时，悬浮球不再弹出重复的 API 面板
+    const activePageEl = document.querySelector('.page.active');
+    if (activePageEl && (activePageEl.id === 'apiSettingsScreen' || activePageEl.id === 'settingsApp')) return;
+
     const settings = await dbManager.get('apiSettings', 'settings') || {};
     document.getElementById('floatGlobalApiUrl').value = settings.apiUrl || '';
     document.getElementById('floatGlobalApiKey').value = settings.apiKey || '';
@@ -44237,9 +44257,19 @@ function applyPageTopOffset() {
         if (!isTextField(el)) return;
         lastFieldFocusAt = Date.now();
         lastField = el;
+        // 聚焦期间禁止悬浮球/通知条等浮层吃点击，避免键盘顶起后误触弹窗
+        document.documentElement.classList.add('field-focusing');
     }, { passive: true });
     // 故意不在 focusout 清空 lastField：
     // iOS 可能在输入框失焦之后才补发坐标错位的幽灵点击
+
+    document.addEventListener('focusout', () => {
+        setTimeout(() => {
+            if (!isTextField(document.activeElement)) {
+                document.documentElement.classList.remove('field-focusing');
+            }
+        }, 0);
+    }, { passive: true });
 
     // iOS 主屏 PWA：键盘弹出/收起会改变 visualViewport，
     // 视口稳定后的 450ms 内继续拦截，覆盖迟到的幽灵点击
@@ -44309,6 +44339,7 @@ function applyPageTopOffset() {
         'openAddMusicModal', 'openPromptCustomSettings', 'openBeautificationSettings',
         'openIconSettings', 'openFontSettings', 'openComponentSettings',
         'openGlobalChatBg', 'openWallpaperSettings', 'openBubbleSettings',
+        'openGlobalApiSettingsFromFloat', 'toggleGlobalApiFloatBall',
         'showFriendDiary', 'showFullDiary', 'openAddMoment',
         // 插件页面入口（插件可能在主脚本之后才注册，末尾会补挂一次）
         'openNotebookScreen', 'openNotebookGenModal', 'openNotebookFontModal',
@@ -44339,4 +44370,16 @@ function applyPageTopOffset() {
     installWrappers();
     // 插件脚本较晚注册全局函数，加载完成后再补挂一次
     window.addEventListener('load', () => setTimeout(installWrappers, 300));
+})();
+
+// 初始化：把所有未激活页面彻底隐藏，避免它们被平移到屏幕右侧后继续渲染
+(function hideInactivePages() {
+    const apply = () => {
+        document.querySelectorAll('.page:not(.active)').forEach((page) => {
+            page.style.setProperty('display', 'none', 'important');
+        });
+    };
+    apply();
+    window.addEventListener('load', apply);
+    setTimeout(apply, 800);
 })();
