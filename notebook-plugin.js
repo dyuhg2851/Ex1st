@@ -340,7 +340,7 @@
 .nb-modal-title {
     font-size: 18px;
     font-weight: 800;
-    color: #000;
+    color: #333333;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -382,7 +382,7 @@
     color: #555;
     cursor: pointer;
 }
-.nb-font-preset-btn:active { background: #000; color: #fff; }
+.nb-font-preset-btn:active { background: #333333; color: #fff; }
 
 .nb-modal-actions {
     display: flex;
@@ -399,7 +399,7 @@
     cursor: pointer;
 }
 .nb-modal-btn-cancel { background: #f0f0f0; color: #666; }
-.nb-modal-btn-confirm { background: #000; color: #fff; }
+.nb-modal-btn-confirm { background: #333333; color: #fff; }
 
 /* 暗色模式适配 */
 .wechat-dark-mode #notebookScreen { background-color: #1a1a24; }

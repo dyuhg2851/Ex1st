@@ -32,14 +32,14 @@ const MultiOfflinePlugin = {
             /* 卡片与楼层样式 */
             .mo-card { background: #fff; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }
             .mo-card-meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px dashed #eee; padding-bottom: 8px; }
-            .mo-floor-tag { background: #000; color: #fff; padding: 1px 5px; border-radius: 4px; font-size: 10px; font-family: monospace; }
+            .mo-floor-tag { background: #333333; color: #fff; padding: 1px 5px; border-radius: 4px; font-size: 10px; font-family: monospace; }
             
             /* 多头像与心声显示 */
             .mo-avatar-row { display: flex; gap: 10px; padding: 5px 2px 12px 2px; overflow-x: auto; margin-bottom: 10px; scrollbar-width: none; }
             .mo-avatar-item { width: 44px; height: 44px; border-radius: 50%; background-size: cover; background-position: center; border: 1px solid #eee; cursor: pointer; transition: all 0.2s; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5; font-size: 16px; font-weight: bold; color: #999; }
-            .mo-avatar-item.active { border-color: #000; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+            .mo-avatar-item.active { border-color: #333333; transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-            .mo-thought-zone { background: #f9f9f9; border-radius: 8px; padding: 10px; margin-bottom: 12px; border-left: 3px solid #000; }
+            .mo-thought-zone { background: #f9f9f9; border-radius: 8px; padding: 10px; margin-bottom: 12px; border-left: 3px solid #333333; }
             .mo-thought-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; font-weight: normal; }
             
             .mo-card-meta-row span { font-weight: normal !important; }
@@ -197,7 +197,7 @@ const MultiOfflinePlugin = {
                         <span>${time}</span>
                     </div>
                     <div style="display:flex; gap:15px; align-items:center;">
-                        <i class="ri-edit-2-line" title="编辑" onclick="MultiOfflinePlugin.editMsg('${msg.id}')" style="cursor:pointer; color:#ccc; transition:color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#ccc'"></i>
+                        <i class="ri-edit-2-line" title="编辑" onclick="MultiOfflinePlugin.editMsg('${msg.id}')" style="cursor:pointer; color:#ccc; transition:color 0.2s;" onmouseover="this.style.color='#333333'" onmouseout="this.style.color='#ccc'"></i>
                         <i class="ri-delete-bin-line" title="删除" onclick="MultiOfflinePlugin.deleteMsg('${msg.id}')" style="cursor:pointer; color:#ccc; transition:color 0.2s;" onmouseover="this.style.color='#ff3b30'" onmouseout="this.style.color='#ccc'"></i>
                     </div>
                 </div>`;

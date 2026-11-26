@@ -84,14 +84,14 @@
             top: 30px !important;
         }
 
-        /* 论坛首页版块 Tab（原本 sticky top:0） */
+        /* 论坛首页版块 Tab（内容区已经让出导航栏，Tab 贴内容区顶部） */
         #forumHomeView .trends-tabs {
-            top: 30px !important;
+            top: 0 !important;
         }
 
-        /* 论坛搜索页 Tab（原本吸顶在 57px，随页面上收后同步补偿） */
+        /* 论坛搜索页 Tab（搜索头高度 48px，Tab 紧随其后吸顶） */
         #forumSearchView .trends-tabs {
-            top: 87px !important;
+            top: 48px !important;
         }
 
         /* 静态头部（内边距贴顶）：补回 30px 内边距 */
@@ -124,14 +124,7 @@
     
     <!-- START: 新的开屏动画HTML -->
     <div class="splash-container" id="splash">
-        <!-- 对话气泡装饰 -->
-        <div class="chat-bubbles">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-        </div>
-        
-        <!-- Logo -->
+        <!-- Logo（静态显示，不带动画） -->
         <div class="logo-section">
             <div class="logo">
                 <span>E</span>
@@ -147,6 +140,7 @@
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
+            <div class="percentage" id="percentage">0%</div>
         </div>
     </div>
     <!-- END: 新的开屏动画HTML -->
@@ -1541,7 +1535,7 @@
         <!-- 消费留言开关 (黑白风，单行布局) -->
         <div class="form-card" style="margin-top: 20px; margin-bottom: 15px; background: #fff; border-radius: 12px; padding: 0 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
             <div class="form-group-row" style="border: none; padding: 18px 0; display: flex; justify-content: space-between; align-items: center;">
-                <label class="form-label" style="font-size: 16px; color: #000; font-weight: 500; margin: 0;">消费自动留言</label>
+                <label class="form-label" style="font-size: 16px; color: #333333; font-weight: 500; margin: 0;">消费自动留言</label>
                 <!-- 黑白风开关 -->
                 <label class="toggle-switch bw-switch">
                     <input type="checkbox" id="fcMessageToggle" checked onchange="toggleFcMessageSetting()">
@@ -1553,7 +1547,7 @@
         <!-- 赠送按钮 -->
         <div class="form-card" style="background: #fff; border-radius: 12px; padding: 0 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
              <div class="form-group-row clickable" style="padding: 18px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: none;" onclick="alert('赠送功能开发中')">
-                <label class="form-label" style="color: #000; font-size: 16px; font-weight: 500; margin: 0;">赠送亲属卡</label>
+                <label class="form-label" style="color: #333333; font-size: 16px; font-weight: 500; margin: 0;">赠送亲属卡</label>
                 <div class="form-value-display"><i class="ri-arrow-right-s-line" style="color: #ccc; font-size: 18px;"></i></div>
             </div>
         </div>
@@ -1722,7 +1716,7 @@
             <div class="form-group-row column-layout" style="margin-top: 5px; padding-top: 15px;">
                 <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px;">
                     <label class="form-label"><i class="ri-arrow-down-line"></i> 页面整体下移</label>
-                    <span id="pageTopOffsetValue" class="form-value-display" style="font-weight: bold; color: #000;">0px</span>
+                    <span id="pageTopOffsetValue" class="form-value-display" style="font-weight: bold; color: #333333;">0px</span>
                 </div>
                 <div class="slider-container" style="padding-bottom: 5px;">
                     <span style="font-size: 12px; color: #999;">0</span>
@@ -1825,7 +1819,7 @@
             <div class="form-group-row column-layout">
                 <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px;">
                     <label class="form-label">全局字号</label>
-                    <span id="fontSizeValue" class="form-value-display" style="font-weight: bold; color: #000;">14px</span>
+                    <span id="fontSizeValue" class="form-value-display" style="font-weight: bold; color: #333333;">14px</span>
                 </div>
                 <div class="slider-container">
                     <span style="font-size: 12px;">A-</span>
@@ -1841,8 +1835,8 @@
             <div class="form-group-row">
                 <label class="form-label">全局字色</label>
                 <div class="color-picker-group">
-                    <input type="text" class="form-input small-hex" id="fontColorInput" value="#000000" placeholder="#000000" oninput="updateFontColorFromInput(this.value)">
-                    <input type="color" class="circle-color-picker" id="fontColorPicker" value="#000000" onchange="updateFontColor(this.value)">
+                    <input type="text" class="form-input small-hex" id="fontColorInput" value="#333333" placeholder="#333333" oninput="updateFontColorFromInput(this.value)">
+                    <input type="color" class="circle-color-picker" id="fontColorPicker" value="#333333" onchange="updateFontColor(this.value)">
                 </div>
             </div>
             <!-- App标签颜色 -->
@@ -4418,7 +4412,7 @@
         <!-- 右侧刷新按钮 -->
         <div class="nav-right-actions">
             <button class="nav-btn" onclick="generateForumDMs(true)"> 
-                <i class="ri-refresh-line" style="color: #000; font-size: 20px;"></i>
+                <i class="ri-refresh-line" style="color: #333333; font-size: 20px;"></i>
             </button>
         </div>
     </div>
@@ -5037,12 +5031,12 @@
 <!-- 日记设置弹窗 (黑白极简版) -->
 <div id="diarySettingsModal" class="modal">
     <div class="modal-content" style="background-color: #fff; border-radius: 24px; padding: 30px 25px;">
-        <div class="modal-title" style="color: #000; font-weight: 700;">日记设置</div>
+        <div class="modal-title" style="color: #333333; font-weight: 700;">日记设置</div>
         
         <!-- 自动写日记开关 -->
         <div class="form-group" style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <label class="form-label" style="margin: 0; color: #000; font-weight: 500;">开启自动写日记</label>
+                <label class="form-label" style="margin: 0; color: #333333; font-weight: 500;">开启自动写日记</label>
                 <!-- 【修改】加上 bw-switch 类，让开关变黑白 -->
                 <label class="toggle-switch bw-switch">
                     <input type="checkbox" id="diaryAutoWriteToggle" onchange="toggleDiaryAutoWrite()">
@@ -5057,9 +5051,9 @@
         <!-- 文风选择 -->
         <div class="form-group" style="margin-bottom: 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <label class="form-label" style="margin: 0; color: #000; font-weight: 500;">全局日记文风</label>
+                <label class="form-label" style="margin: 0; color: #333333; font-weight: 500;">全局日记文风</label>
                 <!-- 【修改】添加按钮改为黑色文字 -->
-                <button class="nav-btn" style="font-size: 14px; color: #000; font-weight: bold;" onclick="openDiaryStyleAddModal()">+ 添加</button>
+                <button class="nav-btn" style="font-size: 14px; color: #333333; font-weight: bold;" onclick="openDiaryStyleAddModal()">+ 添加</button>
             </div>
             <!-- 文风显示区域 -->
             <div id="currentDiaryStyleDisplay" class="form-input" style="line-height: 2.5; cursor: pointer; text-align: center; background: #f7f7f7; border-radius: 12px; color: #333; border: none;" onclick="openDiaryStyleSelectModal()">
@@ -5069,7 +5063,7 @@
 
         <div class="modal-buttons" style="margin-top: 25px;">
             <!-- 【修改】确认按钮改为黑底白字 -->
-            <button class="modal-btn modal-btn-confirm" onclick="closeDiarySettingsModal()" style="background-color: #000; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">完成</button>
+            <button class="modal-btn modal-btn-confirm" onclick="closeDiarySettingsModal()" style="background-color: #333333; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">完成</button>
         </div>
     </div>
 </div>
@@ -5513,7 +5507,7 @@
 <div id="loversSpyScreen" class="page">
     <div class="spy-header">
         <button class="lovers-icon-btn-round" onclick="backToLoversDetail()">
-            <svg class="back-svg fas" style="color: #000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
+            <svg class="back-svg fas" style="color: #333333;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <h2 style="font-weight: 800; letter-spacing: 1px; font-size: 18px;">TA的动态</h2>
         <div class="spy-status-dot"></div> <!-- 在线状态点 -->
@@ -5769,12 +5763,12 @@
 <!-- 悄悄话设置弹窗 (黑白极简风 & 上限10条) -->
 <div id="loversWhisperSettingsModal" class="modal">
     <div class="modal-content" style="background-color: #fff; border-radius: 24px; padding: 30px 25px; width: 85%; max-width: 360px;">
-        <div class="modal-title" style="color: #000; font-weight: 700; font-size: 20px; margin-bottom: 25px; text-align: center;">悄悄话设置</div>
+        <div class="modal-title" style="color: #333333; font-weight: 700; font-size: 20px; margin-bottom: 25px; text-align: center;">悄悄话设置</div>
         
         <!-- 1. 自动生成开关 -->
         <div class="form-group" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f5f5f5;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <label class="form-label" style="margin: 0; color: #000; font-weight: 600; font-size: 15px;">聊天自动生成</label>
+                <label class="form-label" style="margin: 0; color: #333333; font-weight: 600; font-size: 15px;">聊天自动生成</label>
                 <!-- 黑白风格开关 -->
                 <label class="toggle-switch bw-switch">
                     <input type="checkbox" id="autoWhisperToggle">
@@ -5789,23 +5783,23 @@
 
         <!-- 2. 手动生成区域 -->
         <div class="form-group" style="margin-bottom: 0;">
-            <label class="form-label" style="color: #000; font-weight: 600; font-size: 15px; display: block; margin-bottom: 15px;">手动生成 (立即查看)</label>
+            <label class="form-label" style="color: #333333; font-weight: 600; font-size: 15px; display: block; margin-bottom: 15px;">手动生成 (立即查看)</label>
             
             <!-- 滑动条区域 -->
             <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                <!-- 核心修改：将 max 改为 10，并添加 accent-color: #000 强制黑色 -->
+                <!-- 核心修改：将 max 改为 10，并添加 accent-color: #333333 强制黑色 -->
                 <input type="range" id="manualWhisperCountSlider" min="1" max="10" value="1" 
-                       style="flex: 1; height: 4px; background: #eee; border-radius: 2px; outline: none; accent-color: #000;"
+                       style="flex: 1; height: 4px; background: #eee; border-radius: 2px; outline: none; accent-color: #333333;"
                        oninput="document.getElementById('manualWhisperCountDisplay').innerText = this.value">
                 
-                <span style="font-weight: bold; color: #000; font-size: 16px; min-width: 40px; text-align: right;">
+                <span style="font-weight: bold; color: #333333; font-size: 16px; min-width: 40px; text-align: right;">
                     <span id="manualWhisperCountDisplay">1</span> 条
                 </span>
             </div>
             
             <!-- 黑色生成按钮 -->
             <button class="settings-btn btn-black" style="
-                background-color: #000; 
+                background-color: #333333; 
                 color: #fff; 
                 border-radius: 30px; 
                 height: 44px; 
@@ -6341,7 +6335,7 @@
 <div class="nav-bar" style="display: flex; align-items: center; padding: 0 10px; height: 50px; background: #fff;">
     <!-- 1. 返回按钮 (保持之前的 Remix Icon) -->
     <button class="nav-btn" onclick="backToForumMessages()" style="margin-right: 5px; padding: 5px;">
-        <svg class="back-svg" style="font-size: 24px; color: #000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
+        <svg class="back-svg" style="font-size: 24px; color: #333333;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
     </button>
 
     <!-- 2. 头像 -->
@@ -6350,7 +6344,7 @@
     <!-- 3. ID 和 未加密标签 -->
     <div style="display: flex; flex-direction: column; justify-content: center;">
         <!-- ID/名字 -->
-        <div id="dmDetailTitle" style="font-weight: bold; font-size: 16px; color: #000; line-height: 1.2;">用户名</div>
+        <div id="dmDetailTitle" style="font-weight: bold; font-size: 16px; color: #333333; line-height: 1.2;">用户名</div>
         
         <!-- 未加密标签 (保持之前的 Remix Icon 小锁) -->
         <div style="font-size: 11px; color: #888; line-height: 1.2; margin-top: 2px; display: flex; align-items: center;">
@@ -6366,13 +6360,13 @@
     <div style="display: flex; align-items: center; gap: 20px; padding-right: 5px;">
         
         <!-- Lucide Video 图标 -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m22 8-6 4 6 4V8Z"/>
             <rect width="14" height="12" x="2" y="6" rx="2" ry="2"/>
         </svg>
 
         <!-- Lucide Phone 图标 -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
         </svg>
     
@@ -6422,7 +6416,7 @@
     <div class="nav-bar">
         <button class="nav-btn" onclick="backToMyDiaryList()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
         <div class="nav-title">写日记</div>
-        <button class="nav-btn" onclick="saveUserDiary()" style="font-weight: bold; color: #000;">完成</button>
+        <button class="nav-btn" onclick="saveUserDiary()" style="font-weight: bold; color: #333333;">完成</button>
     </div>
     
     <div class="wechat-content">
@@ -6636,7 +6630,7 @@
         <textarea id="qqAnonymousQuestionInput" class="modal-textarea" placeholder="想问什么？(例如：你有喜欢的人吗？)" style="min-height: 100px;"></textarea>
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('qqAnonymousAskModal').classList.remove('show')">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="submitUserAnonymousQuestion()" style="background-color: #000;">发送</button>
+            <button class="modal-btn modal-btn-confirm" onclick="submitUserAnonymousQuestion()" style="background-color: #333333;">发送</button>
         </div>
     </div>
 </div>
@@ -6874,7 +6868,7 @@
 
         <div class="modal-buttons">
             <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('createDreamModal').classList.remove('show')">取消</button>
-            <button class="modal-btn modal-btn-confirm" style="background-color: #000; color: #fff;" onclick="startDreamGeneration()">开始入梦</button>
+            <button class="modal-btn modal-btn-confirm" style="background-color: #333333; color: #fff;" onclick="startDreamGeneration()">开始入梦</button>
         </div>
     </div>
 </div>
@@ -7536,21 +7530,21 @@
         <div id="installAndroidContent" style="display: none;">
             <p style="font-size: 14px; color: #666; margin-bottom: 15px; text-align: left;">
                 Android 用户请按以下步骤隐藏地址栏：<br><br>
-                1. 点击浏览器右上角的 <b style="color:#000;">三个点 ⋮</b><br>
-                2. 找到并点击 <b style="color:#000;">“安装应用”</b> 或 <b style="color:#000;">“添加到主屏幕”</b><br>
+                1. 点击浏览器右上角的 <b style="color:#333333;">三个点 ⋮</b><br>
+                2. 找到并点击 <b style="color:#333333;">“安装应用”</b> 或 <b style="color:#333333;">“添加到主屏幕”</b><br>
                 3. 从桌面图标进入即可实现【全屏无地址栏】体验。
             </p>
         </div>
         <div id="installIosContent" style="display: none;">
             <p style="font-size: 14px; color: #666; margin-bottom: 15px; text-align: left;">
                 iOS 用户请按以下步骤操作：<br><br>
-                1. 点击浏览器底部的 <b style="color:#000;">分享图标 ⎋</b><br>
-                2. 向上滑动找到并点击 <b style="color:#000;">“添加到主屏幕”</b><br>
+                1. 点击浏览器底部的 <b style="color:#333333;">分享图标 ⎋</b><br>
+                2. 向上滑动找到并点击 <b style="color:#333333;">“添加到主屏幕”</b><br>
                 3. 确认后从桌面图标进入。
             </p>
         </div>
        <div class="modal-buttons" style="margin-top: 20px;">
-            <button class="modal-btn modal-btn-confirm" style="background:#000; color:#fff;" onclick="document.getElementById('installGuideModal').classList.remove('show')">我知道了</button>
+            <button class="modal-btn modal-btn-confirm" style="background:#333333; color:#fff;" onclick="document.getElementById('installGuideModal').classList.remove('show')">我知道了</button>
         </div>
     </div>
 </div>
@@ -7563,14 +7557,14 @@
 <!-- ▼▼▼ 新增：全局 API 快捷设置弹窗 ▼▼▼ -->
 <div id="globalApiSettingsModal" class="modal" style="z-index: 100000;">
     <div class="modal-content" style="background-color: #fff; border-radius: 24px; padding: 30px 20px; width: 90%; max-width: 400px; box-shadow: 0 15px 40px rgba(0,0,0,0.2);">
-        <div class="modal-title" style="color:#000; font-weight:800; margin-bottom: 15px; letter-spacing: 1px; text-align: center;">全局 API 快捷切换</div>
+        <div class="modal-title" style="color:#333333; font-weight:800; margin-bottom: 15px; letter-spacing: 1px; text-align: center;">全局 API 快捷切换</div>
         
         <div class="bw-style" style="padding: 0; background: transparent;">
             
             <!-- 预设选择按钮 -->
             <div class="form-card" style="margin-bottom: 15px; padding: 0 15px;">
                 <div class="form-group-row" style="border-bottom: none; padding: 15px 0; justify-content: center;">
-                    <button class="bw-chip-btn" style="width: 100%; border: 1px solid #000; color: #000; font-weight: bold;" onclick="openApiPresetSelectorForGlobalFloat()">
+                    <button class="bw-chip-btn" style="width: 100%; border: 1px solid #333333; color: #333333; font-weight: bold;" onclick="openApiPresetSelectorForGlobalFloat()">
                         <i class="ri-list-check"></i> 从预设中快速选择
                     </button>
                 </div>
@@ -7618,7 +7612,7 @@
             <!-- 底部按钮 -->
             <div class="modal-buttons" style="margin-top: 25px;">
                 <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('globalApiSettingsModal').classList.remove('show')">取消</button>
-                <button class="modal-btn modal-btn-confirm" onclick="saveGlobalApiSettingsFromFloat()" style="background-color: #000; color: #fff;">立即生效</button>
+                <button class="modal-btn modal-btn-confirm" onclick="saveGlobalApiSettingsFromFloat()" style="background-color: #333333; color: #fff;">立即生效</button>
             </div>
         </div>
     </div>
@@ -7628,19 +7622,19 @@
 <!-- 【新增：记忆数据管理弹窗】 -->
 <div id="memoryTransferModal" class="modal" style="z-index: 100000;">
     <div class="modal-content" style="background-color: #ffffff; border-radius: 24px; padding: 30px 25px; border: none; max-width: 320px; width: 85%;">
-        <div class="modal-title" style="font-weight: 800; text-align: center; margin-bottom: 10px; color: #000;">记忆数据管理</div>
+        <div class="modal-title" style="font-weight: 800; text-align: center; margin-bottom: 10px; color: #333333;">记忆数据管理</div>
         <div style="font-size: 13px; color: #666; margin-bottom: 25px; text-align: center;">
             可以对当前角色的记忆总结进行导入或导出
         </div>
         
         <div class="form-group" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 0;">
             <!-- 导出按钮 -->
-            <button class="settings-btn btn-black" onclick="exportCurrentMemories()" style="margin: 0; background-color: #000; color: #fff; border: none; height: 48px; border-radius: 30px; font-weight: 600; font-size: 15px; cursor: pointer;">
+            <button class="settings-btn btn-black" onclick="exportCurrentMemories()" style="margin: 0; background-color: #333333; color: #fff; border: none; height: 48px; border-radius: 30px; font-weight: 600; font-size: 15px; cursor: pointer;">
                 <i class="ri-file-download-line" style="margin-right: 8px;"></i> 导出记忆数据 (JSON)
             </button>
             
             <!-- 导入按钮 (因为需要触发input file，使用了label模拟按钮) -->
-            <label class="settings-btn btn-black" style="background-color: #f7f7f7; color: #000; border: 1px solid #e0e0e0; box-shadow: none; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 30px; font-weight: 600; font-size: 14px;">
+            <label class="settings-btn btn-black" style="background-color: #f7f7f7; color: #333333; border: 1px solid #e0e0e0; box-shadow: none; margin: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 30px; font-weight: 600; font-size: 14px;">
                 <i class="ri-file-upload-line" style="margin-right: 8px;"></i> 导入记忆数据
                 <input type="file" id="memoryImportInput" accept=".json" style="display: none;" onchange="importMemories(event)">
             </label>

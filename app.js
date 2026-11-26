@@ -707,7 +707,7 @@ const aiReplyingSet = new Set();
         let customGlobalChatBgImage = '';
         let selectedFont = 'system';
         let selectedFontSize = 14;
-        let selectedFontColor = '#000000';
+        let selectedFontColor = '#333333';
         let customFontUrl = '';
         let selectModeActive = false;
         let selectedFavorites = new Set();
@@ -1586,7 +1586,7 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
     word-wrap: break-word;
     word-break: break-word;
     border-radius: 4px;
-    color: #000000;
+    color: #333333;
     position: relative;
     cursor: pointer;
 }
@@ -1594,13 +1594,13 @@ const DEFAULT_CHAT_CSS = `/* ===== 1. 顶部导航栏 ===== */
 #chatScreen .message.received .message-content {
     background-color: #ffffff;
     border: none;
-    color: #000000;
+    color: #333333;
 }
 
 #chatScreen .message.sent .message-content {
     background-color: #95ec69;
     border: none;
-    color: #000000;
+    color: #333333;
 }
 
 /* 小三角气泡尾巴 */
@@ -2607,7 +2607,7 @@ autoSummaryEnabled = settings.autoSummaryEnabled || false; // <-- 【【【新�
                 customGlobalChatBgImage = settings.customGlobalChatBgImage || '';
                 selectedFont = settings.selectedFont || 'system';
                 selectedFontSize = settings.selectedFontSize || 14;
-                selectedFontColor = settings.selectedFontColor || '#000000';
+                selectedFontColor = settings.selectedFontColor || '#333333';
                 customFontUrl = settings.customFontUrl || '';      
                 applyCustomFont(customFontUrl);                      
                 selectedWallpaper = settings.selectedWallpaper || 'default';
@@ -3035,13 +3035,13 @@ userPersonas = [userProfile];
                 let color = (!isStandalone && header) ? getComputedStyle(header).backgroundColor : '';
                 if (isTransparent(color)) color = getComputedStyle(activePage).backgroundColor;
                 if (isTransparent(color)) color = getComputedStyle(phone).backgroundColor;
-                if (isTransparent(color)) color = darkModeEnabled ? '#000000' : '#f7f7f7';
+                if (isTransparent(color)) color = darkModeEnabled ? '#333333' : '#f7f7f7';
                 themeMeta.setAttribute('content', color);
 
                 // 画布与机身跟随当前页底色，避免露出默认白色
                 let pageBg = getComputedStyle(activePage).backgroundColor;
                 if (isTransparent(pageBg)) pageBg = getComputedStyle(phone).backgroundColor;
-                if (isTransparent(pageBg)) pageBg = darkModeEnabled ? '#000000' : '#f7f7f7';
+                if (isTransparent(pageBg)) pageBg = darkModeEnabled ? '#333333' : '#f7f7f7';
                 [document.documentElement, document.body, phone].forEach(el => {
                     if (el) el.style.backgroundColor = pageBg;
                 });
@@ -4668,7 +4668,7 @@ const clickHandler = (msg.type === 'received' && !isReceived) ? `onclick="openTr
                     <div class="location-card">
                         <div class="location-card-map">
                             <!-- 纯黑风格的定位 SVG -->
-                            <svg class="location-card-pin" viewBox="0 0 24 24" fill="#000000">
+                            <svg class="location-card-pin" viewBox="0 0 24 24" fill="#333333">
                                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                                 <circle cx="12" cy="6.5" r="1" fill="#fff"/> <!-- 针中间的小白点 -->
                             </svg>
@@ -6832,8 +6832,8 @@ case 'send_family_card':
 
                     // --- 3. 生成卡片 HTML (保持黑白风) ---
                     const paidCardHtml = `
-                    <div class="pay-request-card" style="border-color:#000; cursor:pointer;" onclick="openStorePendingShipment()">
-                        <div class="pay-req-header" style="background:#fff; color:#000; border-bottom:1px solid #000;">
+                    <div class="pay-request-card" style="border-color:#333333; cursor:pointer;" onclick="openStorePendingShipment()">
+                        <div class="pay-req-header" style="background:#fff; color:#333333; border-bottom:1px solid #333333;">
                             <span>付款成功</span><i class="ri-checkbox-circle-fill"></i>
                         </div>
                         <div class="pay-req-body">
@@ -6843,7 +6843,7 @@ case 'send_family_card':
                                 <div class="pay-req-price">¥ ${parseFloat(prod.price).toFixed(2)}</div>
                             </div>
                         </div>
-                        <div class="pay-req-footer" style="background:#000; color:#fff;">
+                        <div class="pay-req-footer" style="background:#333333; color:#fff;">
                             “${aiMsg}”
                         </div>
                         <div style="font-size:10px; color:#999; text-align:center; padding:4px 0; background:#fff;">代付人：${senderName}</div>
@@ -7878,7 +7878,7 @@ function toggleWbFolder(header) {
 
     // 右上角显示设置按钮
     document.getElementById('diaryNavFriendName').innerHTML = `
-        <button class="nav-btn" onclick="openDiarySettingsModal()" style="font-size: 20px; color: #000; padding:0;">
+        <button class="nav-btn" onclick="openDiarySettingsModal()" style="font-size: 20px; color: #333333; padding:0;">
             <i class="ri-settings-3-line"></i>
         </button>
     `;
@@ -7941,7 +7941,7 @@ function toggleWbFolder(header) {
             <button class="generate-diary-btn nav-right-action-btn" id="manualGenerateBtn" onclick="forceGenerateDiary('${friend.id}')" title="生成日记">
                 <svg viewBox="0 0 24 24"><path d="M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" /></svg>
             </button>
-            <button class="nav-btn" id="diaryManageBtn" onclick="toggleDiaryManageMode()" style="font-size: 20px; color: #000; padding:0;">
+            <button class="nav-btn" id="diaryManageBtn" onclick="toggleDiaryManageMode()" style="font-size: 20px; color: #333333; padding:0;">
                 <i class="ri-list-check-2"></i>
             </button>
         </div>
@@ -11328,7 +11328,7 @@ async function generateSimAppContent(characterId, appName) {
         <div class="sim-list-item" style="display:flex; align-items:center; padding: 15px 20px; border-bottom:none;">
             <div style="font-size:16px; color:#999; width:30px; font-style:italic;">${s.index}</div>
             <div style="flex:1;">
-                <div style="font-size:16px; font-weight:600; color:#000;">${s.title}</div>
+                <div style="font-size:16px; font-weight:600; color:#333333;">${s.title}</div>
                 <div style="font-size:12px; color:#666; margin-top:4px;">
                     <span style="border:1px solid #666; padding:0 2px; font-size:10px; border-radius:2px; margin-right:4px;">HQ</span>
                     ${s.artist}
@@ -11344,7 +11344,7 @@ async function generateSimAppContent(characterId, appName) {
             <div style="font-size:18px; font-weight:bold; text-align:center; margin-bottom:20px;">我的歌单</div>
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
                 <div style="display:flex; align-items:center;">
-                    <div style="width:40px; height:40px; background:#000; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; margin-right:10px;">
+                    <div style="width:40px; height:40px; background:#333333; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; margin-right:10px;">
                         <i class="fas fa-play"></i>
                     </div>
                     <span style="font-weight:bold; font-size:16px;">全部播放 (${data.songs.length})</span>
@@ -11403,13 +11403,13 @@ async function generateSimAppContent(characterId, appName) {
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 ${(data.recordings || []).map((r, i) => `
                     <div class="sim-list-item" onclick='renderSimAppDetail("sim_recorder", ${JSON.stringify(r).replace(/'/g, "\\'")})' style="background: #f9f9f9; border-radius: 12px; padding: 15px; border: none;">
-                        <div style="font-weight: bold; font-size: 16px; color: #000;">${r.location}</div>
+                        <div style="font-weight: bold; font-size: 16px; color: #333333;">${r.location}</div>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px; color: #999; font-size: 12px;">
                             <span>${r.date}</span>
                             <span>${r.duration}</span>
                         </div>
                         <div style="margin-top: 10px; display: flex; justify-content: center;">
-                            <i class="fa-solid fa-circle-play" style="font-size: 28px; color: #000;"></i>
+                            <i class="fa-solid fa-circle-play" style="font-size: 28px; color: #333333;"></i>
                         </div>
                     </div>
                 `).join('')}
@@ -11448,13 +11448,13 @@ case 'sim_videos':
 
                             return `
                             <div onclick="${safeClickAction}" 
-                                 style="background: #fff; border: 2px solid #000; border-radius: 16px; padding: 25px; display: flex; align-items: center; gap: 20px; cursor: pointer; box-shadow: 4px 4px 0 #000;">
-                                <i class="${p.icon}" style="font-size: 36px; color: #000;"></i>
+                                 style="background: #fff; border: 2px solid #333333; border-radius: 16px; padding: 25px; display: flex; align-items: center; gap: 20px; cursor: pointer; box-shadow: 4px 4px 0 #333333;">
+                                <i class="${p.icon}" style="font-size: 36px; color: #333333;"></i>
                                 <div>
                                     <div style="font-size: 20px; font-weight: bold;">${p.name}</div>
                                     <div style="font-size: 12px; color: #666;">${p.desc}</div>
                                 </div>
-                                <i class="fa-solid fa-arrow-right" style="margin-left: auto; color: #000;"></i>
+                                <i class="fa-solid fa-arrow-right" style="margin-left: auto; color: #333333;"></i>
                             </div>
                         `;
                         }).join('')}
@@ -11567,7 +11567,7 @@ case 'sim_videos':
     headerTitle = detailItem.location;
     contentHTML = `
         <div class="sim-detail-content" style="text-align: center; padding-top: 40px;">
-            <div style="width: 80px; height: 80px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <div style="width: 80px; height: 80px; background: #333333; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                 <i class="fa-solid fa-play" style="color: #fff; font-size: 30px; margin-left: 5px;"></i>
             </div>
             <h3 style="font-size: 24px; margin-bottom: 5px;">${detailItem.location}</h3>
@@ -11578,8 +11578,8 @@ case 'sim_videos':
                 <div style="line-height: 1.8; color: #333;">${detailItem.content}</div>
             </div>
             
-            <div style="text-align: left; border: 1px dashed #000; padding: 20px; border-radius: 12px;">
-                <div style="font-size: 12px; color: #000; margin-bottom: 8px; font-weight: bold;">心中的想法</div>
+            <div style="text-align: left; border: 1px dashed #333333; padding: 20px; border-radius: 12px;">
+                <div style="font-size: 12px; color: #333333; margin-bottom: 8px; font-weight: bold;">心中的想法</div>
                 <div style="line-height: 1.6; color: #555; font-style: italic;">“${detailItem.thought}”</div>
             </div>
         </div>`;
@@ -11619,7 +11619,7 @@ case 'sim_videos':
                         <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; padding: 1px 3px; border-radius: 2px;">${v.duration}</span>
                     </div>
                     <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div style="font-size: 14px; font-weight: 500; line-height: 1.4; color: #000;">${v.title}</div>
+                        <div style="font-size: 14px; font-weight: 500; line-height: 1.4; color: #333333;">${v.title}</div>
                         <div style="font-size: 11px; color: #999;">
                             <div style="margin-bottom: 2px;"><i class="fa-brands fa-bilibili" style="color: #333;"></i> ${v.up}</div>
                             <div>${v.content.substring(0, 20)}...</div>
@@ -13381,7 +13381,7 @@ function renderGroupMemberList(groupId) {
     inviteBtn.onclick = () => openInviteToChatGroupModal();
     
     inviteBtn.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 5px; color: #000; font-weight: 500;">
+        <div style="display: flex; align-items: center; gap: 5px; color: #333333; font-weight: 500;">
             <div style="width: 30px; height: 30px; border-radius: 50%; border: 1px dashed #999; display: flex; align-items: center; justify-content: center;">
                 <i class="ri-add-line"></i>
             </div>
@@ -18092,7 +18092,7 @@ function renderForumDetailView(post) {
            ${detailImageHtml}
             ${post.htmlModule ? post.htmlModule : ''}
             <div class="post-stats-bar">
-                <span>${new Date(post.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · ${new Date(post.timestamp).toLocaleDateString()} · <strong style="color: var(--text-color, #000);">${postViews.toLocaleString()}</strong> 次查看</span>
+                <span>${new Date(post.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · ${new Date(post.timestamp).toLocaleDateString()} · <strong style="color: var(--text-color, #333333);">${postViews.toLocaleString()}</strong> 次查看</span>
             </div>
             ${generateForumActionsHtml(post.id, false)}
         </div>
@@ -18757,7 +18757,7 @@ function copyInterfaceFormat() {
   /* color: #333; */
 }
 .nav-title { /* 导航栏中间的标题 */
-  /* color: #000; font-size: 18px; */
+  /* color: #333333; font-size: 18px; */
 }
 
 /* --- 聊天消息区域 --- */
@@ -18785,7 +18785,7 @@ function copyInterfaceFormat() {
   /* background: #f7f7f7; */
 }
 textarea#messageInput { /* 文字输入框本身 */
-  /* background: #fff; color: #000; */
+  /* background: #fff; color: #333333; */
 }
 textarea#messageInput::placeholder { /* 输入框里的提示文字 */
   /* color: #ccc; */
@@ -21362,7 +21362,7 @@ function setPanelBackground(file, panelElement) {
         const board = document.getElementById('drawing-board');
         canvas.width = board.clientWidth - 30;
         canvas.height = 300;
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+        ctx.strokeStyle = '#333333'; ctx.lineWidth = 3; ctx.lineCap = 'round';
     }
     function getEventCoords(e) {
         const rect = canvas.getBoundingClientRect();
@@ -28021,7 +28021,7 @@ function toggleDiaryManageMode() {
         listContainer.classList.add('managing');
         bottomBar.classList.add('show');
         manageBtnIcon.className = 'ri-check-line'; // 变成勾
-        document.getElementById('diaryManageBtn').style.color = '#000'; // 保持黑色
+        document.getElementById('diaryManageBtn').style.color = '#333333'; // 保持黑色
     } else {
         listContainer.classList.remove('managing');
         bottomBar.classList.remove('show');
@@ -29685,7 +29685,7 @@ function openPaymentMethodSelect() {
 
     // 【核心修改】定义黑白风图标样式
     const iconStyle = 'background: #1a1a1a; color: #fff; border: 1px solid #333; display: flex; align-items: center; justify-content: center; font-size: 18px;';
-    const checkIcon = '<i class="ri-check-line" style="color: #000; font-size: 20px; font-weight: bold;"></i>';
+    const checkIcon = '<i class="ri-check-line" style="color: #333333; font-size: 20px; font-weight: bold;"></i>';
 
     // 选项1：零钱
     const balanceItem = document.createElement('div');
@@ -29910,7 +29910,7 @@ function renderFamilyCardDetail(card) {
                 <i class="ri-user-smile-line" style="margin-right: 5px;"></i> 赠送人：${card.from}
             </div>
         </div>
-        <div style="margin-top: 20px; font-size: 14px; font-weight: bold; color: #000; padding-left: 5px;">
+        <div style="margin-top: 20px; font-size: 14px; font-weight: bold; color: #333333; padding-left: 5px;">
             账单明细
         </div>
     `;
@@ -29928,7 +29928,7 @@ function renderFamilyCardDetail(card) {
     const friend = friends.find(f => f.name === card.from || f.remark === card.from);
     const avatarUrl = friend && friend.avatarImage 
         ? `background-image: url('${friend.avatarImage}')` 
-        : `background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold;`;
+        : `background-color: #333333; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold;`;
     const avatarContent = friend && friend.avatarImage ? '' : (card.from[0] || '亲');
 
     card.messages.forEach(msg => {
@@ -31283,7 +31283,7 @@ function updateStoreProfile() {
             avatarEl.textContent = '';
         } else {
             avatarEl.style.backgroundImage = '';
-            avatarEl.style.backgroundColor = '#000';
+            avatarEl.style.backgroundColor = '#333333';
             avatarEl.style.color = '#fff';
             avatarEl.style.display = 'flex';
             avatarEl.style.alignItems = 'center';
@@ -31336,7 +31336,7 @@ function renderStoreCartPage() {
             <div style="text-align: center; padding: 80px 20px; color: #999;">
                 <i class="ri-shopping-cart-2-line" style="font-size: 48px; opacity: 0.3;"></i>
                 <p style="margin-top:10px;">购物车空空如也</p>
-                <button onclick="switchStoreTab('home', document.querySelector('.store-tab-item'))" style="margin-top:20px; padding:8px 20px; border:1px solid #000; background:fff; border-radius:20px;">去逛逛</button>
+                <button onclick="switchStoreTab('home', document.querySelector('.store-tab-item'))" style="margin-top:20px; padding:8px 20px; border:1px solid #333333; background:fff; border-radius:20px;">去逛逛</button>
             </div>`;
         updateCartTotal();
         return;
@@ -32325,7 +32325,7 @@ function openLoversAnniDetail(id) {
     document.getElementById('dm-date-str').innerText = `${item.date} ${weekDays[dateObj.getDay()]}`;
     
     // 默认黑色背景
-    document.getElementById('dm-card-header').style.background = '#000';
+    document.getElementById('dm-card-header').style.background = '#333333';
 
     setActivePage('loversAnniDetailScreen');
 }
@@ -32795,13 +32795,13 @@ function openLoversSpyScreen() {
     const header = document.querySelector('.spy-header');
     header.innerHTML = `
         <button class="lovers-icon-btn-round" onclick="backToLoversDetail()">
-            <svg class="back-svg" style="color: #000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
+            <svg class="back-svg" style="color: #333333;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
         </button>
         <h2 style="font-weight: 800; letter-spacing: 1px; font-size: 18px;">TA的动态</h2>
         
         <!-- 新增：刷新按钮 -->
         <button class="lovers-icon-btn-round" id="spyRefreshBtn" onclick="refreshSpyLogs()">
-            <i class="fas fa-sync-alt" style="color: #000;"></i>
+            <i class="fas fa-sync-alt" style="color: #333333;"></i>
         </button>
     `;
     
@@ -39715,7 +39715,7 @@ function renderMyDiaryList() {
             </div>
 
             <!-- 【修改点2】：只显示标题(心声)，去掉了正文预览的 div -->
-            <div class="diary-cover-thought" style="font-weight:bold; color:#000; font-size: 16px; margin-top: 10px;">
+            <div class="diary-cover-thought" style="font-weight:bold; color:#333333; font-size: 16px; margin-top: 10px;">
                 ${diary.heartfeltThought || diary.title}
             </div>
         `;
@@ -39754,11 +39754,11 @@ function switchDiaryTab(tab, element) {
         document.getElementById('diaryNavFriendName').innerHTML = `
             <div style="display: flex; gap: 15px; align-items: center;">
                 <!-- 原有的写日记按钮 -->
-                <button class="nav-btn" onclick="openUserWriteDiary()" style="font-size: 20px; color: #000; padding:0;" title="写日记">
+                <button class="nav-btn" onclick="openUserWriteDiary()" style="font-size: 20px; color: #333333; padding:0;" title="写日记">
                     <i class="ri-edit-line"></i>
                 </button>
                 <!-- 新增：字体设置按钮 -->
-                <button class="nav-btn" onclick="openDiaryFontSettings()" style="font-size: 20px; color: #000; padding:0;" title="纸条字体">
+                <button class="nav-btn" onclick="openDiaryFontSettings()" style="font-size: 20px; color: #333333; padding:0;" title="纸条字体">
                     <i class="ri-font-size-2"></i>
                 </button>
             </div>
@@ -40912,7 +40912,7 @@ function renderQQProfileDetails(data) {
         </div>
         <!-- 这里可以放一个最新的提问预览 -->
         <div onclick="openAnonymousQAScreen()" style="background:#f9f9f9; padding:12px; border-radius:8px; margin-bottom:20px; cursor:pointer;">
-             <div style="font-size:13px; font-weight:bold; color:#000; margin-bottom:4px;">向好友匿名提问</div>
+             <div style="font-size:13px; font-weight:bold; color:#333333; margin-bottom:4px;">向好友匿名提问</div>
              <div style="font-size:12px; color:#999;">点击进入查看大家的提问和回答...</div>
         </div>
     `;
@@ -41039,7 +41039,7 @@ function renderQAList(friend) {
         // 角色头像
         const charAvatarUrl = friend.avatarImage 
             ? `background-image: url('${friend.avatarImage}')` 
-            : `background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold;`;
+            : `background-color: #333333; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold;`;
         const charAvatarContent = friend.avatarImage ? '' : friend.name[0];
 
         item.innerHTML = `
@@ -42113,7 +42113,7 @@ async function triggerWakeUpSequence(friend, reason) {
             background: #fff; z-index: 200; opacity: 0;
             transition: opacity 1.5s ease; display: flex;
             align-items: center; justify-content: center;
-            color: #000; font-size: 24px; font-family: "Noto Serif SC", serif;
+            color: #333333; font-size: 24px; font-family: "Noto Serif SC", serif;
         `;
         wakeOverlay.innerHTML = "<div>梦 醒 了</div>";
         document.querySelector('.phone').appendChild(wakeOverlay);
@@ -44188,28 +44188,32 @@ function applyPageTopOffset() {
 })();
 
 // 兜底：iOS 键盘弹出瞬间会产生一次坐标错位的“幽灵点击”，
-// 若落在主屏幕图标上就会误开 App（表现为打字时突然跳进游戏）。
-// 输入框获得焦点后的 600ms 内，吞掉主屏幕上所有图标的点击。
-(function blockGhostAppTaps() {
+// 可能落到其他页面元素或主屏幕图标上（表现为点输入框却跳进别的 App / 页面）。
+// 输入框获得焦点后的 600ms 内，吞掉除“当前输入框自身”以外的所有点击。
+(function blockGhostTaps() {
     let lastFieldFocusAt = 0;
+    let focusedField = null;
+
+    function isTextField(el) {
+        return !!el && (/^(input|textarea)$/i.test(el.tagName) || el.isContentEditable);
+    }
 
     document.addEventListener('focusin', (e) => {
         const el = e.target;
-        if (!el) return;
-        if (/^(input|textarea)$/i.test(el.tagName) || el.isContentEditable) {
-            lastFieldFocusAt = Date.now();
-        }
+        if (!isTextField(el)) return;
+        lastFieldFocusAt = Date.now();
+        focusedField = el;
+    }, { passive: true });
+
+    document.addEventListener('focusout', () => {
+        focusedField = null;
     }, { passive: true });
 
     document.addEventListener('click', (e) => {
         if (Date.now() - lastFieldFocusAt > 600) return;
-        const icon = e.target.closest ? e.target.closest('.app') : null;
-        if (!icon) return;
-        const home = document.getElementById('homeScreen');
-        if (!home) return;
-        // 只有主屏幕仍在渲染时才算“幽灵点击落到了桌面上”
-        const homeRendered = home.classList.contains('active') || getComputedStyle(home).display !== 'none';
-        if (!homeRendered) return;
+        // 点击输入框自身（例如 readonly 输入框点击展开下拉）必须放行
+        const field = focusedField;
+        if (field && (e.target === field || (field.contains && field.contains(e.target)))) return;
         e.stopPropagation();
         e.preventDefault();
     }, true);

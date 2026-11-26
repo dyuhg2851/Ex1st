@@ -63,7 +63,7 @@ function injectCRStyles() {
         }
         .cr-top-float-bar > * { pointer-events: auto; }
         .cr-score-badge {
-            background: rgba(255,255,255,0.9); color: #000; border: 1px solid #ddd; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-family: monospace; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s;
+            background: rgba(255,255,255,0.9); color: #333333; border: 1px solid #ddd; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-family: monospace; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: all 0.3s;
         }
         .night-mode .cr-score-badge { background: rgba(30,30,30,0.9); color: #fff; border-color: #444; }
         
@@ -76,7 +76,7 @@ function injectCRStyles() {
         .cr-system-text { color: #888; font-style: italic; text-align: center; font-size: 14px; margin-bottom: 20px; }
         
         .cr-options-box { width: 100%; max-width: 600px; margin-top: 20px; display: none; flex-direction: column; gap: 12px; animation: fadeIn 0.5s ease; }
-        .cr-option-btn { background: #fff; border: 1px solid #000; color: #000; padding: 15px; border-radius: 8px; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+        .cr-option-btn { background: #fff; border: 1px solid #333333; color: #333333; padding: 15px; border-radius: 8px; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
         .cr-option-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.1); background: #f9f9f9; }
         .night-mode .cr-option-btn { background: #1c1c1e; border-color: #fff; color: #fff; }
         
@@ -113,7 +113,7 @@ function injectCRDomElements() {
             <button class="nav-btn" onclick="backToCRCharSelect()"><i class="ri-arrow-left-s-line"></i></button>
             <div class="nav-title" id="crListTitle">穿越记录</div>
             <button class="nav-btn nav-right-action-btn" onclick="openCRSetupModal()">
-                <i class="ri-add-line" style="font-size: 24px; color: #000;"></i>
+                <i class="ri-add-line" style="font-size: 24px; color: #333333;"></i>
             </button>
         </div>
         <div class="wechat-content" style="background: #f7f7f7; padding: 20px; padding-top: 84px;">
@@ -140,7 +140,7 @@ function injectCRDomElements() {
             </div>
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('crSetupModal').classList.remove('show')">放弃</button>
-                <button class="modal-btn modal-btn-confirm" onclick="startCRGame()" style="background:#000; color:#fff;">开启穿越</button>
+                <button class="modal-btn modal-btn-confirm" onclick="startCRGame()" style="background:#333333; color:#fff;">开启穿越</button>
             </div>
         </div>
     </div>
@@ -530,7 +530,7 @@ function handleLocalEnding() {
     const exitBtn = document.createElement('div');
     exitBtn.className = 'cr-option-btn';
     exitBtn.style.textAlign = 'center';
-    exitBtn.style.background = '#000';
+    exitBtn.style.background = '#333333';
     exitBtn.style.color = '#fff';
     exitBtn.textContent = "幻梦终醒，回到日常";
     exitBtn.onclick = (e) => { e.stopPropagation(); exitCRPlay(); };

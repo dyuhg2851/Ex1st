@@ -32,12 +32,12 @@ function tm_injectUI() {
             cursor: pointer; position: relative; transition: transform 0.2s;
         }
         .tm-record-card:active { transform: scale(0.98); }
-        .tm-card-title { font-size: 18px; font-weight: bold; color: #000; margin-bottom: 8px; }
+        .tm-card-title { font-size: 18px; font-weight: bold; color: #333333; margin-bottom: 8px; }
         .tm-card-role { font-size: 12px; background: #f0f0f0; color: #333; padding: 3px 8px; border-radius: 12px; display: inline-block; margin-bottom: 10px; font-weight: bold; }
         .tm-card-node { font-size: 14px; color: #555; line-height: 1.5; margin-bottom: 10px; }
         .tm-card-meta { border-top: 1px dashed #eee; padding-top: 10px; font-size: 11px; color: #999; display: flex; justify-content: space-between; }
         .tm-delete-btn { position: absolute; top: 15px; right: 15px; color: #ccc; padding: 5px; cursor: pointer; transition: color 0.2s; }
-        .tm-delete-btn:active { color: #000; }
+        .tm-delete-btn:active { color: #333333; }
         
         /* 阅读器界面 (晋江风) */
         #tmPlayScreen { background-color: #F2EBE1; z-index: 2000; }
@@ -66,8 +66,8 @@ function tm_injectUI() {
         
         /* 用户的行动文本样式 (黑白极简) */
         .tm-paragraph.user-action {
-            color: #000; font-weight: bold; text-indent: 0; 
-            background: #fcfcfc; padding: 12px 15px; border-radius: 8px; border-left: 4px solid #000;
+            color: #333333; font-weight: bold; text-indent: 0; 
+            background: #fcfcfc; padding: 12px 15px; border-radius: 8px; border-left: 4px solid #333333;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-top: 10px; margin-bottom: 30px;
             border-top: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;
         }
@@ -79,7 +79,7 @@ function tm_injectUI() {
             font-family: sans-serif;
         }
         .tm-transmigrate-divider span { flex: 1; height: 1px; background: #ddd; }
-        .tm-transmigrate-divider i { font-size: 16px; color: #000; }
+        .tm-transmigrate-divider i { font-size: 16px; color: #333333; }
         
         /* 融入正文末尾的内联输入框 (黑白极简) */
         .tm-inline-input-box {
@@ -91,7 +91,7 @@ function tm_injectUI() {
         }
         .tm-action-input {
             width: 100%; background: transparent; border: none; 
-            font-size: 16px; outline: none; resize: none; color: #000;
+            font-size: 16px; outline: none; resize: none; color: #333333;
             font-family: inherit; line-height: 1.6; min-height: 40px;
         }
         .tm-action-input::placeholder { color: #bbb; }
@@ -108,7 +108,7 @@ function tm_injectUI() {
             border: 2px solid transparent; transition: transform 0.2s;
         }
         .tm-bg-btn:active { transform: scale(0.9); }
-        .tm-bg-btn.active { border-color: #000; box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); }
+        .tm-bg-btn.active { border-color: #333333; box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); }
 
         .tm-tap-hint {
             text-align: center; font-size: 13px; color: #999; animation: pulse 2s infinite; 
@@ -118,18 +118,18 @@ function tm_injectUI() {
         /* 模态框网格和列表 */
         .tm-book-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; max-height: 50vh; overflow-y: auto; padding: 5px;}
         .tm-book-item { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 8px; text-align: center; cursor: pointer; transition: 0.2s;}
-        .tm-book-item:active, .tm-book-item.selected { border-color: #000; background: #f0f0f0; }
+        .tm-book-item:active, .tm-book-item.selected { border-color: #333333; background: #f0f0f0; }
         .tm-book-item img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 4px; margin-bottom: 5px; }
-        .tm-book-title { font-size: 11px; font-weight: bold; color: #000; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tm-book-title { font-size: 11px; font-weight: bold; color: #333333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         .tm-role-btn { display: block; width: 100%; padding: 15px; background: #f9f9f9; border: 1px solid #eee; border-radius: 12px; margin-bottom: 10px; text-align: left; cursor: pointer; color: #333; transition: 0.2s;}
-        .tm-role-btn:active, .tm-role-btn.selected { background: #f0f0f0; border-color: #000; }
-        .tm-role-btn strong { display: block; font-size: 16px; margin-bottom: 4px; color: #000; }
+        .tm-role-btn:active, .tm-role-btn.selected { background: #f0f0f0; border-color: #333333; }
+        .tm-role-btn strong { display: block; font-size: 16px; margin-bottom: 4px; color: #333333; }
         .tm-role-btn span { font-size: 12px; color: #888; }
 
-        .tm-node-item { background: #fff; border: 1px solid #eee; border-left: 4px solid #000; border-radius: 10px; padding: 15px; margin-bottom: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.2s;}
+        .tm-node-item { background: #fff; border: 1px solid #eee; border-left: 4px solid #333333; border-radius: 10px; padding: 15px; margin-bottom: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.2s;}
         .tm-node-item:active { background: #f5f5f5; transform: scale(0.98); }
-        .tm-node-title { font-weight: bold; font-size: 15px; margin-bottom: 5px; color: #000; }
+        .tm-node-title { font-weight: bold; font-size: 15px; margin-bottom: 5px; color: #333333; }
         .tm-node-desc { font-size: 13px; color: #666; line-height: 1.5; }
     `;
     document.head.appendChild(style);
@@ -141,13 +141,13 @@ function tm_injectUI() {
         <div id="tmListScreen" class="page page-container">
             <div class="nav-bar" style="background: #fff; border-bottom: 1px solid #eee;">
                 <button class="nav-btn" onclick="tm_backToMyPage()"><i class="ri-arrow-left-s-line"></i></button>
-                <div class="nav-title" style="color: #000; font-weight: 800;">时空管理局</div>
+                <div class="nav-title" style="color: #333333; font-weight: 800;">时空管理局</div>
                 <!-- 提示词与新建按钮 -->
                 <div style="display:flex; align-items:center; gap: 5px;">
-                    <button class="nav-btn nav-right-action-btn" onclick="tm_openPromptModal()" style="font-size: 20px; color: #000;" title="提示词设置">
+                    <button class="nav-btn nav-right-action-btn" onclick="tm_openPromptModal()" style="font-size: 20px; color: #333333;" title="提示词设置">
                         <i class="ri-settings-3-line"></i>
                     </button>
-                    <button class="nav-btn nav-right-action-btn" onclick="tm_openSelectBookModal()" style="font-size: 24px; color: #000;" title="新建穿越">
+                    <button class="nav-btn nav-right-action-btn" onclick="tm_openSelectBookModal()" style="font-size: 24px; color: #333333;" title="新建穿越">
                         <i class="ri-add-line"></i>
                     </button>
                 </div>
@@ -160,18 +160,18 @@ function tm_injectUI() {
             <!-- 悬浮透明导航栏 -->
             <div class="nav-bar" style="background: transparent; border: none; z-index: 2010; position: absolute; top:0; width:100%;">
                 <button class="nav-btn" onclick="tm_exitPlayScreen()" style="background: rgba(255,255,255,0.6); border-radius: 50%; width: 32px; height: 32px; display:flex; align-items:center; justify-content:center; backdrop-filter: blur(4px); border: 1px solid rgba(0,0,0,0.05);">
-                    <i class="ri-arrow-left-s-line" style="font-size: 20px; color: #000;"></i>
+                    <i class="ri-arrow-left-s-line" style="font-size: 20px; color: #333333;"></i>
                 </button>
-                <div class="nav-title" id="tmPlayTitle" style="color: #000; font-weight: bold; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">穿越中</div>
+                <div class="nav-title" id="tmPlayTitle" style="color: #333333; font-weight: bold; text-shadow: 0 1px 2px rgba(255,255,255,0.8);">穿越中</div>
                 <!-- 右侧设置按钮 -->
                 <button class="nav-btn" onclick="tm_toggleSettings(event)" style="background: rgba(255,255,255,0.6); border-radius: 50%; width: 32px; height: 32px; display:flex; align-items:center; justify-content:center; backdrop-filter: blur(4px); border: 1px solid rgba(0,0,0,0.05);">
-                    <i class="ri-palette-line" style="font-size: 18px; color: #000;"></i>
+                    <i class="ri-palette-line" style="font-size: 18px; color: #333333;"></i>
                 </button>
             </div>
 
             <!-- 背景设置面板 -->
             <div id="tmSettingsPanel" class="tm-settings-panel">
-                <div style="font-size: 13px; font-weight: bold; color: #000; margin-bottom: 12px;">阅读背景</div>
+                <div style="font-size: 13px; font-weight: bold; color: #333333; margin-bottom: 12px;">阅读背景</div>
                 <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                     <div class="tm-bg-btn" style="background: #F2EBE1;" onclick="tm_changeBg('#F2EBE1', 'color')"></div>
                     <div class="tm-bg-btn" style="background: #FFFFFF; border: 1px solid #ccc;" onclick="tm_changeBg('#FFFFFF', 'color')"></div>
@@ -191,10 +191,10 @@ function tm_injectUI() {
                 
                 <!-- 嵌入正文末尾的输入框 -->
                 <div id="tmInlineInputContainer" class="tm-inline-input-box" style="display:none;">
-                    <div style="font-size: 13px; color: #000; font-weight: bold; margin-bottom: 8px;"><i class="ri-edit-2-line"></i> 决定你的下一步行动：</div>
+                    <div style="font-size: 13px; color: #333333; font-weight: bold; margin-bottom: 8px;"><i class="ri-edit-2-line"></i> 决定你的下一步行动：</div>
                     <textarea id="tmActionInput" class="tm-action-input" rows="1" placeholder="例如：我推开门走进去，对他说..." oninput="this.style.height = 'auto'; this.style.height = (this.scrollHeight) + 'px';"></textarea>
                     <div style="text-align: right; margin-top: 10px;">
-                        <button onclick="tm_submitAction(event)" style="background: #000; color: #fff; border: none; padding: 8px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">执行行动</button>
+                        <button onclick="tm_submitAction(event)" style="background: #333333; color: #fff; border: none; padding: 8px 24px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">执行行动</button>
                     </div>
                 </div>
                 
@@ -205,12 +205,12 @@ function tm_injectUI() {
         <!-- 模态框：提示词设置 -->
         <div id="tmPromptModal" class="modal" style="z-index: 10005;">
             <div class="modal-content" style="max-width: 400px; width: 90%;">
-                <div class="modal-title" style="color: #000;">穿越系统提示词</div>
+                <div class="modal-title" style="color: #333333;">穿越系统提示词</div>
                 <div style="font-size: 12px; color: #666; margin-bottom: 12px;">此处的指令将全局作用于时空节点生成与后续剧情续写中。</div>
                 <textarea id="tmCustomPromptInput" class="modal-textarea" placeholder="例如：少一些心理描写，多一些动作细节；或者改变文章基调为黑暗惊悚风..." style="min-height: 120px; background: #f9f9f9; border: 1px solid #eee; width: 100%; box-sizing: border-box;"></textarea>
                 <div class="modal-buttons" style="margin-top: 15px;">
                     <button class="modal-btn cancel" onclick="doujinHideModal('tmPromptModal')" style="background:#f0f0f0; color:#666;">取消</button>
-                    <button class="modal-btn confirm" onclick="tm_saveCustomPrompt()" style="background:#000; color:white;">保存设置</button>
+                    <button class="modal-btn confirm" onclick="tm_saveCustomPrompt()" style="background:#333333; color:white;">保存设置</button>
                 </div>
             </div>
         </div>
@@ -218,7 +218,7 @@ function tm_injectUI() {
         <!-- 模态框：1. 选择书籍 -->
         <div id="tmSelectBookModal" class="modal" style="z-index: 10000;">
             <div class="modal-content" style="max-width: 400px; width: 90%;">
-                <div class="modal-title" style="color: #000;">选择要穿越的同人文</div>
+                <div class="modal-title" style="color: #333333;">选择要穿越的同人文</div>
                 <div id="tmBookGrid" class="tm-book-grid"></div>
                 <div class="modal-buttons" style="margin-top: 15px;">
                     <button class="modal-btn cancel" onclick="doujinHideModal('tmSelectBookModal')" style="background:#f0f0f0; color:#666;">取消</button>
@@ -229,7 +229,7 @@ function tm_injectUI() {
         <!-- 模态框：2. 选择身份 -->
         <div id="tmSelectRoleModal" class="modal" style="z-index: 10001;">
             <div class="modal-content" style="max-width: 400px; width: 90%;">
-                <div class="modal-title" style="color: #000;">选择你的穿越身份</div>
+                <div class="modal-title" style="color: #333333;">选择你的穿越身份</div>
                 <div id="tmRoleList" style="max-height: 50vh; overflow-y: auto; padding: 5px;">
                     <!-- 动态生成 -->
                 </div>
@@ -238,7 +238,7 @@ function tm_injectUI() {
                 </div>
                 <div class="modal-buttons" style="margin-top: 15px;">
                     <button class="modal-btn cancel" onclick="doujinHideModal('tmSelectRoleModal')" style="background:#f0f0f0; color:#666;">上一步</button>
-                    <button class="modal-btn confirm" onclick="tm_confirmRole()" style="background:#000; color:white;">生成降落节点</button>
+                    <button class="modal-btn confirm" onclick="tm_confirmRole()" style="background:#333333; color:white;">生成降落节点</button>
                 </div>
             </div>
         </div>
@@ -246,7 +246,7 @@ function tm_injectUI() {
         <!-- 模态框：3. 选择降落节点 -->
         <div id="tmSelectNodeModal" class="modal" style="z-index: 10002;">
             <div class="modal-content" style="max-width: 400px; width: 90%;">
-                <div class="modal-title" style="color: #000;">选择时空降落点</div>
+                <div class="modal-title" style="color: #333333;">选择时空降落点</div>
                 <div style="font-size:12px; color:#999; margin-bottom:15px; text-align:center;">AI已为你截取了5个关键剧情节点</div>
                 <div id="tmNodeList" style="max-height: 50vh; overflow-y: auto; padding: 5px;"></div>
                 <div class="modal-buttons" style="margin-top: 15px;">
@@ -341,7 +341,7 @@ function tm_renderRecordList() {
             <div style="font-size: 14px; color: #666; margin-bottom: 10px; font-style: italic; line-height:1.5;">"${preview}"</div>
             <div class="tm-card-meta">
                 <span>更新于: ${new Date(record.lastUpdate).toLocaleString('zh-CN', {month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'})}</span>
-                <span style="color: #000; font-weight:bold;">继续剧情 <i class="ri-arrow-right-s-line" style="vertical-align:middle;"></i></span>
+                <span style="color: #333333; font-weight:bold;">继续剧情 <i class="ri-arrow-right-s-line" style="vertical-align:middle;"></i></span>
             </div>
         `;
         item.onclick = () => tm_continueRecord(record.id);
@@ -467,7 +467,7 @@ async function tm_generateNodes(book) {
 
     doujinShowModal('tmSelectNodeModal');
     const list = document.getElementById('tmNodeList');
-    list.innerHTML = '<div style="text-align:center; padding:40px 20px;"><div class="loading-spinner" style="border-top-color:#000; margin:0 auto 15px;"></div><p style="color:#333; font-weight:bold;">时空雷达全量扫描中...</p><p style="font-size:11px; color:#999; margin-top:8px;">(原著较长时耗时稍久，请耐心等待)</p></div>';
+    list.innerHTML = '<div style="text-align:center; padding:40px 20px;"><div class="loading-spinner" style="border-top-color:#333333; margin:0 auto 15px;"></div><p style="color:#333; font-weight:bold;">时空雷达全量扫描中...</p><p style="font-size:11px; color:#999; margin-top:8px;">(原著较长时耗时稍久，请耐心等待)</p></div>';
 
     let bookContent = book.fulltext || "";
     if (book.chapters && book.chapters.length > 0) {

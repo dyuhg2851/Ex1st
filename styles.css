@@ -19,7 +19,7 @@ html {
 
        body {
     font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-    background: #000;
+    background: #333333;
     touch-action: manipulation;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -28,7 +28,7 @@ html {
     -ms-user-select: none;
     user-select: none;
     transition: background-color 0.3s ease, color 0.3s ease;
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
 }
 
         .phone {
@@ -272,7 +272,7 @@ html {
      
 .app-icon-container i {
     font-size: 30px; 
-    color: #000;     
+    color: #333333;     
 }
 
 .bottom-dock .app-icon-container i {
@@ -285,7 +285,7 @@ html {
 }
         
         .app.wechat .app-icon { 
-            fill: #000; 
+            fill: #333333; 
         }
 
         .app-label {
@@ -402,7 +402,7 @@ html {
     text-align: center;
     font-size: var(--nav-font-size, 17px);
     font-weight: 600;
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -435,7 +435,7 @@ html {
             background: none;
             border: none;
             font-size: 20px;
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
             cursor: pointer;
             padding: 4px 12px;
             border-radius: var(--btn-radius, 6px);
@@ -569,7 +569,7 @@ html {
 
         .friend-message {
             font-size: var(--small-font-size, 13px);
-            color: var(--text-color, #000); 
+            color: var(--text-color, #333333); 
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
             white-space: nowrap;
             overflow: hidden;
@@ -647,7 +647,7 @@ html {
             cursor: pointer;
             position: relative;
             border-radius: 4px;
-            color: #000000;
+            color: #333333;
             transition: all 0.3s ease;
              -webkit-user-select: none;
     -moz-user-select: none;
@@ -687,13 +687,13 @@ html {
         #chatScreen .message.received .message-content {
             background-color: #ffffff;
             border: none;
-            color: #000000;
+            color: #333333;
         }
 
         #chatScreen .message.sent .message-content {
             background-color: #95ec69;
             border: none;
-            color: #000000;
+            color: #333333;
         }
 
         /* === 小三角气泡尾巴：单层实心、紧贴气泡边缘 === */
@@ -821,7 +821,7 @@ html {
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
             transition: all 0.3s ease;
             background: #ffffff;
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
             resize: none;
             line-height: 1.4;
             overflow-y: auto;
@@ -1279,7 +1279,7 @@ html {
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
             transition: all 0.3s ease;
             background: var(--bg-primary, white);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
         }
 
         .form-textarea {
@@ -1314,7 +1314,7 @@ html {
             background: var(--bg-primary, white);
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
             transition: all 0.3s ease;
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
         }
 
         .dropdown-arrow {
@@ -1353,7 +1353,7 @@ html {
             border-bottom: 1px solid var(--border-light, #f0f0f0);
             font-size: var(--font-size, 16px);
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
         }
 
         .model-option:last-child {
@@ -1703,7 +1703,7 @@ html {
 
         .message-content .invite-card, .message-content .accept-card {
             background: var(--bg-primary, #fff);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
             padding: 12px 15px;
             border-radius: 10px;
             width: 230px;
@@ -1870,7 +1870,7 @@ html {
             margin-bottom: 15px;
             text-align: center;
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
         }
 
         .modal-input {
@@ -1884,7 +1884,7 @@ html {
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
             transition: all 0.3s ease;
             background: var(--bg-primary, white);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
             text-align: left; 
         }
 
@@ -1901,7 +1901,7 @@ html {
             font-family: var(--font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
             transition: all 0.3s ease;
             background: var(--bg-primary, white);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
         }
 
         .modal-buttons {
@@ -2377,7 +2377,7 @@ html {
             font-family: monospace;
             transition: all 0.3s ease;
             background: var(--bg-primary, white);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
         }
 
         .auto-diary-btn {
@@ -2651,7 +2651,7 @@ html {
             --font-size: 14px;
             --small-font-size: 12px;
             --nav-font-size: 17px;
-            --text-color: #000;
+            --text-color: #333333;
             --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --custom-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --sent-quote-border-color: #d9b8c7;
@@ -2729,7 +2729,7 @@ html {
             font-family: monospace;
             transition: all 0.3s ease;
             background: var(--bg-primary, white);
-            color: var(--text-color, #000);
+            color: var(--text-color, #333333);
             margin-top: 5px;
         }
 
@@ -2761,7 +2761,7 @@ html {
             width: 90%;
             max-width: 400px;
             background: rgba(255, 255, 255, 0.95);
-            color: black;
+            color: #333333;
             border-radius: 12px;
             padding: 15px;
             z-index: 9999;
@@ -3447,10 +3447,10 @@ html {
 .location-card {
     width: 240px;
     background-color: #ffffff;
-    border: 2px solid #000; 
+    border: 2px solid #333333; 
     border-radius: 8px;
     overflow: hidden;
-    color: #000;
+    color: #333333;
     
     box-shadow: 4px 4px 0px rgba(0,0,0,0.15); 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -3462,11 +3462,11 @@ html {
     background-color: #fff;
     
     background-image: 
-        linear-gradient(90deg, transparent 49%, #000 49%, #000 51%, transparent 51%),
-        linear-gradient(0deg, transparent 49%, #000 49%, #000 51%, transparent 51%);
+        linear-gradient(90deg, transparent 49%, #333333 49%, #333333 51%, transparent 51%),
+        linear-gradient(0deg, transparent 49%, #333333 49%, #333333 51%, transparent 51%);
     background-size: 60px 60px; 
     opacity: 0.8;
-    border-bottom: 2px solid #000; 
+    border-bottom: 2px solid #333333; 
 }
 
 
@@ -3474,7 +3474,7 @@ html {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: radial-gradient(#000 15%, transparent 16%);
+    background-image: radial-gradient(#333333 15%, transparent 16%);
     background-size: 10px 10px;
     opacity: 0.05; 
 }
@@ -3499,7 +3499,7 @@ html {
 .location-card-title {
     font-size: 17px;
     font-weight: 800; 
-    color: #000;
+    color: #333333;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3522,7 +3522,7 @@ html {
     justify-content: space-between; 
     font-size: 10px;
     color: #fff;
-    background-color: #000; 
+    background-color: #333333; 
     padding: 6px 15px;
     font-weight: bold;
     letter-spacing: 1px;
@@ -3941,7 +3941,7 @@ html {
     border: 1px solid var(--border-color, #ccc);
     text-align: right;
     background: var(--bg-hover, #f0f0f0);
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
     font-size: 14px;
 }
 
@@ -4132,7 +4132,7 @@ html {
     border: 1px solid var(--border-light, #f0f0f0);
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     overflow: hidden;
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
 }
 
 .poll-card-header {
@@ -4702,7 +4702,7 @@ width: 100%;
 .post-author-name {
     font-weight: 700;
     font-size: 15px;
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
 }
 
 .post-handle {
@@ -4714,7 +4714,7 @@ width: 100%;
 .post-text {
     font-size: 15px;
     line-height: 1.4;
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
     white-space: pre-wrap;
     word-break: break-word;
 }
@@ -4848,7 +4848,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 
 .forum-tab.active {
-    color: var(--text-color, #000); 
+    color: var(--text-color, #333333); 
 }
 
 
@@ -4910,7 +4910,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     padding: 8px 16px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
     background-color: transparent;
     border: 1px solid var(--border-color, #ccc);
     border-radius: 9999px; 
@@ -4982,7 +4982,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .forum-profile-tab.active {
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
 }
 
 .forum-profile-tab.active::after {
@@ -5125,7 +5125,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .trends-header-refresh svg {
     width: 20px;
     height: 20px;
-    fill: var(--text-color, #000);
+    fill: var(--text-color, #333333);
 }
 
 
@@ -5297,7 +5297,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .forum-detail-main-post { padding: 12px 15px 0; }
 .post-header .post-more-btn { color: var(--text-secondary, #666); cursor: pointer; }
 .post-stats-bar { display: flex; gap: 12px; padding: 10px 0; font-size: 14px; color: var(--text-secondary, #666); }
-.post-stats-bar strong { font-weight: bold; color: var(--text-color, #000); }
+.post-stats-bar strong { font-weight: bold; color: var(--text-color, #333333); }
 
 
 .post-actions {
@@ -5855,7 +5855,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 .emoji-modal-tab.active {
     background-color: var(--bg-primary, white);
-    color: var(--text-color, #000);
+    color: var(--text-color, #333333);
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
@@ -5989,7 +5989,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #marsModeScreen #container { width: 100%; height: 100%; display: flex; flex-direction: column; transition: padding-bottom 0.2s ease-out; }
 #marsModeScreen .panels-wrapper { flex-grow: 1; display: flex; flex-direction: column; gap: 15px; padding: 15px; padding-top: calc(50px + env(safe-area-inset-top) + 15px); overflow: hidden; }
-#marsModeScreen .mars-panel { flex-shrink: 0; background-color: #000000; border-radius: 24px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative; background-size: cover; background-position: center; transition: flex 0.35s ease-in-out, background-image 0.5s ease; }
+#marsModeScreen .mars-panel { flex-shrink: 0; background-color: #333333; border-radius: 24px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative; background-size: cover; background-position: center; transition: flex 0.35s ease-in-out, background-image 0.5s ease; }
 #marsModeScreen #mars-bottom-panel:not(.focused) { cursor: pointer; }
 #marsModeScreen .mars-content-display, #marsModeScreen #marsMessageInput { color: white; font-size: 22px; text-align: center; font-weight: 500; line-height: 1.6; word-break: break-all; }
 #marsModeScreen #marsMessageInput { background: transparent; border: none; outline: none; width: 100%; height: auto; resize: none; }
@@ -6004,7 +6004,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #marsModeScreen #container.user-panel-focused #user-input-area { display: flex; flex-direction: column; flex-grow: 1; justify-content: center;}
 #marsModeScreen #input-controls { flex-shrink: 0; height: 60px; background: #ffffff; border-top: 1px solid #EAEAEA; display: flex; align-items: center; gap: 20px; padding: 0 20px; padding-bottom: env(safe-area-inset-bottom); height: calc(60px + env(safe-area-inset-bottom)); }
 #marsModeScreen .control-btn { background: none; border: none; color: #555; cursor: pointer; font-size: 24px; padding: 5px; }
-#marsModeScreen .control-btn:hover { color: #000; }
+#marsModeScreen .control-btn:hover { color: #333333; }
 #marsModeScreen #toggle-panel-btn { position: absolute; bottom: 15px; right: 20px; width: 38px; height: 38px; background: rgba(0, 0, 0, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; cursor: pointer; z-index: 5; }
 #marsModeScreen #toggle-panel-btn i { transition: transform 0.35s ease; }
 #marsModeScreen #container.user-panel-focused #toggle-panel-btn i { transform: rotate(180deg); }
@@ -6272,7 +6272,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background: rgba(255, 255, 255, 0.3);
 }
 #home-screen-dots .dot.active {
-    background: black;
+    background: #333333;
 }
 .wechat-dark-mode #home-screen-dots .dot.active {
     background: white;
@@ -6406,7 +6406,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 #desktop-page-2 .widget-icons i:hover {
-    color: #000;
+    color: #333333;
 }
 
 #desktop-page-2 .user-profile-area {
@@ -6960,7 +6960,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 
-#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-around; padding: 8px 0 12px; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
+#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(49px + env(safe-area-inset-bottom, 0px)); background: white; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-around; padding: 0 0 env(safe-area-inset-bottom, 0px); box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
 #doujinForumApp .bottom-nav.hidden { transform: translateY(100px); }
 #doujinForumApp .nav-item { flex: 1; text-align: center; text-decoration: none; color: #999; display: flex; flex-direction: column; align-items: center; padding: 5px 0; transition: all 0.3s; cursor: pointer; }
 #doujinForumApp .nav-item.active { color: #7d9d8f; }
@@ -7793,16 +7793,15 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #loadingOverlay .logo-section {
     margin-bottom: 48px;
-    opacity: 0;
-    transform: translateY(28px);
-    will-change: opacity, transform;
-    animation: jrsy_splash_logoIn 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s forwards;
+    /* 静态显示：EX1ST 直接出现，不做任何入场动画 */
+    opacity: 1;
+    transform: none;
 }
 
 #loadingOverlay .logo {
     font-size: 60px;
     font-weight: 900;
-    color: #000000;
+    color: #333333;
     letter-spacing: 10px;
     display: flex;
     justify-content: center;
@@ -7814,18 +7813,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     display: inline-block;
 }
 
-@keyframes jrsy_splash_logoIn {
-    from {
-        opacity: 0;
-        transform: translateY(28px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
 #loadingOverlay .ai-tag {
     font-size: 13px;
     font-weight: 600;
@@ -7833,39 +7820,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     letter-spacing: 3px;
 }
 
-
-#loadingOverlay .chat-bubbles {
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 12px;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.8s ease-out 0.5s forwards;
-}
-
-#loadingOverlay .bubble {
-    width: 8px;
-    height: 8px;
-    background-color: #000;
-    border-radius: 50%;
-    animation: jrsy_splash_bubblePulse 1.5s ease-in-out infinite;
-}
-
-#loadingOverlay .bubble:nth-child(2) { animation-delay: 0.2s; }
-#loadingOverlay .bubble:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes jrsy_splash_bubblePulse {
-    0%, 100% { 
-        transform: scale(1);
-        opacity: 0.3;
-    }
-    50% { 
-        transform: scale(1.4);
-        opacity: 1;
-    }
-}
 
 /* 进度条区域 */
 #loadingOverlay .progress-wrapper {
@@ -7886,7 +7840,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #loadingOverlay .typing-text {
     display: inline-block;
-    border-right: 2px solid #000;
+    border-right: 2px solid #333333;
     animation: jrsy_splash_blink 0.8s step-end infinite;
 }
 
@@ -7907,7 +7861,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #loadingOverlay .progress-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #000 0%, #333 50%, #000 100%);
+    background: linear-gradient(90deg, #333333 0%, #333 50%, #333333 100%);
     background-size: 200% 100%;
     animation: 
         jrsy_splash_shimmer 1.5s ease-in-out infinite; 
@@ -7925,14 +7879,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #loadingOverlay .percentage {
     position: absolute;
-    top: -35px;
+    top: -32px;
     right: 0;
     font-size: 13px;
     font-weight: 600;
-    color: #000;
+    color: #333333;
     font-variant-numeric: tabular-nums;
-    opacity: 0;
-    animation: jrsy_splash_fadeIn 0.6s ease-out 1.2s forwards;
 }
 
 
@@ -7988,9 +7940,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
     #loadingOverlay .progress-wrapper {
         width: 320px;
-    }
-    #loadingOverlay .chat-bubbles {
-        top: -80px;
     }
 }
 
@@ -8912,7 +8861,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     right: 0;
     height: 60px;
     background: rgba(255, 255, 255, 0.98); /* 纯白背景 */
-    border-top: 2px solid #000; /* 黑色顶边框，强调黑白感 */
+    border-top: 2px solid #333333; /* 黑色顶边框，强调黑白感 */
     display: flex;
     align-items: center;
     justify-content: center; /* 居中布局 */
@@ -8933,7 +8882,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     align-items: center;
     justify-content: center;
     font-size: 10px;
-    color: #000; /* 纯黑文字 */
+    color: #333333; /* 纯黑文字 */
     cursor: pointer;
     transition: opacity 0.2s;
 }
@@ -8957,7 +8906,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-size: 16px;
     font-weight: bold;
     font-family: monospace; /* 等宽字体更有黑白杂志感 */
-    color: #000;
+    color: #333333;
 }
 
 /* 2. 日记卡片上的遮罩 */
@@ -8980,7 +8929,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 选中时的边框 */
 .diary-cover-item.selected .diary-select-overlay {
-    border-color: #000; /* 选中变黑框 */
+    border-color: #333333; /* 选中变黑框 */
     background: rgba(0, 0, 0, 0.05);
 }
 
@@ -8989,7 +8938,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 2px solid #000;
+    border: 2px solid #333333;
     background-color: #fff;
     color: transparent; /* 未选中时不显示勾 */
     display: flex;
@@ -8999,7 +8948,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .diary-cover-item.selected .diary-check-icon {
-    background-color: #000;
+    background-color: #333333;
     color: #fff; /* 选中变黑底白勾 */
 }
 
@@ -9105,25 +9054,25 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
 #activationOverlay .logo-section { margin-bottom: 60px; }
-#activationOverlay .logo { font-size: 56px; font-weight: 900; color: #000; letter-spacing: 10px; margin-bottom: 12px; }
+#activationOverlay .logo { font-size: 56px; font-weight: 900; color: #333333; letter-spacing: 10px; margin-bottom: 12px; }
 #activationOverlay .subtitle { font-size: 13px; font-weight: 600; color: #666; letter-spacing: 3px; }
 
 #activationOverlay .welcome-text { margin-bottom: 40px; }
-#activationOverlay .welcome-text h2 { font-size: 24px; font-weight: 700; color: #000; margin-bottom: 12px; }
+#activationOverlay .welcome-text h2 { font-size: 24px; font-weight: 700; color: #333333; margin-bottom: 12px; }
 #activationOverlay .welcome-text p { font-size: 14px; color: #999; }
 
 #activationOverlay .input-wrapper { position: relative; margin-bottom: 16px; }
 #activationOverlay .code-input {
     width: 100%; height: 56px; border: 2px solid #e5e5e5; border-radius: 8px;
     padding: 0 20px; font-size: 16px; font-weight: 600; letter-spacing: 3px;
-    text-align: center; text-transform: uppercase; background-color: #fafafa; color: #000; outline: none;
+    text-align: center; text-transform: uppercase; background-color: #fafafa; color: #333333; outline: none;
 }
-#activationOverlay .code-input:focus { border-color: #000; background-color: #fff; }
+#activationOverlay .code-input:focus { border-color: #333333; background-color: #fff; }
 #activationOverlay .error-message { font-size: 13px; color: #ff4444; margin-top: 8px; opacity: 0; height: 0; transition: all 0.3s; }
 #activationOverlay .error-message.show { opacity: 1; height: auto; }
 
 #activationOverlay .activate-btn {
-    width: 100%; height: 56px; background-color: #000; color: #fff; border: none;
+    width: 100%; height: 56px; background-color: #333333; color: #fff; border: none;
     border-radius: 8px; font-size: 15px; font-weight: 600; letter-spacing: 2px; cursor: pointer;
     transition: all 0.3s; position: relative;
 }
@@ -9137,10 +9086,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #activationOverlay .hint-title { font-size: 12px; font-weight: 600; color: #666; margin-bottom: 12px; }
 #activationOverlay .hint-list { font-size: 12px; color: #999; text-align: left; }
 #activationOverlay .hint-list li { list-style: none; padding-left: 20px; position: relative; margin-bottom: 8px; }
-#activationOverlay .hint-list li::before { content: '•'; position: absolute; left: 8px; color: #000; }
+#activationOverlay .hint-list li::before { content: '•'; position: absolute; left: 8px; color: #333333; }
 
 #activationOverlay .decoration-dots { position: absolute; top: 40px; right: 40px; display: flex; gap: 6px; opacity: 0.2; }
-#activationOverlay .dot { width: 6px; height: 6px; background-color: #000; border-radius: 50%; }
+#activationOverlay .dot { width: 6px; height: 6px; background-color: #333333; border-radius: 50%; }
 /* --- 激活界面样式结束 --- */
 
 /* --- 朋友圈发布弹窗美化 --- */
@@ -9235,15 +9184,15 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .group-select {
     flex-grow: 1;
     padding: 10px 15px;
-    border: 1px solid #000; /* 黑白风：黑色边框 */
+    border: 1px solid #333333; /* 黑白风：黑色边框 */
     border-radius: 8px;
     background: #fff;
-    color: #000;
+    color: #333333;
     font-size: 15px;
     outline: none;
     appearance: none;
     font-weight: 600;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
@@ -9253,7 +9202,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .add-group-btn-icon {
     width: 42px;
     height: 42px;
-    background: #000; /* 黑底 */
+    background: #333333; /* 黑底 */
     color: #fff; /* 白字 */
     border-radius: 8px;
     display: flex;
@@ -9286,9 +9235,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .action-btn-bw {
     flex: 1;
     padding: 12px;
-    border: 1px solid #000;
+    border: 1px solid #333333;
     background: #fff;
-    color: #000;
+    color: #333333;
     border-radius: 8px;
     font-size: 14px;
     font-weight: 600;
@@ -9301,7 +9250,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     transition: all 0.2s;
 }
 .action-btn-bw:active {
-    background: #000;
+    background: #333333;
     color: #fff;
 }
 
@@ -9318,7 +9267,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 40px;
     height: 40px;
     border-radius: 6px; /* 方圆角 */
-    background-color: #000;
+    background-color: #333333;
     color: #fff;
     display: flex;
     align-items: center;
@@ -9361,7 +9310,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* NPC 列表样式 */
 .npc-badge {
-    background: #000;
+    background: #333333;
     color: #fff;
     font-size: 10px;
     padding: 1px 4px;
@@ -9425,7 +9374,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .bw-style .form-label {
     font-size: 16px;
     font-weight: 500;
-    color: #000;
+    color: #333333;
     margin: 0;
     white-space: nowrap;
     min-width: 70px;
@@ -9499,7 +9448,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 黑色按钮 */
 .bw-style .settings-btn.btn-black {
-    background-color: #000;
+    background-color: #333333;
     color: #fff;
     border-radius: 30px;
     height: 48px;
@@ -9512,10 +9461,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .bw-style .settings-btn.btn-black:active { transform: scale(0.98); background-color: #333; }
 
 /* 开关颜色 */
-.bw-style input:checked + .toggle-slider { background-color: #000; }
+.bw-style input:checked + .toggle-slider { background-color: #333333; }
 
 /* 暗色模式 */
-.wechat-dark-mode .settings-content.bw-style { background-color: #000; }
+.wechat-dark-mode .settings-content.bw-style { background-color: #333333; }
 .wechat-dark-mode .bw-style .form-card { background-color: #1c1c1e; }
 .wechat-dark-mode .bw-style .form-label { color: #fff; }
 .wechat-dark-mode .bw-style .form-input, 
@@ -9523,9 +9472,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .wechat-dark-mode .bw-style .form-select { color: #fff; }
 .wechat-dark-mode .bw-style .form-textarea.large-area { background: #2c2c2e; }
 .wechat-dark-mode .bw-style .form-group-row { border-bottom-color: #2c2c2e; }
-.wechat-dark-mode .bw-style .settings-btn.btn-black { background-color: #fff; color: #000; }
+.wechat-dark-mode .bw-style .settings-btn.btn-black { background-color: #fff; color: #333333; }
 .wechat-dark-mode .bw-style input:checked + .toggle-slider { background-color: #fff; }
-.wechat-dark-mode .bw-style input:checked + .toggle-slider:before { background-color: #000; }
+.wechat-dark-mode .bw-style input:checked + .toggle-slider:before { background-color: #333333; }
 .wechat-dark-mode .bw-style .form-select.arrow-select {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
 }
@@ -9595,7 +9544,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 3. 选中状态 (黑框) */
 .bw-style .background-option.selected {
-    border-color: #000000; /* 选中变黑框 */
+    border-color: #333333; /* 选中变黑框 */
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transform: scale(1.02); /* 微微放大 */
@@ -9674,7 +9623,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 选中状态 */
 .bw-style .font-option-card.selected {
-    border-color: #000; /* 黑框 */
+    border-color: #333333; /* 黑框 */
     background: #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
@@ -9685,7 +9634,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     right: 8px;
     width: 18px;
     height: 18px;
-    background: #000;
+    background: #333333;
     color: #fff;
     border-radius: 50%;
     font-size: 12px;
@@ -9708,7 +9657,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-size: 14px;
     font-weight: 400;
     display: block;
-    color: #000;
+    color: #333333;
 }
 .bw-style .font-info .desc {
     font-size: 11px;
@@ -9740,7 +9689,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: 20px;
     border-radius: 50%;
     background: #fff;
-    border: 5px solid #000; /* 黑环白心 */
+    border: 5px solid #333333; /* 黑环白心 */
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
@@ -9794,14 +9743,14 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .bw-style .font-option-card .check-circle {
     background: #fff;
-    color: #000;
+    color: #333333;
 }
 .wechat-dark-mode .bw-style .bw-slider {
     background: #3a3a3c;
 }
 .wechat-dark-mode .bw-style .bw-slider::-webkit-slider-thumb {
     border-color: #fff;
-    background: #000;
+    background: #333333;
 }
 
 /* --- 图标设置界面美化 (黑白宫格风) --- */
@@ -9994,9 +9943,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     padding: 10px;
     font-size: 13px;
     border-radius: 8px;
-    border: 1px solid #000;
+    border: 1px solid #333333;
     background: #fff;
-    color: #000;
+    color: #333333;
     cursor: pointer;
     font-weight: 500;
 }
@@ -10105,7 +10054,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .bw-style .bw-chip-btn:active {
     background-color: #f0f0f0;
-    color: #000;
+    color: #333333;
     border-color: #ccc;
 }
 
@@ -10203,9 +10152,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     border-radius: 10px;
     
     /* 核心样式：黑色实线边框 */
-    border: 1px solid #000; 
+    border: 1px solid #333333; 
     background: #fff;
-    color: #000;
+    color: #333333;
     
     cursor: pointer;
     margin-top: 10px;
@@ -10218,7 +10167,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 按钮点击态 (反色效果) */
 .bw-style .bw-action-btn.solid-outline:active {
-    background: #000;
+    background: #333333;
     color: #fff;
 }
 
@@ -10235,7 +10184,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 .wechat-dark-mode .bw-style .bw-action-btn.solid-outline:active {
     background: #fff;
-    color: #000;
+    color: #333333;
 }
 
 /* --- API 设置界面提示文字 --- */
@@ -10274,7 +10223,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 文件夹图标 */
 .bw-style .wb-icon {
     font-size: 20px;
-    color: #000;
+    color: #333333;
 }
 
 /* 文件夹名称 */
@@ -10412,7 +10361,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .side-menu-title {
     font-size: 20px;
     font-weight: 700;
-    color: #000;
+    color: #333333;
 }
 
 /* 关闭按钮 */
@@ -10444,7 +10393,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 暗色模式适配 */
 .wechat-dark-mode #momentsSideMenu.forum-side-menu.right-side {
-    background-color: #000;
+    background-color: #333333;
 }
 .wechat-dark-mode .side-menu-title {
     color: #fff;
@@ -10553,7 +10502,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 3. 选中状态：由绿变黑 */
 .wechat-tab.active {
-    color: #000000 !important; /* 选中变纯黑 */
+    color: #333333 !important; /* 选中变纯黑 */
 }
 
 .wechat-tab.active .wechat-tab-icon i {
@@ -10636,7 +10585,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal) .modal-title {
     font-size: 18px !important;
     font-weight: 700 !important;
-    color: #000 !important;
+    color: #333333 !important;
     text-align: center !important;
     margin-bottom: 25px !important;
     letter-spacing: 0.5px;
@@ -10661,7 +10610,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal) .modal-input:focus, 
 .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal) .modal-textarea:focus {
     background-color: #fff !important;
-    border-color: #000 !important;
+    border-color: #333333 !important;
     box-shadow: 0 0 0 4px rgba(0,0,0,0.05) !important;
 }
 
@@ -10694,7 +10643,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 确认按钮 (黑底白字) */
 .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal) .modal-btn-confirm,
 .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal) :not(#doujinGiftModal):not(#doujinEggModal) .modal-btn.confirm {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
     color: #ffffff !important;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
 }
@@ -10720,7 +10669,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal) .modal-btn-confirm {
     background-color: #ffffff !important;
-    color: #000000 !important;
+    color: #333333 !important;
 }
 .wechat-dark-mode .modal:not(#addTagModal):not(#editProfileModal):not(#editStatModal):not(#charSelectModal):not(#doujinUrgeUpdateModal) :not(#addTropeModal):not(#lovers-account-modal).modal-btn-cancel {
     background-color: #2c2c2e !important;
@@ -10759,7 +10708,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* --- 亲属卡样式 (黑白风) --- */
 .family-card-item {
-    background: linear-gradient(135deg, #333 0%, #000 100%); /* 改为黑白渐变 */
+    background: linear-gradient(135deg, #333 0%, #333333 100%); /* 改为黑白渐变 */
     border-radius: 12px;
     padding: 20px;
     color: white;
@@ -10830,12 +10779,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 .bill-info { flex: 1; }
-.bill-title { font-size: 16px; color: #000; margin-bottom: 4px; }
+.bill-title { font-size: 16px; color: #333333; margin-bottom: 4px; }
 .bill-time { font-size: 12px; color: #999; }
-.bill-amount { font-size: 17px; font-weight: bold; color: #000; }
+.bill-amount { font-size: 17px; font-weight: bold; color: #333333; }
 /* 收入显示为橙色，支出显示为黑色 */
 .bill-amount.income { color: #e6a23c; }
-.bill-amount.expense { color: #000; }
+.bill-amount.expense { color: #333333; }
 
 /* 适配暗色模式 */
 .wechat-dark-mode .bill-month-header, 
@@ -10851,7 +10800,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 .message-content .chat-family-card {
     width: 230px;
-    background: #000000;       /* 确保这里是纯黑，去掉渐变 */
+    background: #333333;       /* 确保这里是纯黑，去掉渐变 */
     border-radius: 10px;
     overflow: hidden;
     color: #fff;
@@ -10891,7 +10840,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .chat-family-card-footer {
-    background: #000000;       /* 背景由 #fff 改为纯黑 */
+    background: #333333;       /* 背景由 #fff 改为纯黑 */
     color: rgba(255,255,255,0.5); /* 文字改为半透明白色，或者 #fff */
     font-size: 11px;
     padding: 6px 15px;
@@ -10948,7 +10897,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 .pay-close { position: absolute; left: 18px; font-size: 24px; cursor: pointer; color: #333; height: 24px; line-height: 24px;}
-.pay-title { width: 100%; text-align: center; font-weight: 600; font-size: 17px; color: #000; }
+.pay-title { width: 100%; text-align: center; font-weight: 600; font-size: 17px; color: #333333; }
 
 .pay-info { text-align: center; padding: 30px 0 20px; flex-shrink: 0; }
 .pay-to-user { font-size: 15px; color: #333; margin-bottom: 12px; }
@@ -10985,7 +10934,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     display: block;
     width: 12px;   /* 黑点大小 */
     height: 12px;
-    background-color: #000;
+    background-color: #333333;
     border-radius: 50%;
 }
 /* 移除旧的 .filled 背景色样式，防止变成全黑块 */
@@ -11002,7 +10951,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .key {
     background: #fff; height: 60px; /* 稍微增高按键 */
     display: flex; align-items: center; justify-content: center;
-    font-size: 24px; font-weight: 500; cursor: pointer; color: #000;
+    font-size: 24px; font-weight: 500; cursor: pointer; color: #333333;
 }
 .key:active { background: #e8e8e8; }
 .key.bg-grey { background: #f9f9f9; }
@@ -11045,7 +10994,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* --- 黑白风开关 --- */
 .toggle-switch.bw-switch input:checked + .toggle-slider {
-    background-color: #000 !important; /* 开启变黑 */
+    background-color: #333333 !important; /* 开启变黑 */
 }
 .toggle-switch.bw-switch .toggle-slider:before {
     background-color: #fff; /* 圆点永远是白 */
@@ -11055,7 +11004,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 1. 顶部卡片展示区 */
 .fc-detail-header-card {
-    background: linear-gradient(135deg, #1c1c1e 0%, #000 100%);
+    background: linear-gradient(135deg, #1c1c1e 0%, #333333 100%);
     border-radius: 12px;
     padding: 25px;
     color: rgba(255,255,255,0.9);
@@ -11107,7 +11056,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     content: '';
     position: absolute; left: -6px; top: 5px;
     width: 10px; height: 10px; border-radius: 50%;
-    background: #fff; border: 3px solid #000;
+    background: #fff; border: 3px solid #333333;
 }
 
 /* 账单卡片 */
@@ -11121,7 +11070,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     margin-bottom: 12px;
 }
 .fc-bill-title { font-size: 14px; color: #333; font-weight: 500; }
-.fc-bill-amount { font-size: 16px; font-weight: bold; color: #000; font-family: -apple-system, sans-serif; }
+.fc-bill-amount { font-size: 16px; font-weight: bold; color: #333333; font-family: -apple-system, sans-serif; }
 
 /* 留言气泡区 */
 .fc-message-box {
@@ -11201,7 +11150,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .fc-reaction-title {
     font-size: 16px;
     font-weight: bold;
-    color: #000;
+    color: #333333;
     margin-top: 25px; /* 给头像留位置 */
 }
 
@@ -11237,7 +11186,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 5. 底部按钮 */
 .fc-reaction-btn {
-    background: #000;
+    background: #333333;
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -11505,12 +11454,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .doujin-share-card {
     width: 240px;
     background-color: #ffffff;
-    border: 1px solid #000000; /* 纯黑边框 */
+    border: 1px solid #333333; /* 纯黑边框 */
     border-radius: 6px; /* 较小的圆角，更有书本感 */
     padding: 0;
     overflow: hidden;
     font-family: 'Noto Serif SC', serif; /* 使用衬线字体增加文学感 */
-    color: #000;
+    color: #333333;
     box-shadow: 4px 4px 0px rgba(0,0,0,0.1); /* 硬阴影 */
     cursor: pointer;
 }
@@ -11518,7 +11467,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .doujin-share-header {
     display: flex;
     padding: 12px 15px;
-    border-bottom: 1px solid #000; /* 黑线分割 */
+    border-bottom: 1px solid #333333; /* 黑线分割 */
     background: #f9f9f9;
     align-items: center;
 }
@@ -11527,7 +11476,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 1px solid #000;
+    border: 1px solid #333333;
     background-size: cover;
     background-position: center;
     margin-right: 10px;
@@ -11568,7 +11517,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     padding: 8px 15px;
     font-size: 10px;
     text-align: right;
-    background: #000;
+    background: #333333;
     color: #fff; /* 黑底白字 */
     font-weight: bold;
     letter-spacing: 1px;
@@ -11902,17 +11851,21 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* --- 商店App (仿淘宝黑白风) --- */
 #storeApp {
     background-color: #f5f5f5; /* 浅灰底色 */
-    color: #000;
+    color: #333333;
 }
 
 /* 1. 顶部导航 (搜索栏 + 刷新) */
 .store-top-bar {
     display: flex;
     align-items: center;
-    padding: 10px 12px;
+    /* 高度 44px，与微信 App 导航栏一致，返回键处在同一高度 */
+    padding: 4px 12px;
     background: #fff;
-    position: sticky;
+    /* 固定在页面顶部（页面本身带 transform，fixed 相对页面），内容在其下方滚动 */
+    position: fixed;
     top: 30px;
+    left: 0;
+    right: 0;
     z-index: 100;
     gap: 10px;
 }
@@ -11929,13 +11882,14 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 #storeHomeView.store-page-view,
 #storePendingShipmentView.store-page-view {
-    padding-top: 30px;
+    /* 30px（顶部偏移）+ 44px（固定搜索栏），内容从搜索栏下方开始 */
+    padding-top: 74px;
 }
 
 .store-search-box {
     flex: 1;
     height: 36px;
-    border: 2px solid #000; /* 黑框 */
+    border: 2px solid #333333; /* 黑框 */
     border-radius: 18px;
     display: flex;
     align-items: center;
@@ -11957,7 +11911,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     border: none;
     background: transparent;
     font-size: 20px;
-    color: #000;
+    color: #333333;
     cursor: pointer;
     transition: transform 0.5s ease;
 }
@@ -11973,7 +11927,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     padding: 5px 0;
     border-bottom: 1px solid #eee;
     position: sticky;
-    top: 86px; /* 30px 状态栏高度 + 56px 搜索栏高度 */
+    /* 滚动容器自身有 74px 顶部内边距（让位给固定搜索栏），
+       sticky 的 top 会叠加在该内边距上，这里用 0 即可贴在搜索栏下方 */
+    top: 0;
     z-index: 99;
 }
 .store-category-tabs::-webkit-scrollbar { display: none; }
@@ -11988,7 +11944,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .store-cat-item.active {
-    color: #000;
+    color: #333333;
     font-size: 17px;
     font-weight: bold;
 }
@@ -12000,7 +11956,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     transform: translateX(-50%);
     width: 20px;
     height: 3px;
-    background: #000;
+    background: #333333;
     border-radius: 2px;
 }
 
@@ -12047,7 +12003,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 .store-goods-title {
     font-size: 14px;
-    color: #000;
+    color: #333333;
     line-height: 1.4;
     height: 40px; /* 限制两行 */
     overflow: hidden;
@@ -12073,8 +12029,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     margin-top: 4px;
 }
 
-.store-price-symbol { font-size: 12px; color: #000; font-weight: bold; }
-.store-price-num { font-size: 18px; color: #000; font-weight: bold; font-family: Arial; }
+.store-price-symbol { font-size: 12px; color: #333333; font-weight: bold; }
+.store-price-num { font-size: 18px; color: #333333; font-weight: bold; font-family: Arial; }
 .store-sold-count { font-size: 11px; color: #999; margin-left: auto; }
 
 /* 4. 购物车页面 */
@@ -12095,12 +12051,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 .store-check-circle {
     width: 20px; height: 20px;
-    border: 1px solid #000;
+    border: 1px solid #333333;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
 }
 .store-check-circle.checked {
-    background: #000;
+    background: #333333;
 }
 .store-check-circle.checked::after {
     content: '✓'; color: #fff; font-size: 12px;
@@ -12127,7 +12083,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .store-checkout-btn {
-    background: #000;
+    background: #333333;
     color: #fff;
     padding: 8px 25px;
     border-radius: 20px;
@@ -12147,7 +12103,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 60px; height: 60px;
     border-radius: 50%;
     background: #eee;
-    border: 2px solid #000;
+    border: 2px solid #333333;
 }
 .store-me-name { font-size: 20px; font-weight: bold; }
 
@@ -12188,7 +12144,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .store-tab-item.active {
-    color: #000;
+    color: #333333;
 }
 
 .store-tab-icon {
@@ -12213,7 +12169,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-page-view {
     height: 100%;           /* 强制占满屏幕高度 */
     overflow-y: auto;       /* 开启垂直滚动 */
-    padding-bottom: 70px;   /* 底部留出空间，防止内容被导航栏挡住 */
+    /* 底部留出与微信底部栏相同的高度，防止内容被导航栏挡住 */
+    padding-bottom: calc(61px + env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
 }
 
@@ -12222,11 +12179,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: 30px;
 }
 
-/* --- 修复底部导航栏位置 --- */
+/* --- 底部导航栏与微信 App 消息列表底部栏同高同位置 --- */
 .store-bottom-bar {
-    height: 70px !important; /* 再增高一点 */
-    padding-top: 18px !important; /* 顶部加宽，把图标挤下去 */
-    align-items: flex-start !important; /* 靠上对齐，配合padding使用 */
+    height: calc(49px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-top: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    align-items: center !important;
     background: #fff !important;
 }
 
@@ -12254,7 +12212,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background: none;
     border: none;
     font-size: 26px;
-    color: #000;
+    color: #333333;
     cursor: pointer;
     padding: 0 5px 0 0; /* 右边留点空隙 */
     display: flex;
@@ -12271,18 +12229,18 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-add-btn {
     width: 24px;
     height: 24px;
-    border: 1px solid #000;
+    border: 1px solid #333333;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    color: #000;
+    color: #333333;
     cursor: pointer;
     transition: all 0.2s;
 }
 .store-add-btn:active {
-    background-color: #000;
+    background-color: #333333;
     color: #fff;
 }
 
@@ -12309,8 +12267,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     transition: all 0.2s;
 }
 .cart-select-circle.selected {
-    background-color: #000; /* 选中变黑 */
-    border-color: #000;
+    background-color: #333333; /* 选中变黑 */
+    border-color: #333333;
 }
 .cart-select-circle.selected::after {
     content: '✔';
@@ -12338,7 +12296,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .cart-item-title {
     font-size: 14px;
-    color: #000;
+    color: #333333;
     font-weight: 500;
     line-height: 1.4;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -12424,7 +12382,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-size: 12px;
 }
 .store-order-status {
-    color: #000; /* 纯黑状态文字 */
+    color: #333333; /* 纯黑状态文字 */
     font-weight: 600;
 }
 
@@ -12450,7 +12408,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .store-order-title {
     font-size: 14px;
-    color: #000;
+    color: #333333;
     font-weight: 500;
     line-height: 1.4;
     /* 限制显示两行 */
@@ -12478,7 +12436,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     font-size: 15px;
-    color: #000;
+    color: #333333;
 }
 .store-order-count {
     font-size: 12px;
@@ -12499,7 +12457,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .store-order-total b {
     font-size: 14px;
-    color: #000;
+    color: #333333;
 }
 .store-order-actions {
     display: flex;
@@ -12524,8 +12482,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 /* “催发货”按钮强调样式 */
 .store-btn-outline.primary {
-    border: 1px solid #000;
-    color: #000;
+    border: 1px solid #333333;
+    color: #333333;
     font-weight: 500;
 }
 
@@ -12539,13 +12497,13 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .pay-request-card {
     width: 240px;
     background: #fff;
-    border: 1px solid #000;
+    border: 1px solid #333333;
     border-radius: 8px;
     overflow: hidden;
-    color: #000;
+    color: #333333;
 }
 .pay-req-header {
-    background: #000;
+    background: #333333;
     color: #fff;
     padding: 8px 12px;
     font-size: 12px;
@@ -13209,12 +13167,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center;
 }
 .lovers-dm-card-header {
-    background-color: #000; color: white; padding: 15px; 
+    background-color: #333333; color: white; padding: 15px; 
     font-size: 18px; font-weight: 500; transition: background 0.3s;
 }
 .lovers-dm-card-body { padding: 40px 0; background: #fff; }
 .lovers-dm-big-number { 
-    font-size: 120px; font-weight: bold; color: #000; 
+    font-size: 120px; font-weight: bold; color: #333333; 
     line-height: 1; letter-spacing: -5px; font-family: -apple-system, sans-serif; 
 }
 .lovers-dm-card-footer { 
@@ -13232,7 +13190,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 暗色模式适配 */
 .wechat-dark-mode #loversAnniversaryScreen.page,
 .wechat-dark-mode #loversAnniDetailScreen.page {
-    background-color: #000 !important;
+    background-color: #333333 !important;
 }
 .wechat-dark-mode .lovers-anni-header {
     background: linear-gradient(180deg, #333 0%, #1a1a1a 100%);
@@ -13621,7 +13579,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .acc-tab-item {
     padding: 5px 20px; font-size: 14px; color: #666; border-radius: 6px; transition: all 0.2s; flex: 1; text-align: center;
 }
-.acc-tab-item.active { background: #fff; color: #000; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.acc-tab-item.active { background: #fff; color: #333333; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
 /* 分类区域 */
 .category-scroll-area {
@@ -14141,10 +14099,10 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* --- 视奸页面的暗色模式适配 --- */
 .wechat-dark-mode #loversSpyScreen {
-    background-color: #000 !important;
+    background-color: #333333 !important;
 }
 .wechat-dark-mode .spy-overview {
-    background-color: #000 !important;
+    background-color: #333333 !important;
 }
 .wechat-dark-mode .spy-card {
     background-color: #1c1c1e;
@@ -14155,14 +14113,14 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .spy-online-badge {
     border-color: #1c1c1e;
-    background: #fff; color: #000;
+    background: #fff; color: #333333;
 }
 .wechat-dark-mode .spy-text {
     color: #ddd;
 }
 .wechat-dark-mode .spy-item::before {
     background: #fff;
-    border-color: #000;
+    border-color: #333333;
 }
 .wechat-dark-mode .spy-icon {
     background: #333; color: #fff;
@@ -14359,7 +14317,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* --- 暗色模式适配 --- */
 .wechat-dark-mode #loversMoodScreen,
 .wechat-dark-mode #loversMoodSummaryScreen {
-    background: #000 !important;
+    background: #333333 !important;
     color: #fff;
 }
 .wechat-dark-mode .mood-month-title,
@@ -14533,7 +14491,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* --- 暗色模式适配 --- */
 .wechat-dark-mode #loversWhisperScreen,
 .wechat-dark-mode .whisper-header {
-    background: #000 !important;
+    background: #333333 !important;
     color: #fff;
 }
 .wechat-dark-mode .whisper-header h2 {
@@ -14638,7 +14596,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .paper-content h2 {
     font-size: 22px;
     margin-bottom: 30px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #333333;
     padding-bottom: 15px;
     line-height: 1.4;
 }
@@ -14665,13 +14623,13 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
     /* 修改点：内边距从 30px 增加到 40px 30px，左右更宽敞 */
     padding: 40px 30px !important; 
-    color: #000000 !important;
+    color: #333333 !important;
     max-width: 360px !important; /* 稍微加宽一点，防止换行太挤 */
 }
 
 /* 2. 标题：增加底部距离 */
 #loversLetterSettingsModal .modal-title {
-    color: #000000 !important;
+    color: #333333 !important;
     font-size: 22px !important; /* 字体稍微加大 */
     font-weight: 800 !important;
     letter-spacing: 1px;
@@ -14692,7 +14650,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 #loversLetterSettingsModal .form-label {
-    color: #000000 !important;
+    color: #333333 !important;
     font-weight: 600 !important;
     font-size: 15px !important;
     margin-bottom: 10px !important; /* 标签和控件之间留空 */
@@ -14712,9 +14670,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 #loversLetterSettingsModal .font-preview-item.selected {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
     color: #ffffff !important;
-    border-color: #000000 !important;
+    border-color: #333333 !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transform: scale(1.02);
 }
@@ -14722,8 +14680,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 4. "开始生成" 按钮 */
 #loversLetterSettingsModal .settings-btn.btn-black {
     background-color: #ffffff !important;
-    color: #000000 !important;
-    border: 2px solid #000000 !important;
+    color: #333333 !important;
+    border: 2px solid #333333 !important;
     border-radius: 30px !important;
     height: 48px !important; /* 增高 */
     line-height: 1 !important;
@@ -14739,13 +14697,13 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 #loversLetterSettingsModal .settings-btn.btn-black:active {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
     color: #ffffff !important;
 }
 
 /* 5. 底部 "保存设置" 按钮 */
 #loversLetterSettingsModal .modal-btn-confirm {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
     color: #ffffff !important;
     border-radius: 30px !important;
     height: 52px !important; /* 增高，更有点击欲 */
@@ -14758,13 +14716,13 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 6. 开关 (Toggle)：选中变黑 */
 #loversLetterSettingsModal input:checked + .toggle-slider {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
 }
 
 /* 7. 滑动条 (Slider)：强制变黑 (核心修复) */
 #loversLetterSettingsModal input[type=range] {
     /* 这一行是关键，强制将浏览器默认控件颜色改为黑色 */
-    accent-color: #000000 !important; 
+    accent-color: #333333 !important; 
     height: 4px !important;
     background: transparent !important; /* 防止背景干扰 */
 }
@@ -14780,7 +14738,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: 24px; /* 滑块头变大一点，好拖动 */
     width: 24px;
     border-radius: 50%;
-    background: #000000 !important;
+    background: #333333 !important;
     border: 3px solid #ffffff; /* 加白边，更有层次感 */
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     margin-top: -10px; /* 垂直居中 */
@@ -14956,7 +14914,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .letter-reply-btn {
     background: #fff;
-    color: #000;
+    color: #333333;
 }
 
 /* --- 修复写信界面布局 --- */
@@ -15054,7 +15012,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 暗色模式适配 */
 .wechat-dark-mode #loversWriteLetterScreen .wechat-content {
-    background-color: #000;
+    background-color: #333333;
 }
 .wechat-dark-mode .write-letter-title {
     background-color: #1c1c1e;
@@ -15248,7 +15206,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .handwritten-reply.ai {
-    color: #000; /* 纯黑或深蓝墨水色 */
+    color: #333333; /* 纯黑或深蓝墨水色 */
 }
 
 /* 容器本身需要能容纳不同对齐的子元素 */
@@ -15317,7 +15275,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 2. 导航栏文字和按钮改为深色 (适配浅色背景) */
 #loversWhisperDetailScreen .nav-bar .nav-title,
 #loversWhisperDetailScreen .nav-bar .nav-btn {
-    color: #000 !important;
+    color: #333333 !important;
     text-shadow: none !important; /* 去掉文字阴影 */
 }
 
@@ -15350,7 +15308,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 4. 修改 AI 回复的字迹颜色为黑色 */
 .handwritten-reply.ai {
-    color: #000000 !important; /* 纯黑色 */
+    color: #333333 !important; /* 纯黑色 */
     /* 如果想要一点点钢笔墨水的质感，可以用 #333 或 #2c2c2c */
     /* transform: rotate(1deg); 保持原有的轻微旋转 */
 }
@@ -15373,7 +15331,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .whisper-send-btn {
-    background-color: #000 !important; /* 发送按钮黑底 */
+    background-color: #333333 !important; /* 发送按钮黑底 */
     color: #fff !important; /* 白图标 */
     box-shadow: none !important;
 }
@@ -15558,7 +15516,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .spy-card-time {
     font-size: 28px;
     font-weight: 800;
-    color: #000;
+    color: #333333;
     font-family: 'Arial', sans-serif; /* 时间保持数字字体 */
     line-height: 1;
 }
@@ -15666,7 +15624,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .period-popup-header {
-    background: #000;
+    background: #333333;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -15705,7 +15663,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     transform: translateX(-50%);
     width: 6px;
     height: 6px;
-    background: #000;
+    background: #333333;
     border-radius: 50%;
 }
 
@@ -15713,7 +15671,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid #000;
+    border: 2px solid #333333;
     background-size: cover;
     background-position: center;
     background-color: #eee;
@@ -15785,7 +15743,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .period-confirm-btn {
     width: 100%;
     padding: 12px;
-    background: #000;
+    background: #333333;
     color: #fff;
     border: none;
     border-radius: 30px;
@@ -15818,7 +15776,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     border-color: #fff;
 }
 .wechat-dark-mode .period-confirm-btn {
-    background: #fff; color: #000;
+    background: #fff; color: #333333;
 }
 
 /* --- 生理期提醒优化样式 --- */
@@ -15938,7 +15896,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     color: #666;
 }
 .offline-btn.primary {
-    background: #000;
+    background: #333333;
     color: #fff;
 }
 
@@ -16008,7 +15966,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .offline-card-name {
     font-size: 15px;
     font-weight: 800; /* 加粗 */
-    color: #000;
+    color: #333333;
     margin-bottom: 2px;
 }
 
@@ -16035,7 +15993,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 编辑按钮悬停变黑 */
 .offline-action-btn.edit:hover {
-    color: #000;
+    color: #333333;
 }
 
 /* 删除按钮悬停变红 */
@@ -16115,7 +16073,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 确认按钮 */
 #offlineEditModal .modal-btn-confirm {
-    background: #000; /* 保持黑色背景，或者你可以改成 #007aff */
+    background: #333333; /* 保持黑色背景，或者你可以改成 #007aff */
     color: #fff;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
@@ -16130,7 +16088,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .wechat-dark-mode .offline-card { background: #1c1c1e; border-color: #333; }
 .wechat-dark-mode .offline-card-header { border-bottom-color: #333; }
 .wechat-dark-mode .offline-card-avatar { border-color: #fff; }
-.wechat-dark-mode .offline-card-floor { background: #fff; color: #000; }
+.wechat-dark-mode .offline-card-floor { background: #fff; color: #333333; }
 .wechat-dark-mode .offline-card-name { color: #fff; }
 .wechat-dark-mode .offline-card-time { color: #888; }
 .wechat-dark-mode .offline-card-content { color: #ddd; }
@@ -16217,7 +16175,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background-size: cover;
     background-position: center;
     background-color: #eee;
-    border: 1px solid #000; /* 保留细黑边 */
+    border: 1px solid #333333; /* 保留细黑边 */
     margin-bottom: 4px;
 }
 
@@ -16225,7 +16183,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .style-v2 .offline-card-floor {
     font-size: 10px;
     color: #fff;
-    background: #000; /* 黑色背景 */
+    background: #333333; /* 黑色背景 */
     padding: 1px 6px;
     border-radius: 4px;
     line-height: 1.2;
@@ -16245,7 +16203,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .style-v2 .offline-card-name {
     font-size: 15px;
     font-weight: 800;
-    color: #000;
+    color: #333333;
     margin-bottom: 2px;
     margin-top: 0;
 }
@@ -16308,9 +16266,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 2. 选中/激活状态 (黑底白字) */
 #offlineBeautifyModal .bw-chip-btn.active {
-    background-color: #000000;
+    background-color: #333333;
     color: #ffffff;
-    border-color: #000000;
+    border-color: #333333;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* 加一点阴影 */
 }
 
@@ -16401,19 +16359,19 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-gift-card {
     width: 230px; /* 标准卡片宽度 */
     background-color: #fff;
-    border: 1px solid #000; /* 细黑框 */
+    border: 1px solid #333333; /* 细黑框 */
     border-radius: 8px;
     overflow: hidden;
     position: relative;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    color: #000;
+    color: #333333;
     box-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* 稍微收敛的阴影 */
     cursor: pointer;
 }
 
 /* 顶部黑色标题栏 */
 .store-gift-header {
-    background-color: #000;
+    background-color: #333333;
     color: #fff;
     padding: 8px 12px;
     font-size: 12px;
@@ -16470,7 +16428,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-size: 15px;
     font-weight: bold;
     margin-bottom: 2px;
-    color: #000;
+    color: #333333;
 }
 
 .store-gift-desc {
@@ -16581,7 +16539,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 悬浮球激活态 */
 #offlineFloatBall:active {
     transform: scale(0.9);
-    background: #000;
+    background: #333333;
 }
 
 /* --- 线下模式选择弹窗专属美化 --- */
@@ -16598,7 +16556,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #offlineModeSelectModal .modal-title {
     font-size: 18px !important;
     font-weight: 800 !important; /* 加粗标题 */
-    color: #000 !important;
+    color: #333333 !important;
     margin-bottom: 25px !important;
     letter-spacing: 1px;
 }
@@ -16647,7 +16605,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 黑色按钮（进入模式） */
 #offlineModeSelectModal .btn-black {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
     color: #ffffff !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
@@ -16784,7 +16742,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .update-subtitle {
     font-size: 16px;
     font-weight: 800;
-    color: #000;
+    color: #333333;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
@@ -16816,7 +16774,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 5. 确认按钮微调 */
 #announcementModal .modal-btn-confirm {
     margin-top: 10px !important;
-    background-color: #000 !important;
+    background-color: #333333 !important;
     height: 48px !important;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
 }
@@ -16833,7 +16791,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 声明框容器样式 */
 .announcement-notice {
     background-color: #fcfcfc !important; /* 极淡的背景 */
-    border: 1.5px dashed #000 !important; /* 黑色虚线边框，像一张剪纸票据 */
+    border: 1.5px dashed #333333 !important; /* 黑色虚线边框，像一张剪纸票据 */
     padding: 12px 15px !important;
     margin-bottom: 18px !important;
     border-radius: 12px !important;
@@ -16846,7 +16804,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 声明框内的加粗重点文字 */
 .announcement-notice b {
-    color: #000 !important;
+    color: #333333 !important;
     font-weight: 800 !important;
     text-decoration: underline; /* 增加下划线，强调重点 */
     padding: 0 2px;
@@ -16866,7 +16824,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 1. 视频通话主容器 */
 #videoCallScreen, #incomingVideoCallScreen {
-    background-color: #000 !important;
+    background-color: #333333 !important;
     z-index: 2000;
     color: #fff;
     display: none;
@@ -17289,7 +17247,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background: rgba(0,0,0,0.85); border-bottom-color: #2f3336; 
 }
 .wechat-dark-mode #forumDMDetailView .bottom-reply-bar input { background: #202327; color: #fff; }
-.wechat-dark-mode #forumDMDetailContent { background: #000 !important; }
+.wechat-dark-mode #forumDMDetailContent { background: #333333 !important; }
 
 /* --- 修复私信页面布局 (完美对齐版) --- */
 
@@ -17486,7 +17444,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 暗色模式适配 */
 .wechat-dark-mode #forumDMDetailView .nav-bar,
 .wechat-dark-mode .dm-bottom-bar {
-    background-color: #000 !important;
+    background-color: #333333 !important;
     border-color: #2f3336 !important;
 }
 .wechat-dark-mode .dm-nav-name,
@@ -17525,13 +17483,13 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 .dm-type-btn.active {
-    background-color: #000000; /* 选中变黑 */
+    background-color: #333333; /* 选中变黑 */
     color: #ffffff; /* 文字变白 */
 }
 
 /* 暗色模式适配 */
 .wechat-dark-mode .dm-type-tabs {
-    background-color: #000;
+    background-color: #333333;
     border-bottom-color: #2f3336;
 }
 .wechat-dark-mode .dm-type-btn {
@@ -17540,7 +17498,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .dm-type-btn.active {
     background-color: #fff;
-    color: #000;
+    color: #333333;
 }
 
 /* --- 修复私信详情页底部遮挡问题 --- */
@@ -17591,7 +17549,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     color: #999; cursor: pointer; font-size: 10px; transition: all 0.2s;
 }
 .diary-tab i { font-size: 24px; margin-bottom: 2px; }
-.diary-tab.active { color: #000; font-weight: 600; }
+.diary-tab.active { color: #333333; font-weight: 600; }
 /* 暗色模式适配 */
 .wechat-dark-mode .diary-bottom-nav { background: #1c1c1e; border-top-color: #333; }
 .wechat-dark-mode .diary-tab.active { color: #fff; }
@@ -17702,7 +17660,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 选中状态：黑底白字 */
 .sticker-group-tab.active {
-    background-color: #000000;
+    background-color: #333333;
     color: #ffffff;
     font-weight: 500;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
@@ -17881,7 +17839,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 选中状态：黑底白字 */
 .chat-emoji-tab.active {
-    background: #000;
+    background: #333333;
     color: #fff;
     font-weight: 500;
 }
@@ -17991,7 +17949,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .qq-nickname-v2 {
     font-size: 22px;
     font-weight: 900;
-    color: #000;
+    color: #333333;
     line-height: 1.2;
 }
 
@@ -18041,7 +17999,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .qq-signature-v2 {
     margin-top: 12px;
     font-size: 15px;
-    color: #000;
+    color: #333333;
     line-height: 1.6;
     white-space: pre-wrap;
 }
@@ -18169,7 +18127,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 /* --- 暗色模式适配 --- */
-.wechat-dark-mode #qqProfileScreen { background-color: #000; }
+.wechat-dark-mode #qqProfileScreen { background-color: #333333; }
 .wechat-dark-mode .qq-content-card { background-color: #1c1c1e; }
 .wechat-dark-mode .qq-nickname-v2 { color: #fff; }
 .wechat-dark-mode .qq-basic-info-row { color: #ccc; }
@@ -18184,7 +18142,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 头部装饰 */
 .qa-header-banner {
-    background-color: #000;
+    background-color: #333333;
     color: #fff;
     padding: 30px 20px;
     text-align: center;
@@ -18218,7 +18176,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .qa-asker-avatar {
     width: 24px;
     height: 24px;
-    background: #000;
+    background: #333333;
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -18236,7 +18194,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .qa-question-text {
     font-size: 16px;
     font-weight: bold;
-    color: #000;
+    color: #333333;
     line-height: 1.5;
     padding-left: 32px; /* 对齐头像 */
 }
@@ -18246,7 +18204,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     background: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
-    border-left: 3px solid #000; /* 黑条装饰 */
+    border-left: 3px solid #333333; /* 黑条装饰 */
 }
 
 .qa-answer-header {
@@ -18314,7 +18272,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .dream-card-title {
     font-size: 18px;
     font-weight: bold;
-    color: #000;
+    color: #333333;
     margin-bottom: 8px;
     font-family: "Noto Serif SC", serif; /* 使用衬线体更有梦境感 */
 }
@@ -18397,8 +18355,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 /* 选项按钮 */
 .dream-option-btn {
     background: #fff;
-    border: 1px solid #000;
-    color: #000;
+    border: 1px solid #333333;
+    color: #333333;
     padding: 15px 20px;
     border-radius: 8px;
     font-size: 15px;
@@ -18424,7 +18382,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 /* 暗色模式适配 */
-.wechat-dark-mode #dreamListScreen { background: #000 !important; }
+.wechat-dark-mode #dreamListScreen { background: #333333 !important; }
 .wechat-dark-mode .dream-card { background: #1c1c1e; border-color: #333; }
 .wechat-dark-mode .dream-card-title { color: #fff; }
 .wechat-dark-mode .dream-card-preview { color: #aaa; }
@@ -18629,7 +18587,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .mode-btn.active {
     background: #fff;
-    color: #000;
+    color: #333333;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -18854,7 +18812,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .redemption-age-badge {
     background: #fff;
-    color: #000;
+    color: #333333;
 }
 
 /* ====== 奇遇空间 (养娃) 专属样式 (V2 精美版) ====== */
@@ -19462,7 +19420,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     font-family: 'Zhi Mang Xing', 'Ma Shan Zheng', cursive; /* 大人手写体 */
 }
 .parent-comment-text { font-size: 18px; color: #333; line-height: 1.6; }
-.parent-sign-name { text-align: right; font-size: 22px; color: #000; margin-top: 10px; }
+.parent-sign-name { text-align: right; font-size: 22px; color: #333333; margin-top: 10px; }
 
 /* --- 宝宝旅行机票 & 报纸样式 --- */
 .travel-ticket-card {
@@ -20132,7 +20090,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .recalled-message-title {
     font-size: 18px !important;
     font-weight: 700 !important;
-    color: #000 !important;
+    color: #333333 !important;
     text-align: center !important;
     margin-bottom: 25px !important;
     letter-spacing: 0.5px !important;
@@ -20153,7 +20111,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 /* 黑色关闭按钮 */
 .recalled-message-close {
-    background-color: #000000 !important;
+    background-color: #333333 !important;
     color: #ffffff !important;
     border-radius: 22px !important;
     height: 44px !important;
@@ -20187,7 +20145,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .wechat-dark-mode .recalled-message-close {
     background-color: #ffffff !important;
-    color: #000000 !important;
+    color: #333333 !important;
     box-shadow: none !important;
 }
 
@@ -20328,7 +20286,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     box-sizing: border-box; font-family: inherit;
 }
 .auth-input:focus {
-    background-color: #fff; border-color: #000;
+    background-color: #fff; border-color: #333333;
     box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
 }
 .auth-btn {
@@ -20346,11 +20304,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .admin-row { padding: 12px; border: 1px solid #f0f0f0; border-radius: 10px; font-size: 13px; margin-bottom: 10px; }
 .admin-row.is-banned { background: #fff0f0; border-color: #ffcccc; opacity: 0.8; }
 .admin-kick-btn { background: #ff3b30; color: #fff; border: none; padding: 6px 16px; border-radius: 20px; float: right; cursor: pointer; font-weight: bold;}
-.admin-row.is-banned .admin-kick-btn { background: #000; }
-.wechat-dark-mode .auth-overlay { background-color: #000; }
+.admin-row.is-banned .admin-kick-btn { background: #333333; }
+.wechat-dark-mode .auth-overlay { background-color: #333333; }
 .wechat-dark-mode .auth-input { background-color: #1c1c1e; color: #fff; }
 .wechat-dark-mode .auth-input:focus { border-color: #fff; box-shadow: 0 0 0 4px rgba(255,255,255,0.1); }
-.wechat-dark-mode .auth-btn.btn-black { background-color: #fff; color: #000; }
+.wechat-dark-mode .auth-btn.btn-black { background-color: #fff; color: #333333; }
 .wechat-dark-mode .admin-row { border-color: #333; }
 
 /* ============================================================
@@ -20802,25 +20760,28 @@ button.nav-btn:active {
 }
 
 /* ============================================================
-   商店 / 同人 / 论坛：整页铺满屏幕，不再跟随普通页整体下移
-   （头部按真实安全区避让，位置与之前完全一致）
+   商店 / 同人 / 论坛：头部与微信 App 导航栏保持同一高度
+   普通 .page 已经整体位移（-30px + 安全区），这三个页面的
+   头部沿用 top:30px 即可与微信导航栏落在同一位置；
+   之前这里改成 env(safe-area-inset-top) 会造成二次下移。
    ============================================================ */
-html.ios-fullscreen #storeApp,
-html.ios-fullscreen #doujinForumApp,
-html.ios-fullscreen #forumScreen {
-    top: 0 !important;
-    height: 100% !important;
-}
 
-html.ios-fullscreen #storeApp .store-top-bar,
-html.ios-fullscreen #doujinForumApp .top-header,
-html.ios-fullscreen #forumScreen .nav-bar {
-    top: env(safe-area-inset-top, 0px) !important;
-}
-
-/* 同人页头部上方的状态栏底色，跟随真实刘海高度 */
+/* 同人页头部上方的状态栏底色，跟随真实刘海高度（从头部顶边一直盖到屏幕顶部） */
 html.ios-fullscreen #doujinForumApp .top-header::before {
     height: env(safe-area-inset-top, 0px) !important;
+}
+
+/* ============================================================
+   iOS 聚焦输入框时字号必须 ≥16px，否则系统会自动放大页面，
+   导致输入框位置错位并产生“点输入框却跳去其他页面”的幽灵点击
+   ============================================================ */
+html.ios-fullscreen .bw-style .form-input,
+html.ios-fullscreen .bw-style .form-textarea,
+html.ios-fullscreen .settings-content input[type="text"],
+html.ios-fullscreen .settings-content input[type="password"],
+html.ios-fullscreen .settings-content input[type="number"],
+html.ios-fullscreen .settings-content textarea {
+    font-size: 16px;
 }
 
 /* ============================================================
