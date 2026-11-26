@@ -359,8 +359,8 @@
         <div class="app-label">同人</div>
     </div>
 
-    <!-- 游戏中心入口 -->
-<div class="app" onclick="openApp('games')">
+    <!-- 游戏中心入口（占位，无交互） -->
+<div class="app">
     <div class="app-icon-container card-style" id="icon-games">
         <i class="ri-gamepad-line"></i>
     </div>
@@ -412,8 +412,8 @@
         </div>
         <div class="app-label">论坛</div>
     </div>
-    <!-- 替换原来的直播入口代码 -->
-<div class="app" onclick="openApp('live')">
+    <!-- 直播入口（占位，无交互） -->
+<div class="app">
     <!-- 删除 style 属性，让它回归统一的白色背景和黑色图标样式 -->
     <div class="app-icon-container" id="icon-live">
         <i class="ri-live-fill"></i>
@@ -1385,39 +1385,21 @@
         <!-- 5. 高级 CSS 代码 -->
         <div class="form-card">
             <div class="form-group-row" style="justify-content: space-between;">
-                <label class="form-label">气泡 CSS</label>
+                <label class="form-label">聊天 CSS</label>
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <!-- ▼▼▼ 新增导入按钮 ▼▼▼ -->
                     <label class="text-link" style="cursor: pointer; display: flex; align-items: center; gap: 2px; margin: 0; color: #007aff;">
                         <i class="ri-file-upload-line"></i> 导入
-                        <input type="file" accept=".txt,.docx" style="display: none;" onchange="handleCssFileUpload(event, 'bubbleCustomCSS', applyCustomBubbleCSS)">
+                        <input type="file" accept=".txt,.docx" style="display: none;" onchange="handleCssFileUpload(event, 'chatCssInput', applyChatCss)">
                     </label>
                     <!-- ▲▲▲ 新增结束 ▲▲▲ -->
-                    <span class="text-link" onclick="saveCssPreset('bubble')">保存预设</span>
-                    <span class="text-link" onclick="openPresetSelector('bubble')">选择预设</span>
+                    <span class="text-link" onclick="openChatCssEditor()"><i class="ri-fullscreen-line"></i> 展开</span>
+                    <span class="text-link" onclick="saveCssPreset('chat')">保存预设</span>
+                    <span class="text-link" onclick="openPresetSelector('chat')">选择预设</span>
                 </div>
             </div>
             <div class="form-group-row column-layout" style="padding-top: 0;">
-                <textarea class="form-textarea code-font" id="bubbleCustomCSS" placeholder="在此输入 CSS..." oninput="applyCustomBubbleCSS(this.value)"></textarea>
-            </div>
-        </div>
-
-        <div class="form-card">
-            <div class="form-group-row" style="justify-content: space-between;">
-                <label class="form-label">界面 CSS</label>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <!-- ▼▼▼ 新增导入按钮 ▼▼▼ -->
-                    <label class="text-link" style="cursor: pointer; display: flex; align-items: center; gap: 2px; margin: 0; color: #007aff;">
-                        <i class="ri-file-upload-line"></i> 导入
-                        <input type="file" accept=".txt,.docx" style="display: none;" onchange="handleCssFileUpload(event, 'chatInterfaceCSSInput', applyChatInterfaceCSS)">
-                    </label>
-                    <!-- ▲▲▲ 新增结束 ▲▲▲ -->
-                    <span class="text-link" onclick="saveCssPreset('interface')">保存预设</span>
-                    <span class="text-link" onclick="openPresetSelector('interface')">选择预设</span>
-                </div>
-            </div>
-            <div class="form-group-row column-layout" style="padding-top: 0;">
-                <textarea class="form-textarea code-font" id="chatInterfaceCSSInput" placeholder="在此输入 CSS..." oninput="applyChatInterfaceCSS(this.value)"></textarea>
+                <textarea class="form-textarea code-font" id="chatCssInput" placeholder="在此输入 CSS..." oninput="applyChatCssDebounced(this.value)"></textarea>
             </div>
         </div>
 
@@ -4736,174 +4718,8 @@
     </div>
 </div>
 
-<!-- 游戏中心主页 (黑白极简版) -->
-<div id="gamesApp" class="page">
-    <div class="nav-bar">
-        <button class="nav-btn" onclick="goHome()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
-        <div class="nav-title">游戏中心</div>
-<button class="nav-btn nav-right-action-btn" onclick="openGameApiSettings()">
-    <i class="ri-settings-4-line"></i>
-</button>
-
-    </div>
-    
-    <!-- 使用 bw-style 继承统一的黑白风格 -->
-    <div class="settings-content bw-style">
-        
-        <!-- 游戏卡片 1：你演我猜 -->
-        <div class="game-card" onclick="openCharadesGameSelect()">
-            <div class="game-card-icon">
-                <i class="ri-tv-2-line"></i>
-            </div>
-            <div class="game-card-title">你演我猜</div>
-            <div class="game-card-desc">考验默契的时刻，一人描述一人猜</div>
-        </div>
-
-        <!-- 游戏卡片 2：谁是卧底 (新增) -->
-        <div class="game-card" onclick="openUndercoverGameSelect()">
-            <div class="game-card-icon">
-                <i class="ri-spy-fill"></i>
-            </div>
-            <div class="game-card-title">谁是卧底</div>
-            <div class="game-card-desc">语言推理，找出异类</div>
-        </div>
-        
-<div class="game-card" onclick="openTurtleSoupSetup()">
-    <div class="game-card-icon" style="color:#4caf50;">
-        <i class="fas fa-book-dead"></i>
-    </div>
-    <div class="game-card-title">海龟汤</div>
-    <div class="game-card-desc">情境猜谜，还原真相</div>
-</div>
-
-<div class="game-card" onclick="openTruthDareSetup()">
-    <div class="game-card-icon" style="color: #ff69b4;">
-        <i class="ri-hearts-line"></i>
-    </div>
-    <div class="game-card-title">真心话大冒险</div>
-    <div class="game-card-desc">心跳加速，整蛊与秘密</div>
-</div>
 
 
-<div class="game-card" onclick="dg_openSetupModal()">
-    <div class="game-card-icon" style="color: #007aff;">
-        <i class="ri-palette-line"></i>
-    </div>
-    <div class="game-card-title">你画我猜</div>
-    <div class="game-card-desc">灵魂画手上线，AI也能看懂你的画</div>
-</div>
-
-
-        <!-- 占位符 (保留或删除均可) -->
-        <!-- 
-        <div class="game-card" onclick="showAlert('敬请期待')">
-            <div class="game-card-icon"><i class="ri-gamepad-line"></i></div>
-            <div class="game-card-title">新游戏开发中</div>
-            <div class="game-card-desc">更多精彩即将上线</div>
-        </div> 
-        -->
-        
-    </div>
-</div>
-
-</div>
-
-<!-- “你演我猜” 游戏界面 -->
-<div id="charadesGameScreen" class="page">
-    <div class="nav-bar">
-        <button class="nav-btn" onclick="exitCharadesGame()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
-        <div class="nav-title">你演我猜</div>
-        <div style="display: flex; align-items: center; gap: 5px; z-index: 20;">
-        <button class="nav-btn" onclick="toggleCharadesRole()" title="切换角色">
-            <i class="ri-exchange-line" style="font-size: 20px;"></i>
-        </button>
-        <button class="nav-btn" onclick="startNewCharadesRound()" title="重开">
-            <i class="ri-refresh-line" style="font-size: 20px;"></i>
-        </button>
-    </div>
-    </div>
-    
-    <!-- 游戏主区域 -->
-    <div class="wechat-content" style="display: flex; flex-direction: column; background: #fdfbf5;">
-        
-        <!-- 1. 顶部游戏面板 (模仿图片样式) -->
-        <div class="charades-top-panel">
-            
-            <!-- 左侧：答题方 (AI) -->
-            <div class="player-badge ai-side">
-                <div class="badge-label">答题方</div>
-                <div class="game-avatar" id="charadesAiAvatar"></div>
-            </div>
-
-            <!-- 中间：电视机题目显示 -->
-            <div class="tv-container">
-                <div class="tv-antenna-left"></div>
-                <div class="tv-antenna-right"></div>
-                <div class="tv-frame">
-                    <div class="tv-screen">
-                        <div id="charadesTargetWord">题目加载中...</div>
-                    </div>
-                    <div class="tv-controls">
-                        <div class="tv-knob"></div>
-                        <div class="tv-knob"></div>
-                        <div class="tv-speaker">|||</div>
-                    </div>
-                </div>
-                <div class="tv-legs">
-                    <div class="tv-leg-left"></div>
-                    <div class="tv-leg-right"></div>
-                </div>
-            </div>
-
-            <!-- 右侧：表演方 (我) -->
-            <div class="player-badge user-side">
-                <div class="badge-label">表演方</div>
-                <div class="game-avatar" id="charadesUserAvatar"></div>
-            </div>
-        </div>
-
-        <!-- 提示栏 -->
-        <div class="charades-status-bar">
-            <span id="charadesStatusText">请描述，让对方猜出屏幕上的词</span>
-        </div>
-
-        <!-- ... 上面的 .charades-status-bar 保持不变 ... -->
-
-<!-- 2. 中间聊天猜词区 (保持原ID，后面用CSS去背景) -->
-<div id="charadesChatArea" class="chat-messages">
-    <!-- 游戏记录将在这里显示 -->
-</div>
-
-<!-- 3. 底部输入框 (修改版) -->
-<div class="chat-input" id="charadesInputBar">
-     <!-- 接收/让AI猜按钮 -->
-     <!-- 找到 id="charadesGuessBtn" -->
-<button class="chat-btn" id="charadesGuessBtn" onclick="handleCharadesLightbulbClick()" title="提示/让TA猜">
-    <i class="ri-lightbulb-flash-line"></i>
-</button>
-     
-     <!-- 输入框 -->
-     <textarea id="charadesInput" rows="1" placeholder="描述这个词..."></textarea>
-     
-     <!-- 发送按钮 (换成图标) -->
-     <!-- 发送按钮 (透明背景，纯图标) -->
-<button class="chat-btn" onclick="sendCharadesMessage()" style="color: #333; padding: 0 10px;">
-   <i class="ri-send-plane-2-fill" style="font-size: 24px;"></i>
-</button>
-</div>
-    </div>
-</div>
-
-<!-- 游戏好友选择弹窗 -->
-<div id="gameFriendSelectModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">选择一位好友一起玩</div>
-        <div id="gameFriendList" class="multi-select-list" style="max-height: 300px;"></div>
-        <div class="modal-buttons" style="margin-top: 15px;">
-            <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('gameFriendSelectModal').classList.remove('show')">取消</button>
-        </div>
-    </div>
-</div>
 
 <!-- 支付密码半屏弹窗 -->
 <div id="paymentInputModal" class="payment-modal-overlay">
@@ -6404,234 +6220,9 @@
     <i class="ri-edit-line" style="font-size: 24px;"></i>
 </div>
 
-<!-- 1. 游戏设置弹窗 (美化版) -->
-<div id="undercoverSetupModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">谁是卧底 - 组局</div>
-        
-        <div class="form-group">
-            <label class="form-label" style="text-align:center; display:block; margin-bottom:15px;">选择游戏人数</label>
-            <div class="uc-mode-group">
-                <div class="uc-mode-btn active" onclick="selectUcMode(4)" id="ucMode4">
-                    <div style="font-size:16px; font-weight:bold;">4人</div>
-                    <div style="font-size:10px;">1卧底</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectUcMode(6)" id="ucMode6">
-                    <div style="font-size:16px; font-weight:bold;">6人</div>
-                    <div style="font-size:10px;">1卧底</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectUcMode(8)" id="ucMode8">
-                    <div style="font-size:16px; font-weight:bold;">8人</div>
-                    <div style="font-size:10px;">2卧底</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label class="form-label">邀请好友 (至少1位，其余系统补位)</label>
-            <div id="ucFriendSelectList" class="multi-select-list" style="max-height: 200px; border: 1px solid #eee; border-radius: 8px;">
-                <!-- JS 动态生成 -->
-            </div>
-        </div>
 
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-cancel" onclick="closeUcSetupModal()">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="startUndercoverGameInit()" style="background:#000;">开始游戏</button>
-        </div>
-    </div>
-</div>
 
-<!-- 2. 查看词语弹窗 (无需修改，保持原黑底白字即可) -->
-<div id="undercoverWordModal" class="modal" style="z-index: 20000;">
-    <div class="modal-content" style="text-align: center; background: #1a1a1a; color: #fff; border: 1px solid #333;">
-        <div style="font-size: 14px; margin-bottom: 20px; color: #888;">你的身份词是</div>
-        <div id="ucUserWordDisplay" style="font-size: 36px; font-weight: bold; margin-bottom: 30px; letter-spacing: 2px;">???</div>
-        <button class="modal-btn" onclick="confirmUcWord()" style="background: #fff; color: #000; font-weight: bold; width: 100%;">记住了</button>
-    </div>
-</div>
-
-<!-- 3. 游戏主界面 (全新布局) -->
-<div id="undercoverGameScreen" class="page">
-    <div class="nav-bar">
-        <button class="nav-btn" onclick="quitUndercoverGame()"><svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
-        <div class="nav-title" id="ucRoundInfo">谁是卧底</div>
-        <button class="nav-btn" style="width: 40px;"></button>
-    </div>
-    
-    <div class="wechat-content">
-        
-        <!-- 顶部词语吊牌 -->
-        <div class="uc-word-board-container">
-            <div class="uc-word-board">
-                我的词：<span id="ucMyWordSmall">???</span>
-            </div>
-        </div>
-
-        <!-- 游戏核心区域 -->
-        <div class="uc-game-area">
-            <!-- 左侧列 (1, 2, 3...) -->
-            <div class="uc-column left" id="ucLeftCol"></div>
-            
-            <!-- 中间状态提示 -->
-            <div class="uc-center-status">
-                <div id="ucStatusBadge" class="uc-status-text" style="display:none;">
-                    <i class="ri-loader-4-line"></i> <span id="ucStatusContent">等待中...</span>
-                </div>
-            </div>
-
-            <!-- 右侧列 (4, 5, 6...) -->
-            <div class="uc-column right" id="ucRightCol"></div>
-        </div>
-
-        <!-- 底部操作区 -->
-        <div class="uc-bottom-panel">
-            <!-- 聊天记录 -->
-            <div class="uc-log-container" id="ucChatLog">
-                <div class="uc-log-sys">游戏开始</div>
-            </div>
-            
-            <!-- 操作栏 (输入框 / 投票提示) -->
-            <div class="uc-action-bar">
-                <div id="ucInputArea" class="uc-input-wrapper" style="display: none;">
-                    <input type="text" id="ucDescInput" class="uc-input" placeholder="请描述你的词语..." maxlength="200">
-                    <button class="uc-btn" onclick="submitUcDescription()">发送</button>
-                </div>
-                <div id="ucVoteArea" class="uc-vote-tip" style="display: none;">
-                    请点击上方头像进行投票！
-                </div>
-                <div id="ucWaitArea" style="color:#666; font-size:14px; display:block;">
-                    等待他人发言...
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 游戏内通用悬浮球 -->
-<div id="gameFloatBall" style="display: none;" onclick="openGameApiSettings()">
-    <i class="ri-settings-4-fill"></i>
-</div>
-
-<!-- 游戏专用 API 设置弹窗 (重构版) -->
-<div id="gameApiSettingsModal" class="modal">
-    <!-- 增加宽度的 modal-content -->
-    <div class="modal-content" style="background-color: #fff; border-radius: 24px; padding: 30px 20px; width: 90%; max-width: 400px;">
-        <div class="modal-title" style="color:#000; font-weight:700; margin-bottom: 15px;">游戏配置</div>
-        
-        <!-- 使用 bw-style 容器来复用设置页面的漂亮样式 -->
-        <div class="bw-style" style="padding: 0; background: transparent; overflow-y: auto; max-height: 70vh;">
-            
-            <!-- 1. 悬浮球开关卡片 -->
-            <div class="form-card" style="margin-bottom: 15px; padding: 0 15px;">
-                <div class="form-group-row switch-row" style="border-bottom: none; padding: 15px 0;">
-                    <label class="form-label" style="font-weight:600; font-size: 15px;">游戏悬浮球</label>
-                    <label class="toggle-switch bw-switch">
-                        <input type="checkbox" id="gameFloatBallToggle" onchange="toggleGameFloatBall()">
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
-                <!-- 小字解释 -->
-                <div class="form-hint" style="margin-top: -10px; margin-bottom: 15px; padding-bottom: 5px;">
-                    开启后，进入具体游戏界面时会显示悬浮球，点击可随时切换模型或API，无需退出游戏。
-                </div>
-            </div>
-
-            <!-- 2. 预设按钮卡片 -->
-            <div class="form-card" style="margin-bottom: 15px; padding: 0 15px;">
-                <div class="form-group-row" style="border-bottom: none; padding: 15px 0; justify-content: flex-start; gap: 10px;">
-                    <button class="bw-chip-btn" onclick="openGameApiPresetSelector()">选择预设</button>
-                    <button class="bw-chip-btn" onclick="saveGameApiPreset()">保存当前配置</button>
-                </div>
-            </div>
-
-            <!-- 3. API 配置卡片 (核心修改部分) -->
-            <div class="form-card" style="padding: 0 15px;">
-                <div class="form-group-row">
-                    <label class="form-label" style="font-size: 14px;">API 地址</label>
-                    <input type="text" class="form-input" id="gameApiUrl" placeholder="为空则使用全局默认">
-                </div>
-                <div class="form-group-row">
-                    <label class="form-label" style="font-size: 14px;">API Key</label>
-                     <div style="flex: 1; display: flex; align-items: center;">
-                        <input type="password" class="form-input" id="gameApiKey" placeholder="为空则使用全局默认">
-                        <!-- 清空按钮 -->
-                        <i class="ri-close-circle-fill" style="color: #ccc; margin-left: 8px; cursor: pointer; font-size: 16px;" onclick="document.getElementById('gameApiKey').value = ''"></i>
-                    </div>
-                </div>
-
-                <!-- 模型选择区域 (参考主设置样式) -->
-                <div class="form-group-row column-layout" style="border-bottom: none; align-items: stretch;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <label class="form-label" style="font-size: 14px;">API 模型</label>
-                        <!-- 拉取按钮 -->
-                        <button class="bw-chip-btn" onclick="fetchGameModels()">
-                            <i class="ri-download-cloud-2-line"></i> 拉取列表
-                        </button>
-                    </div>
-                    
-                    <!-- 下拉选择框容器 -->
-                    <div class="model-select-container" style="width: 100%; margin-top: 10px; position: relative;">
-                        <!-- 输入框变身为显示框，点击触发下拉 -->
-                        <input type="text" class="form-input" id="gameModelName" placeholder="选择或输入模型名称" readonly onclick="toggleGameModelDropdown()" style="background: #f9f9f9; padding: 10px; border-radius: 8px; width: 100%; text-align: left; box-sizing: border-box;">
-                        
-                        <!-- 下拉箭头 -->
-                        <span class="select-arrow" onclick="toggleGameModelDropdown()" style="right: 10px;">
-                            <i class="ri-arrow-down-s-line"></i>
-                        </span>
-
-                        <!-- 隐藏的下拉菜单 -->
-                        <div class="model-dropdown bw-dropdown" id="gameModelDropdown"></div>
-                    </div>
-                    
-                    <!-- 底部小字解释 -->
-                    <div class="form-hint" style="margin-top: 10px; line-height: 1.5; color: #999;">
-                        如果不填写，将自动使用主设置中的API配置。单独填写可实现玩游戏用便宜模型，聊天用聪明模型。
-                    </div>
-                </div>
-            </div>
-
-            <!-- 底部按钮 -->
-            <div class="modal-buttons" style="margin-top: 20px;">
-                 <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('gameApiSettingsModal').classList.remove('show')">取消</button>
-                <button class="modal-btn modal-btn-confirm" onclick="saveGameApiSettings()" style="background-color: #000; color: #fff;">保存并生效</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ▼▼▼ 这是你缺少的弹窗结构，请粘贴到 body 末尾 ▼▼▼ -->
-<div id="gameApiPresetSelectModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">选择预设</div>
-        
-        <!-- 这里的 ID 必须和 JS 里的对应 -->
-        <div id="gameApiPresetListContainer" class="friend-list" style="max-height: 50vh; overflow-y: auto;">
-            <!-- JS 会把列表生成在这里 -->
-        </div>
-
-        <div class="modal-buttons" style="margin-top: 15px;">
-            <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('gameApiPresetSelectModal').classList.remove('show')">关闭</button>
-        </div>
-    </div>
-</div>
-<!-- ▲▲▲ 补全结束 ▲▲▲ -->
-
-<!-- [修正版] 谁是卧底-内心独白复盘页 -->
-<div id="ucInnerThoughtsScreen" class="page">
-    <div class="nav-bar" style="background-color: #fff; border-bottom: 1px solid #e6eff5; z-index: 100;">
-        <!-- 返回按钮：直接绑定退出函数，确保有效 -->
-        <button class="nav-btn" onclick="quitUndercoverGame()">
-            <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
-        </button>
-        <div class="nav-title" style="color: #333; font-weight: bold;">本局内心独白</div>
-        <div style="width: 40px;"></div>
-    </div>
-    
-    <!-- 核心修复：padding-top: 84px 避开导航栏 -->
-    <div class="wechat-content" id="ucThoughtsContainer" style="padding: 20px; padding-top: 84px; overflow-y: auto; background-color: #f0f7ff; box-sizing: border-box; height: 100%;">
-        <!-- 动态生成的内容将放在这里 -->
-    </div>
-</div>
 
 <div id="unblockRequestModal" class="modal">
     <div class="modal-content">
@@ -6721,336 +6312,6 @@
     </div>
 </div>
 
-<!-- =============================================================== -->
-<!-- START: 海龟汤 (Turtle Soup) 完整功能模块 (绿白清新版) -->
-<!-- =============================================================== -->
-
-<!-- 1. 海龟汤设置弹窗 (黑白通用风格) -->
-<div id="turtleSoupSetupModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">海龟汤设置</div>
-        
-        <!-- 选择主持人 -->
-        <div class="form-group">
-            <label class="form-label">谁是主持人？</label>
-            <div class="uc-mode-group">
-                <!-- 按钮样式复用谁是卧底的 uc-mode-btn -->
-                <div class="uc-mode-btn active" onclick="selectSoupHost('friend')" id="btnSoupHostFriend">
-                    <div>好友</div>
-                    <div style="font-size:10px;">(我来猜)</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectSoupHost('user')" id="btnSoupHostUser">
-                    <div>我</div>
-                    <div style="font-size:10px;">(好友猜)</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 选择汤源 -->
-        <div class="form-group">
-            <label class="form-label">选择汤底</label>
-            <div class="uc-mode-group">
-                <div class="uc-mode-btn active" onclick="selectSoupSource('random')" id="btnSoupSourceRandom">
-                    <div>随机汤</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectSoupSource('specific')" id="btnSoupSourceSpecific">
-                    <div>指定汤</div>
-                </div>
-            </div>
-            <div class="form-hint" id="soupSourceHint" style="color:#999; font-size:12px; margin-top:5px;">随机汤：系统随机抽取，充满未知。</div>
-        </div>
-
-        <!-- 选择好友 -->
-        <div class="form-group">
-            <label class="form-label">选择玩伴</label>
-            <!-- 列表容器：去除深色背景，使用通用边框 -->
-            <div id="soupFriendList" class="multi-select-list" style="max-height: 200px; border: 1px solid #eee; border-radius: 8px; background:#fff;">
-                <!-- JS动态生成好友列表 -->
-            </div>
-        </div>
-
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('turtleSoupSetupModal').classList.remove('show')">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="startTurtleSoupSetup()" style="background:#4caf50; color:#fff;">开始</button>
-        </div>
-    </div>
-</div>
-
-<!-- 2. 指定汤选择页面 (白底列表) -->
-<div id="turtleSoupSelectScreen" class="page">
-    <div class="nav-bar" style="background:#ffffff; border-bottom:1px solid #f0f0f0;">
-        <button class="nav-btn" onclick="backToSoupSetup()"><svg class="back-svg" style="color:#000;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg></button>
-        <div class="nav-title" style="color:#000;">选择汤底</div>
-        <div></div>
-    </div>
-    <!-- 内容区域：浅灰背景 -->
-    <div class="wechat-content" style="padding-top:74px; background:#f7f9f8;">
-        <div id="soupLibraryList" class="soup-select-list" style="padding:15px; background:transparent;">
-            <!-- JS 生成汤列表卡片 -->
-        </div>
-    </div>
-</div>
-
-<!-- 3. 海龟汤游戏主界面 (绿白清新风) -->
-<div id="turtleSoupGameScreen" class="page">
-    <div class="nav-bar" style="background:#ffffff; border-bottom:1px solid #f0f0f0;">
-        <!-- 返回/退出按钮 -->
-        <button class="nav-btn" onclick="quitTurtleSoup()"><i class="ri-close-line" style="color:#333;"></i></button>
-        <div class="nav-title" id="soupGameTitle" style="color:#333; font-weight:bold;">海龟汤</div>
-        
-        <!-- 【修改】右侧按钮组：下一局 + 结束 -->
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <button class="nav-btn" onclick="openNextSoupSetup()" style="color:#333; font-size:14px; font-weight:bold;">下一局</button>
-            <button class="nav-btn" onclick="manualEndSoupGame()" style="color:#ff4d4d; font-size:14px; font-weight:bold;">结束</button>
-        </div>
-    </div>
-    
-    <!-- 聊天内容区域 -->
-    <div class="wechat-content" style="display:flex; flex-direction:column; padding-top:74px; padding-bottom:0; background: #f7f9f8;">
-        
-        <!-- 顶部汤面卡片 (清新浅绿风格) -->
-        <div class="soup-header-card" style="background: #e8f5e9; color: #1b5e20; padding: 20px; margin: 15px; border-radius: 16px; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.1); border: 1px solid #c8e6c9;">
-            <div class="soup-tags" id="soupGameTags" style="display:flex; gap:8px; margin-bottom:10px;">
-                <!-- 标签由JS生成 -->
-            </div>
-            
-            <!-- 汤面内容：固定高度，可滑动 -->
-            <div class="soup-content" id="soupGameSurface" style="font-size: 15px; line-height: 1.7; font-weight: 500; max-height: 120px; overflow-y: auto; padding-right: 5px;">
-                <!-- 汤面文字 -->
-            </div>
-            
-            <div class="soup-host-info" style="display:flex; align-items:center; margin-top:12px; font-size:12px; color:#66bb6a; border-top:1px dashed #c8e6c9; padding-top:8px;">
-                <div class="soup-host-avatar" id="soupHostAvatar" style="width:24px; height:24px; border-radius:50%; margin-right:8px; background-size:cover; background-position:center; border:1px solid #fff;"></div>
-                <span id="soupHostName">主持人: ???</span>
-            </div>
-        </div>
-
-        <!-- 聊天区域 -->
-        <div class="soup-chat-area" id="soupChatArea" style="flex: 1; overflow-y: auto; padding: 0 15px 20px;">
-            <!-- 消息记录 -->
-        </div>
-
-        <!-- 底部输入栏 (白底) -->
-        <div class="soup-bottom-bar" style="background: #ffffff; padding: 10px 15px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 10px; border-top: 1px solid #f0f0f0;">
-            <!-- 汤底按钮 -->
-            <button class="soup-action-btn" onclick="showSoupAnswer()" style="display:flex; flex-direction:column; align-items:center; color:#666; background:none; border:none; width:40px;">
-                <i class="ri-book-open-line" style="font-size:22px;"></i>
-                <span style="font-size:10px;">汤底</span>
-            </button>
-            
-            <!-- 线索按钮 -->
-            <button class="soup-action-btn" onclick="handleSoupClue()" style="display:flex; flex-direction:column; align-items:center; color:#666; background:none; border:none; width:40px;">
-                <i class="ri-lightbulb-line" style="font-size:22px;"></i>
-                <span style="font-size:10px;">线索</span>
-            </button>
-
-            <!-- 输入框 -->
-            <input type="text" id="soupInput" class="soup-input" placeholder="输入问题..." style="flex:1; background:#f5f5f5; border:none; border-radius:20px; padding:10px 15px; font-size:15px; outline:none; color:#333;">
-            
-            <!-- 发送按钮 -->
-            <button class="soup-send-btn" onclick="sendSoupMessage()" style="width:36px; height:36px; border-radius:50%; background:#4caf50; color:#fff; border:none; display:flex; align-items:center; justify-content:center; font-size:18px;">
-                <i class="ri-send-plane-fill"></i>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- 4. 汤底展示弹窗 (白底黑字通用样式) -->
-<div id="soupAnswerModal" class="soup-answer-modal" style="background:#fff; color:#333; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
-    <div class="soup-answer-title" style="color:#000;">汤底 (真相)</div>
-    <div class="soup-answer-content" id="soupAnswerContent" style="color:#444;"></div>
-    <div class="modal-buttons">
-        <button class="modal-btn modal-btn-confirm" onclick="document.getElementById('soupAnswerModal').classList.remove('show')" style="background:#4caf50; color:#fff;">关闭</button>
-    </div>
-</div>
-
-<!-- 5. 发送线索选择弹窗 (白底黑字) -->
-<div id="soupClueSelectModal" class="soup-answer-modal" style="background:#fff; color:#333; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
-    <div class="soup-answer-title" style="color:#000;">选择一条线索发送</div>
-    <div id="soupClueList">
-        <!-- 线索项会在这里生成，样式由CSS控制 -->
-    </div>
-    <div class="modal-buttons" style="margin-top:15px;">
-        <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('soupClueSelectModal').classList.remove('show')" style="background:#f0f0f0; color:#666;">取消</button>
-    </div>
-</div>
-
-<!-- =============================================================== -->
-<!-- END: 海龟汤 完整功能模块 -->
-<!-- =============================================================== -->
-
-<!-- 新增：下一局海龟汤设置弹窗 -->
-<div id="turtleSoupNextGameModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">下一局设置</div>
-        
-        <!-- 选择主持人 -->
-        <div class="form-group">
-            <label class="form-label">谁是主持人？</label>
-            <div class="uc-mode-group">
-                <div class="uc-mode-btn active" onclick="selectNextSoupHost('friend')" id="btnNextSoupHostFriend">
-                    <div>好友</div>
-                    <div style="font-size:10px;">(我来猜)</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectNextSoupHost('user')" id="btnNextSoupHostUser">
-                    <div>我</div>
-                    <div style="font-size:10px;">(好友猜)</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 选择汤源 -->
-        <div class="form-group">
-            <label class="form-label">选择汤底</label>
-            <div class="uc-mode-group">
-                <div class="uc-mode-btn active" onclick="selectNextSoupSource('random')" id="btnNextSoupSourceRandom">
-                    <div>随机汤</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectNextSoupSource('specific')" id="btnNextSoupSourceSpecific">
-                    <div>指定汤</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('turtleSoupNextGameModal').classList.remove('show')">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="confirmNextSoup()" style="background:#4caf50; color:#fff;">开始下一局</button>
-        </div>
-    </div>
-</div>
-
-<!-- 2. 游戏开始前的设置弹窗 (组局) -->
-<div id="truthDareSetupModal" class="modal">
-    <div class="modal-content" style="border-radius: 20px;">
-        <div class="modal-title" style="color: #ff69b4;">真心话大冒险</div>
-        
-        <div class="form-group">
-            <label class="form-label">题目来源</label>
-            <div class="uc-mode-group">
-                <div class="uc-mode-btn active" onclick="selectTdMode('random')" id="btnTdRandom">
-                    <div>随机题目</div>
-                    <div style="font-size:10px;">(系统出题)</div>
-                </div>
-                <div class="uc-mode-btn" onclick="selectTdMode('custom')" id="btnTdCustom">
-                    <div>自由出题</div>
-                    <div style="font-size:10px;">(抽取玩家出题)</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">邀请好友 (1-7人)</label>
-            <div id="tdFriendSelectList" class="multi-select-list" style="max-height: 200px; border: 1px solid #ffdeeb; background: #fff5f8;">
-                <!-- JS 动态生成好友列表 -->
-            </div>
-        </div>
-
-        <div class="modal-buttons">
-            <button class="modal-btn modal-btn-cancel" onclick="document.getElementById('truthDareSetupModal').classList.remove('show')">取消</button>
-            <button class="modal-btn modal-btn-confirm" onclick="startTruthDareGame()" style="background: linear-gradient(135deg, #ff9a9e, #ff69b4); box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);">开始派对</button>
-        </div>
-    </div>
-</div>
-
-<!-- 3. 游戏主界面 -->
-<div id="truthDareGameScreen" class="page">
-    <!-- 导航栏 -->
-    <div class="nav-bar" style="background: #ffffff; border-bottom: 1px solid #f0f0f0;">
-        <button class="nav-btn" onclick="quitTruthDareGame()" style="color: #ff69b4;">
-            <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
-        </button>
-        <div class="nav-title" style="color: #333; font-weight: 800;">真心话大冒险</div>
-        <div style="display: flex; gap: 5px;">
-            <button class="nav-btn" onclick="resetTdRound()" style="color: #ff69b4;">
-                <i class="ri-refresh-line"></i>
-            </button>
-            <button class="nav-btn" onclick="openTdSettings()" style="color: #ff69b4;">
-                <i class="ri-settings-3-line"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- 游戏内容区域 -->
-    <div class="wechat-content" style="background: #ffffff; display: flex; flex-direction: column; padding-top: 74px; padding-bottom: 0;">
-        
-        <!-- 上半部分：圆盘与控制 -->
-        <div class="td-game-board">
-            <div class="td-header-row" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 5px;">
-                <!-- 灯牌 -->
-                <div class="td-neon-sign" style="margin-bottom: 0; transform: scale(0.9); z-index: 1;">
-                    <div id="light-truth" class="neon-text pink">真心话</div>
-                    <div class="neon-divider">
-                        <i class="ri-flashlight-fill" style="color: #FFD700; font-size: 18px;"></i>
-                    </div>
-                    <div id="light-dare" class="neon-text blue">大冒险</div>
-                </div>
-                <!-- 抽取按钮 (绝对定位在灯牌右侧) -->
-                <button id="tdDrawBtn" class="td-draw-icon-btn small" onclick="drawTruthOrDareAction()" 
-                        style="position: absolute; left: 50%; margin-left: 85px; margin-top: 0; z-index: 2;">
-                    <i class="ri-dice-fill"></i>
-                </button>
-            </div>
-
-            <!-- 转盘区域 -->
-            <div class="td-turntable-container">
-                <div id="tdAvatarCircle" class="td-avatar-circle">
-                    <!-- JS 动态生成玩家头像 -->
-                </div>
-                <!-- 酒瓶 -->
-                <div id="tdBottle" class="td-bottle" onclick="spinTdBottle()">
-                    <img src="https://img.heliar.top/file/1768311510374_IMG_1406.png" alt="Bottle">
-                </div>
-            </div>
-            
-            <!-- 状态提示 -->
-            <div id="tdStatusText" class="td-status-bar">等待开始...</div>
-        </div>
-
-        <!-- 下半部分：聊天区 -->
-        <div id="tdChatArea" class="chat-messages" style="flex: 1; background: transparent; padding-bottom: 0;"></div>
-
-        <!-- 底部输入框 -->
-        <div class="chat-input" style="background: #ffffff; border-top: 1px solid #f0f0f0;">
-            <!-- AI导演按钮 -->
-            <button class="chat-btn" onclick="manualTriggerTdGameLoop()" title="推进游戏剧情" style="color: #ff69b4;">
-                <i class="ri-group-line"></i>
-            </button>
-            
-            <input type="text" id="tdInput" placeholder="输入内容..." onkeydown="handleTdInputEnter(event)">
-            
-            <button class="chat-btn send-btn active" onclick="sendTdMessage()" style="background: #ff69b4; color: white; width: 40px; margin-left:5px;">
-                <i class="ri-send-plane-fill"></i>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- 4. 游戏内设置弹窗 -->
-<div id="tdSettingsModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-title">游戏设置</div>
-        
-        <div class="form-group">
-            <label class="form-label">额外提示词 (AI指令)</label>
-            <textarea id="tdCustomPromptInput" class="modal-textarea" 
-                placeholder="例如：稍微重口一点 / 针对1号玩家 / 搞笑一点..." 
-                style="min-height: 100px;"></textarea>
-            <div class="form-hint">这些指令会被加入到 Prompt 中发给 AI。</div>
-        </div>
-
-        <div class="modal-buttons" style="flex-direction: column; gap: 10px;">
-            <div style="display: flex; gap: 10px; width: 100%;">
-                <button class="modal-btn modal-btn-cancel" onclick="closeTdSettings()">取消</button>
-                <button class="modal-btn modal-btn-confirm" onclick="saveTdSettings()">保存设置</button>
-            </div>
-            <!-- 重回按钮 -->
-            <button class="modal-btn" onclick="retryTdRequest()" 
-                style="background: #f0f0f0; color: #ff3b30; border: 1px solid #ff3b30; width: 100%;">
-                <i class="ri-refresh-line"></i> 重新请求(重回)
-            </button>
-        </div>
-    </div>
-</div>
 
 <!-- 新增：发送礼物弹窗 -->
 <div id="giftInputModal" class="modal">
@@ -7406,11 +6667,6 @@
         </div>
     </div>
 </div>
-
-<!-- ================================================
-     直播 HTML 已由 live-plugin.js 动态注入
-     ============================================== -->
-<div id="live-plugin-mount"></div>
 
 <!-- [新增] 总结提示词选择弹窗 -->
 <div id="summaryPromptSelectModal" class="modal">
@@ -8664,13 +7920,23 @@ function importMemories(event) {
 // ==========================================
 
     </script>
+<!-- 聊天 CSS 全屏编辑器 -->
+<div id="chatCssEditor">
+    <div class="css-editor-bar">
+        <button class="nav-btn" onclick="closeChatCssEditor()" aria-label="返回">
+            <svg class="back-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="m3.55 12l7.35 7.35q.375.375.363.875t-.388.875t-.875.375t-.875-.375l-7.7-7.675q-.3-.3-.45-.675T.825 12t.15-.75t.45-.675l7.7-7.7q.375-.375.888-.363t.887.388t.375.875t-.375.875z"/></svg>
+        </button>
+        <div class="css-editor-title">聊天 CSS</div>
+        <button class="css-editor-done" onclick="saveChatCssEditor()">完成</button>
+    </div>
+    <textarea id="chatCssEditorArea" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="在此输入 CSS..." oninput="applyChatCssDebounced(this.value)"></textarea>
+</div>
+
     <script src="baby-plugin.js" defer></script>
-    <script src="live-plugin.js" defer></script>
-      <script src="cross-reality-plugin.js" defer></script> 
+    <script src="cross-reality-plugin.js" defer></script> 
       <script src="multi-offline-plugin.js" defer></script>
       <script src="notebook-plugin.js" defer></script>
       <script src="transmigrate-plugin.js" defer></script>
-      <script src="draw-guess-plugin.js" defer></script>
 </body>
 </html>
 

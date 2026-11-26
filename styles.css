@@ -10739,273 +10739,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     to { transform: rotate(360deg); }
 }
 
-/* 游戏面板布局 */
-.charades-top-panel {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 20px 15px 10px;
-    background-color: #fdfbf5; /* 米黄色温馨背景 */
-}
-
-/* 玩家徽章 (头像+标签) */
-.player-badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-}
-.badge-label {
-    background: #d4eeb0; /* 浅绿色标签 */
-    color: #556b2f;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    margin-bottom: -5px; /* 压在头像上一点 */
-    z-index: 3;
-    font-weight: bold;
-}
-.user-side .badge-label { background: #d4eeb0; }
-.ai-side .badge-label { background: #d4eeb0; }
-
-.game-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 2px solid #333;
-    background-color: #fff;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-/* === 像素风电视机 CSS 画法 === */
-.tv-container {
-    position: relative;
-    width: 180px;
-    margin: 0 auto; /* 居中 */
-}
-/* 天线 */
-.tv-antenna-left, .tv-antenna-right {
-    position: absolute; top: -12px; width: 3px; height: 15px; background: #dcc096; border: 1px solid #333; z-index: 0;
-}
-.tv-antenna-left { left: 60px; transform: rotate(-30deg); }
-.tv-antenna-right { right: 60px; transform: rotate(30deg); }
-
-/* 电视外框 */
-.tv-frame {
-    background: #f3dfc1; /* 奶茶色外壳 */
-    border: 2px solid #4a3b32;
-    border-radius: 15px;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 1;
-}
-/* 屏幕区域 */
-.tv-screen {
-    flex: 1;
-    background: #fff;
-    border: 2px solid #4a3b32;
-    border-radius: 10px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-#charadesTargetWord {
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    letter-spacing: 2px;
-}
-/* 电视右侧控制区 */
-.tv-controls {
-    width: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin-left: 6px;
-}
-.tv-knob {
-    width: 12px; height: 12px; border-radius: 50%; border: 2px solid #4a3b32;
-}
-.tv-knob:nth-child(1) { background: #ff6b6b; } /* 红色按钮 */
-.tv-knob:nth-child(2) { background: #4ecdc4; } /* 蓝色按钮 */
-.tv-speaker {
-    font-size: 10px; color: #4a3b32; font-weight: bold; margin-top: 5px; transform: rotate(90deg);
-}
-/* 电视脚 */
-.tv-legs { position: relative; height: 8px; width: 100%; }
-.tv-leg-left, .tv-leg-right {
-    position: absolute; bottom: -5px; width: 8px; height: 8px; background: #4a3b32; border-radius: 0 0 4px 4px;
-}
-.tv-leg-left { left: 20px; }
-.tv-leg-right { right: 20px; }
-
-/* 状态栏 */
-.charades-status-bar {
-    text-align: center;
-    font-size: 12px;
-    color: #888;
-    margin-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2px dashed #eee;
-}
-
-/* === 你演我猜 专属样式修复 === */
-
-/* 1. 整体背景一体化 (米黄色) */
-#charadesGameScreen .wechat-content {
-    background-color: #fdfbf5 !important; /* 强制覆盖原有背景 */
-    background-image: none !important;    /* 移除聊天背景图/星星 */
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* 占满全屏 */
-    padding-bottom: 0 !important; /* 移除底部内边距，交给输入框处理 */
-    box-sizing: border-box;
-}
-
-/* 2. 中间聊天区去背景 & 滚动适配 */
-#charadesGameScreen #charadesChatArea {
-    background: transparent !important; /* 透明背景 */
-    background-image: none !important;
-    box-shadow: none !important;
-    flex: 1; /* 占据剩余空间 */
-    overflow-y: auto; /* 允许滚动 */
-    padding: 10px 15px 80px 15px; /* 底部留出空间给输入框 */
-    width: 100%;
-}
-
-/* 3. 底部输入框固定在最下方 */
-#charadesGameScreen .chat-input {
-    position: absolute; /* 绝对定位 */
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fdfbf5 !important; /* 与背景同色 */
-    border-top: 1px solid #e8e6dc; /* 淡淡的分割线 */
-    z-index: 100;
-    padding-bottom: max(15px, env(safe-area-inset-bottom)); /* 适配刘海屏底部 */
-}
-
-/* 4. 气泡配色 (模仿图2) */
-
-/* 我方 (右边) - 绿色气泡 */
-#charadesGameScreen .message.sent .message-content {
-    background-color: #d4eeb0 !important; /* 抹茶绿 */
-    color: #333 !important;
-    border: 1px solid #c5e0a0;
-    box-shadow: none;
-}
-/* 我方头像去除边框 (如果有) */
-#charadesGameScreen .message.sent .chat-avatar {
-    border: none !important;
-}
-
-/* 对方 (左边) - 白色气泡 */
-#charadesGameScreen .message.received .message-content {
-    background-color: #ffffff !important;
-    color: #333 !important;
-    border: 1px solid #e0e0e0;
-    box-shadow: none;
-}
-
-/* 隐藏气泡下方可能出现的时间戳/已读 (保持界面清爽) */
-#charadesGameScreen .message-footer-container {
-    display: none !important;
-}
-
-/* 5. 按钮禁用状态样式 (防止重复点击) */
-#charadesGuessBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    color: #ccc;
-}
-#charadesGuessBtn:disabled i {
-    animation: spin 1s linear infinite; /* 加载时图标旋转 */
-}
-
-/* 游戏界面发送按钮微调 */
-#charadesGameScreen .chat-input .chat-btn {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* === 游戏中心黑白卡片风格 === */
-
-/* 游戏大卡片容器 */
-.game-card {
-    background-color: #ffffff;
-    border-radius: 20px;
-    padding: 40px 20px; /* 上下留白大一点 */
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03); /* 极淡的阴影 */
-    transition: all 0.2s ease;
-}
-
-/* 点击效果 */
-.game-card:active {
-    transform: scale(0.98);
-    background-color: #fafafa;
-}
-
-/* 图标 */
-.game-card-icon {
-    font-size: 48px;
-    color: #333; /* 深灰/黑色 */
-    margin-bottom: 15px;
-}
-
-/* 标题 */
-.game-card-title {
-    font-size: 22px;
-    font-weight: 800;
-    color: #000;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-}
-
-/* 描述文字 */
-.game-card-desc {
-    font-size: 13px;
-    color: #999; /* 浅灰色 */
-}
-
-/* --- 暗色模式适配 --- */
-.wechat-dark-mode .game-card {
-    background-color: #1c1c1e;
-    border-color: #333;
-}
-.wechat-dark-mode .game-card-icon {
-    color: #fff;
-}
-.wechat-dark-mode .game-card-title {
-    color: #fff;
-}
-.wechat-dark-mode .game-card-desc {
-    color: #666;
-}
 
 /* --- 钱包主页美化 (黑白风) --- */
 .wallet-header-card {
@@ -13330,7 +13063,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .lovers-main-content {
     /* 底部留出 100px，防止最后一条动态被悬浮按钮遮挡 */
     padding-bottom: 100px !important; 
-    min-height: 100vh; /* 确保内容足够长，即使没内容也能撑开背景 */
+    /* 用 100% 跟随页面高度，避免在 iOS 全屏外壳里多出一屏高造成底部空段 */
+    min-height: 100%; 
 }
 
 /* 3. 悬浮按钮：固定定位 (一模一样的逻辑) */
@@ -16955,711 +16689,12 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: auto !important;       /* 重置高度 */
 }
 
-/* --- 1. 游戏设置弹窗美化 --- */
-#undercoverSetupModal .modal-content {
-    background: #fff;
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-}
-
-.uc-mode-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: center;
-}
-
-.uc-mode-btn {
-    padding: 10px 18px;
-    border: 1px solid #e0e0e0;
-    background: #f9f9f9;
-    color: #666;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex: 1;
-    text-align: center;
-}
-
-.uc-mode-btn.active {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transform: scale(1.05);
-}
-
-/* =========================================
-   谁是卧底 - 2.0 完整蓝白修复版 (含布局与配色)
-   ========================================= */
-
-/* --- 1. 游戏主容器与背景 --- */
-#undercoverGameScreen {
-    background-color: #f0f7ff !important; /* 很淡的蓝色背景 */
-    background-image: linear-gradient(180deg, #eef6ff 0%, #f0f7ff 100%) !important;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-/* --- 2. 顶部导航栏 (蓝白风) --- */
-#undercoverGameScreen .nav-bar {
-    background: #ffffff !important;
-    border-bottom: 1px solid #e6eff5 !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02) !important;
-}
-#undercoverGameScreen .nav-title {
-    color: #333 !important;
-    font-weight: bold;
-}
-#undercoverGameScreen .nav-btn {
-    color: #333 !important;
-}
-
-/* --- 3. 内容区域布局 (修复崩溃的关键) --- */
-#undercoverGameScreen .wechat-content {
-    flex: 1; /* 占满剩余高度 */
-    display: flex !important; /* 开启Flex布局 */
-    flex-direction: column !important;
-    padding-top: 74px !important; /* 避开导航栏 */
-    padding-bottom: 0 !important;
-    overflow: hidden !important;
-    background: transparent !important;
-}
-
-/* --- 4. 顶部“我的词”吊牌 --- */
-.uc-word-board-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 50;
-    flex-shrink: 0; /* 防止被压缩 */
-}
-
-.uc-word-board {
-    background: #ffffff !important;
-    color: #64a1ff !important; /* 亮蓝色文字 */
-    padding: 8px 30px;
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 18px;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.15) !important;
-    border: 1px solid #dbeafe !important;
-    position: relative;
-    transform-origin: top center;
-    animation: board-swing 3s ease-in-out infinite;
-}
-
-/* 吊牌绳子 */
-.uc-word-board::before, .uc-word-board::after {
-    content: '';
-    position: absolute;
-    top: -80px;
-    width: 2px;
-    height: 80px;
-    background: rgba(0, 122, 255, 0.2) !important;
-}
-.uc-word-board::before { left: 15px; }
-.uc-word-board::after { right: 15px; }
-
-/* --- 5. 游戏座位区域 (核心布局修复) --- */
-.uc-game-area {
-    flex: 1;
-    display: flex !important; /* 左右分列 */
-    justify-content: space-between !important;
-    padding: 0 25px;
-    position: relative;
-    overflow-y: auto;
-}
-
-/* 左右两列 */
-.uc-column {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 25px; /* 头像间距 */
-    padding-top: 10px;
-    width: 80px; /* 固定列宽 */
-}
-
-/* --- 6. 玩家卡片样式 --- */
-.uc-player-card {
-    position: relative;
-    width: 70px;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-/* 头像 */
-.uc-avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 14px;
-    background-color: #fff;
-    border: 3px solid #fff !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05) !important;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-/* 编号球 */
-.uc-num-tag {
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    background: #64a1ff !important; /* 蓝色编号 */
-    color: #fff !important;
-    font-size: 12px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 20px;
-    border: 2px solid #fff;
-    font-weight: bold;
-    z-index: 5;
-    box-shadow: 0 2px 5px rgba(0, 122, 255, 0.3);
-}
-
-/* 谁是卧底 - 玩家名字样式修正版 */
-.uc-name {
-    font-size: 10px;           /* 字体保持小巧 */
-    color: #555 !important;
-    margin-top: 4px;
-    background: rgba(255, 255, 255, 0.9) !important;
-    padding: 2px 4px;          /* 稍微减小内边距 */
-    border-radius: 6px;
-    border: 1px solid #eef2f7 !important;
-    font-weight: 500;
-    
-    /* --- 核心修改开始 --- */
-    width: 100%;               /* 宽度占满父容器 */
-    white-space: normal;       /* 【关键】允许换行！不再强制一行 */
-    word-break: break-all;     /* 允许在任意字符间换行 */
-    line-height: 1.2;          /* 行高紧凑一点 */
-    
-    /* 限制最多显示 2 行，超出才省略 */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    
-    text-align: center;        /* 文字居中 */
-    min-height: 16px;          /* 保持最小高度，防止名字太短时排版跳动 */
-    /* --- 核心修改结束 --- */
-}
-
-/* 发言中高亮 */
-.uc-player-card.speaking .uc-avatar {
-    border-color: #64a1ff !important;
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2) !important;
-    transform: scale(1.05);
-}
-
-/* 死亡状态 */
-.uc-avatar.dead {
-    filter: grayscale(100%);
-    opacity: 0.7;
-}
-
-/* --- 7. 发言气泡 (位置修复) --- */
-.uc-bubble {
-    position: absolute;
-    top: 0;
-    background: #fff !important;
-    color: #333 !important;
-    padding: 12px 16px;
-    border-radius: 12px;
-    font-size: 13px;
-    line-height: 1.5;
-    width: 150px;
-    z-index: 100;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
-    border: 1px solid #eef2f7 !important;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.3s;
-    pointer-events: none;
-    font-weight: 500;
-}
-
-/* 左列气泡向右弹出 */
-.uc-column.left .uc-bubble {
-    left: 80px; /* 距离头像 80px */
-    border-top-left-radius: 2px;
-}
-.uc-column.left .uc-bubble::before {
-    content: ''; position: absolute; left: -8px; top: 0;
-    border-top: 10px solid #fff; 
-    border-left: 10px solid transparent;
-}
-
-/* 右列气泡向左弹出 */
-.uc-column.right .uc-bubble {
-    right: 80px; /* 距离头像 80px */
-    border-top-right-radius: 2px;
-}
-.uc-column.right .uc-bubble::before {
-    content: ''; position: absolute; right: -8px; top: 0;
-    border-top: 10px solid #fff; 
-    border-right: 10px solid transparent;
-}
-
-.uc-bubble.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* --- 8. 中间状态提示 (下移不挡脸) --- */
-.uc-center-status {
-    position: absolute;
-    top: 90%; /* 【关键】下移到 60% 的位置 */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    pointer-events: none;
-    width: 100%;
-    z-index: 40;
-}
-
-.uc-status-text {
-    color: #64a1ff !important;
-    font-size: 14px;
-    background: rgba(100, 161, 255, 0.08) !important;
-    padding: 10px 24px;
-    border-radius: 30px;
-    display: inline-block;
-    box-shadow: 0 5px 20px rgba(0, 122, 255, 0.15) !important;
-    border: 1px solid rgba(100, 161, 255, 0.2) !important;
-    font-weight: 500;
-}
-
-/* --- 9. 底部操作面板 (全白去黑) --- */
-.uc-bottom-panel {
-    height: 260px;
-    background: #ffffff !important;
-    border-top: 1px solid #eef2f7 !important;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: env(safe-area-inset-bottom);
-    box-shadow: 0 -5px 30px rgba(0,0,0,0.02);
-    z-index: 60;
-}
-
-/* 聊天记录区 */
-.uc-log-container {
-    flex: 1;
-    overflow-y: auto;
-    padding: 15px 20px;
-    background: #fafcff !important; /* 极淡的蓝灰底 */
-    border-bottom: 1px solid #eef2f7;
-}
-
-.uc-log-row { 
-    margin-bottom: 8px; 
-    font-size: 11px; 
-    color: #666 !important; 
-    line-height: 1.6; 
-}
-.uc-log-row b { 
-    color: #000 !important;
-    font-weight: bold !important;
-    margin-right: 5px; 
-}
-.uc-log-sys { 
-    color: #999 !important; 
-    text-align: center; 
-    margin: 15px 0; 
-    font-size: 12px; 
-}
-
-/* 操作栏 */
-.uc-action-bar {
-    padding: 15px 20px;
-    background: #ffffff !important;
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* 输入框 */
-.uc-input-wrapper {
-    display: flex; width: 100%; gap: 12px;
-}
-.uc-input {
-    flex: 1; 
-    background: #f2f4f7 !important; 
-    border: 1px solid #e6e8eb !important;
-    color: #333 !important; 
-    padding: 12px 15px; 
-    border-radius: 20px; 
-    outline: none;
-    font-size: 15px;
-}
-.uc-input::placeholder { color: #bbb; }
-
-/* 按钮 */
-.uc-btn {
-    background: #64a1ff !important; 
-    color: #fff !important; 
-    border: none;
-    padding: 0 24px; 
-    border-radius: 20px; 
-    font-weight: bold; 
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 122, 255, 0.3);
-}
-
-/* 等待文字 */
-#ucWaitArea {
-    color: #999 !important;
-}
-
-/* 投票提示 */
-.uc-vote-tip { 
-    color: #ff3b30 !important; 
-    font-weight: bold; 
-    background: #fff0f0;
-    padding: 8px 20px;
-    border-radius: 20px;
-}
-
-/* --- 10. 你的身份词弹窗 (蓝白风) --- */
-#undercoverWordModal .modal-content {
-    background: #ffffff !important; /* 改为白底 */
-    border-radius: 24px !important;
-    border: none !important;
-    box-shadow: 0 20px 60px rgba(0, 122, 255, 0.2) !important;
-    color: #333 !important;
-    text-align: center;
-    padding: 40px 30px !important;
-}
-
-/* "你的身份词是" */
-#undercoverWordModal .modal-content div:first-child {
-    color: #888 !important;
-    font-size: 15px !important;
-}
-
-/* 词语文字 */
-#ucUserWordDisplay {
-    color: #007aff !important; /* 蓝色大字 */
-    font-size: 42px !important;
-    text-shadow: none !important;
-    margin: 25px 0 35px !important;
-}
-
-/* "记住了"按钮 */
-#undercoverWordModal .modal-btn {
-    background: #007aff !important;
-    color: #fff !important;
-    border-radius: 30px !important;
-    padding: 15px 0 !important;
-    font-size: 16px !important;
-    box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3) !important;
-    width: 100% !important;
-}
-
-
-
-/* 2. 在 CSS 最末尾添加这个动画定义 */
-@keyframes board-swing {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(3deg); } /* 向右摆 */
-    50% { transform: rotate(0deg); }
-    75% { transform: rotate(-3deg); } /* 向左摆 */
-    100% { transform: rotate(0deg); }
-}
-
-/* 谁是卧底-底部日志样式优化 */
-.uc-log-item {
-    /* 1. 字体改小 (原来可能是13px或14px) */
-    font-size: 13px !important; 
-    
-    /* 2. 增加每条消息之间的间距 */
-    margin-bottom: 8px !important; 
-    
-    /* 3. 增加行高，让文字不挤在一起 */
-    line-height: 1.6 !important;
-    
-    /* 4. 确保内容文字也是深色 */
-    color: #333 !important;
-}
-
-/* 投票标记容器：放在头像旁边（气泡的位置） */
-.uc-vote-marks-container {
-    position: absolute;
-    top: 0;
-    /* 根据左右列不同，放在头像的左边或右边 */
-    left: 80px; /* 左列玩家的标记在右侧 */
-    width: 100px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
-    pointer-events: none;
-    z-index: 101;
-}
-
-/* 右列玩家的标记容器特殊处理 */
-.uc-column.right .uc-vote-marks-container {
-    left: auto;
-    right: 80px;
-    justify-content: flex-end;
-}
-
-/* 单个投票号码标 */
-.uc-vote-tag {
-    background-color: #64a1ff; /* 醒目的红色 */
-    color: white;
-    font-size: 10px;
-    padding: 2px 5px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    font-weight: bold;
-    animation: popIn 0.3s ease; /* 弹入动画 */
-}
-
-/* 1. 缩小列宽 */
-.uc-column {
-    width: 60px; /* 原来是 80px */
-}
-
-/* 2. 缩小单个玩家卡片容器 */
-.uc-player-card {
-    width: 55px; /* 原来是 70px */
-}
-
-/* 3. 缩小头像尺寸 */
-.uc-avatar {
-    width: 48px;  /* 原来是 64px */
-    height: 48px; /* 原来是 64px */
-    border-radius: 10px; /* 圆角稍微调小一点 */
-    font-size: 16px; /* 文字头像字体调小 */
-}
-
-/* 4. 调整名字条宽度，防止超出 */
-.uc-name {
-    max-width: 55px;
-    font-size: 10px; /* 字体改小 */
-    margin-top: 4px;
-}
-
-/* --- 修复底部日志滑动吃力的问题 --- */
-.uc-log-container {
-    /* 1. 开启 iOS 惯性滚动，让滑动像原生App一样丝滑 */
-    -webkit-overflow-scrolling: touch !important;
-    
-    /* 2. 明确告诉浏览器这个区域只允许垂直滑动，防止手势冲突 */
-    touch-action: pan-y !important;
-    
-    /* 3. 开启硬件加速，防止被其他动画拖慢 */
-    transform: translateZ(0);
-}
-
-/* --- 优化中间状态提示，防止动画卡顿 --- */
-.uc-center-status {
-    /* 确保它绝对不会拦截手指的点击和滑动事件 */
-    pointer-events: none !important;
-}
-
-/* 如果中间有旋转图标，给它加上硬件加速，防止拖慢页面 */
-.uc-center-status i, 
+/* 给旋转图标加上硬件加速，防止拖慢页面 */
 .ri-loader-4-line {
     will-change: transform;
     transform: translateZ(0);
 }
 
-/* 游戏悬浮球样式 */
-#gameFloatBall {
-    position: fixed;
-    top: 120px; /* 默认位置靠上一点 */
-    right: 0;   /* 贴边 */
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.8); /* 半透明黑底 */
-    color: white;
-    border-radius: 20px 0 0 20px; /* 左圆角，半圆效果 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    z-index: 9999; /* 保证在最上层 */
-    cursor: pointer;
-    box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
-    transition: opacity 0.3s;
-}
-#gameFloatBall:active {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-/* --- 谁是卧底：沉浸式内心复盘 UI (蓝白风) --- */
-
-/* 1. 复盘大卡片 (每个角色一张) */
-.uc-replay-card {
-    background: #ffffff;
-    border-radius: 16px;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 24px rgba(24, 144, 255, 0.12); /* 蓝色系投影 */
-    overflow: hidden;
-    border: 1px solid #e6f7ff;
-}
-
-/* 2. 角色头部信息 */
-.uc-replay-header {
-    background: linear-gradient(135deg, #e6f7ff 0%, #ffffff 100%);
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #bae7ff;
-}
-
-.uc-replay-avatar {
-    width: 50px; height: 50px; border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
-    margin-right: 12px;
-    background-size: cover; background-position: center;
-    background-color: #eee;
-}
-
-.uc-replay-role-info { flex: 1; }
-.uc-replay-name { font-size: 17px; font-weight: 800; color: #0050b3; }
-.uc-replay-identity { 
-    font-size: 12px; padding: 2px 8px; border-radius: 10px; margin-left: 5px; font-weight: normal;
-}
-.uc-replay-identity.civilian { background: #e6f7ff; color: #1890ff; border: 1px solid #91d5ff; }
-.uc-replay-identity.spy { background: #fff1f0; color: #ff4d4f; border: 1px solid #ffccc7; }
-
-/* 3. 时间轴容器 */
-.uc-timeline {
-    padding: 20px 15px;
-    position: relative;
-}
-/* 左侧轴线 */
-.uc-timeline::before {
-    content: ''; position: absolute; left: 25px; top: 20px; bottom: 20px;
-    width: 2px; background: #e6f7ff;
-}
-
-/* 4. 单个事件项 */
-.uc-timeline-item {
-    position: relative;
-    margin-bottom: 25px;
-    padding-left: 45px; /* 给轴线留位置 */
-}
-
-/* 轴线上的点 */
-.uc-timeline-dot {
-    position: absolute; left: 19px; top: 0;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: #1890ff;
-    border: 3px solid #fff;
-    box-shadow: 0 0 0 1px #1890ff;
-    z-index: 2;
-}
-
-/* 游戏发生的事件 (客观事实) */
-.uc-event-box {
-    font-size: 13px;
-    color: #666;
-    background: #f7f9fa;
-    padding: 6px 10px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-bottom: 8px;
-    border: 1px solid #eee;
-}
-.uc-event-tag { font-weight: bold; color: #333; margin-right: 5px; }
-
-/* 内心戏气泡 (主观想法) */
-.uc-thought-bubble {
-    background: #e6f7ff; /* 淡蓝色背景 */
-    color: #003a8c;       /* 深蓝色文字 */
-    padding: 12px 16px;
-    border-radius: 0 16px 16px 16px;
-    font-size: 15px;
-    line-height: 1.6;
-    position: relative;
-    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.05);
-}
-/* 气泡小三角 */
-.uc-thought-bubble::before {
-    content: ''; position: absolute; top: 0; left: -8px;
-    width: 0; height: 0;
-    border-top: 10px solid #e6f7ff;
-    border-left: 10px solid transparent;
-}
-
-/* 5. 赛后采访区域 */
-.uc-interview-section {
-    background: #fff;
-    border-top: 2px dashed #bae7ff;
-    padding: 20px;
-    position: relative;
-}
-.uc-interview-title {
-    font-size: 14px; font-weight: bold; color: #1890ff;
-    margin-bottom: 10px; text-align: center;
-    letter-spacing: 2px;
-}
-.uc-interview-content {
-    font-size: 15px; color: #333; line-height: 1.8;
-    text-align: justify; font-style: italic;
-}
-
-/* 暗色模式适配 */
-.wechat-dark-mode .uc-replay-card { background: #1c1c1e; border-color: #333; }
-.wechat-dark-mode .uc-replay-header { background: #2c2c2e; border-color: #333; }
-.wechat-dark-mode .uc-replay-name { color: #fff; }
-.wechat-dark-mode .uc-timeline::before { background: #333; }
-.wechat-dark-mode .uc-event-box { background: #2c2c2e; color: #999; border-color: #444; }
-.wechat-dark-mode .uc-event-tag { color: #ccc; }
-.wechat-dark-mode .uc-thought-bubble { background: #1f3d5c; color: #a6c8ff; } /* 深蓝模式 */
-.wechat-dark-mode .uc-thought-bubble::before { border-top-color: #1f3d5c; }
-.wechat-dark-mode .uc-interview-section { background: #1c1c1e; border-color: #333; }
-.wechat-dark-mode .uc-interview-content { color: #ddd; }
-
-/* --- 修复悬浮球层级问题 (终极版) --- */
-
-/* 1. 将悬浮球的层级设为全站最高 (比报错弹窗的 10000 高很多) */
-#gameFloatBall {
-    z-index: 99999 !important; /* 强制置顶 */
-    position: fixed !important; /* 确保是固定定位 */
-}
-
-/* 2. 游戏API设置弹窗必须比悬浮球还高，否则点开会被球挡住 */
-#gameApiSettingsModal {
-    z-index: 100000 !important; 
-}
-
-/* 3. 确保设置弹窗的遮罩层也能盖住报错弹窗 */
-#gameApiSettingsModal.show {
-    background: rgba(0, 0, 0, 0.5) !important; /* 确保有背景遮罩 */
-}
-
-/* --- 修复预设弹窗层级 (确保在游戏设置弹窗之上) --- */
-
-/* 1. 选择预设弹窗 */
-#gameApiPresetSelectModal {
-    z-index: 100001 !important; /* 比游戏设置弹窗(100000)高 */
-}
 
 /* 2. 通用名称输入弹窗 (保存预设时弹出的那个小框) */
 #nameInputModal {
@@ -17995,564 +17030,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     margin-bottom: 50px;
 }
 
-/* --- 海龟汤游戏专属样式 (清新绿白版 V2) --- */
-
-/* 1. 游戏主界面背景 (纯白/浅灰) */
-#turtleSoupGameScreen {
-    background-color: #f7f9f8 !important; 
-    color: #333;
-}
-
-/* 2. 顶部汤面区域 (清新浅绿卡片 + 固定高度滚动) */
-.soup-header-card {
-    background: #e8f5e9; /* 极浅的薄荷绿背景 */
-    color: #2e7d32;      /* 深绿色文字，保证对比度 */
-    padding: 20px;
-    margin: 15px;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.1); /* 淡淡的绿色阴影 */
-    position: relative;
-    z-index: 10;
-    border: 1px solid #c8e6c9;
-}
-
-.soup-tags {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 10px;
-}
-
-.soup-tag {
-    font-size: 11px;
-    background: #fff;
-    color: #4caf50;
-    padding: 2px 8px;
-    border-radius: 6px;
-    border: 1px solid #a5d6a7;
-    font-weight: bold;
-}
-
-/* 【核心修改】限制高度 + 内部滚动 */
-.soup-content {
-    font-size: 15px;
-    line-height: 1.7;
-    font-weight: 500;
-    color: #1b5e20;
-    
-    /* 限制高度，大约显示 4-5 行 */
-    max-height: 120px; 
-    overflow-y: auto;  /* 超出允许滚动 */
-    
-    /* 增加内边距，防止滚动条遮挡文字 */
-    padding-right: 5px;
-}
-
-/* 滚动条美化 */
-.soup-content::-webkit-scrollbar { width: 4px; }
-.soup-content::-webkit-scrollbar-thumb { background: #a5d6a7; border-radius: 4px; }
-
-.soup-host-info {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    font-size: 12px;
-    color: #66bb6a;
-    border-top: 1px dashed #c8e6c9;
-    padding-top: 10px;
-}
-
-.soup-host-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    margin-right: 8px;
-    background-size: cover;
-    background-position: center;
-    border: 1px solid #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* 3. 中间聊天区 */
-.soup-chat-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0 15px 20px;
-}
-
-/* 游戏内的系统消息 */
-.soup-system-msg {
-    text-align: center;
-    font-size: 12px;
-    color: #999;
-    margin: 10px 0;
-    background: #fff;
-    padding: 4px 12px;
-    border-radius: 12px;
-    align-self: center;
-    display: inline-block;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-/* 4. 底部操作栏 (白底) */
-.soup-bottom-bar {
-    background: #ffffff;
-    padding: 10px 15px;
-    padding-bottom: calc(10px + env(safe-area-inset-bottom));
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-top: 1px solid #f0f0f0;
-}
-
-.soup-action-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #666; /* 默认灰色 */
-    background: none;
-    border: none;
-    font-size: 10px;
-    width: 40px;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.soup-action-btn:active { color: #4caf50; }
-
-.soup-action-btn i {
-    font-size: 22px;
-    margin-bottom: 2px;
-}
-
-.soup-input {
-    flex: 1;
-    background: #f5f5f5;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 15px;
-    color: #333;
-    font-size: 15px;
-    outline: none;
-}
-
-.soup-send-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #4caf50; /* 按钮保持绿色 */
-    color: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-}
-
-/* 5. 选题列表样式 (图2复刻 - 白底) */
-.soup-select-list {
-    padding: 15px;
-    background: #f7f9f8;
-    min-height: 100%;
-}
-
-.soup-item-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    cursor: pointer;
-}
-
-.soup-item-card:active { background: #fafafa; }
-
-.soup-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.soup-item-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-}
-
-.soup-item-tag {
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-.soup-item-preview {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 12px;
-}
-
-.soup-item-footer {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: #999;
-    border-top: 1px solid #f9f9f9;
-    padding-top: 8px;
-}
-
-/* 6. 汤底/线索弹窗 (黑白通用风格) */
-.soup-answer-modal {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 85%;
-    max-width: 320px;
-    background: #fff; /* 白底 */
-    border-radius: 16px;
-    padding: 25px;
-    z-index: 3000;
-    display: none;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    color: #333;
-}
-.soup-answer-modal.show { display: block; }
-
-.soup-answer-title { 
-    font-size: 18px; 
-    font-weight: 800; 
-    margin-bottom: 15px; 
-    color: #000; 
-    text-align: center; 
-}
-
-.soup-answer-content { 
-    font-size: 15px; 
-    line-height: 1.8; 
-    white-space: pre-wrap; 
-    margin-bottom: 25px; 
-    color: #444;
-}
-
-.soup-clue-item { 
-    background: #f5f5f5; 
-    padding: 12px; 
-    margin-bottom: 10px; 
-    border-radius: 8px; 
-    cursor: pointer;
-    font-size: 14px;
-    color: #333;
-    transition: background 0.2s;
-}
-.soup-clue-item:active { background: #e0e0e0; }
-
-/* 7. 设置弹窗内部样式 (覆盖默认) */
-/* 不需要额外写，直接使用通用 .modal 样式即可实现黑白风格 */
-
-/* 8. 模式选择按钮 (黑白风) */
-.uc-mode-btn {
-    padding: 10px 18px;
-    border: 1px solid #e0e0e0;
-    background: #f9f9f9;
-    color: #666;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex: 1;
-    text-align: center;
-}
-.uc-mode-btn.active {
-    background: #000;
-    color: #fff;
-    border-color: #000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transform: scale(1.02);
-}
-
-/* --- 真心话大冒险 (Truth or Dare) 专属样式 --- */
-
-/* 1. 游戏主页面容器：纯白背景 */
-#truthDareGameScreen .wechat-content {
-    background-color: #ffffff !important;
-    background-image: none !important;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-bottom: 0 !important;
-    overflow: hidden;
-}
-
-/* 2. 上半部分：游戏操作盘 */
-.td-game-board {
-    background: #ffffff;
-    padding: 10px 0 !important; /* 减小内边距 */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-bottom: 1px dashed #ffe4e1; /* 极淡的粉色虚线 */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    flex-shrink: 0;
-    z-index: 10;
-}
-
-/* 3. 顶部控制行与霓虹灯牌 */
-.td-header-row {
-    position: relative; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    width: 100%; 
-    margin-bottom: 5px;
-}
-
-.td-neon-sign {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 0;
-    background: #fff;
-    padding: 6px 20px;
-    border-radius: 30px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border: 1px solid #f0f0f0;
-    transform: scale(0.9);
-    z-index: 1;
-}
-
-.neon-text {
-    font-weight: normal;
-    font-size: 15px;
-    color: #dcdcdc; /* 未选中灰色 */
-    transition: all 0.3s ease;
-}
-
-.neon-text.active {
-    font-weight: 500;
-    transform: scale(1.1);
-}
-
-.neon-text.active.pink { color: #FFB7B2; } /* 真心话选中色 */
-.neon-text.active.blue { color: #A2C2E0; } /* 大冒险选中色 */
-
-.neon-divider { color: #ffd700; font-size: 14px; }
-
-/* 4. 抽取按钮 (骰子图标) */
-.td-draw-icon-btn.small {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-    color: white;
-    border: none;
-    box-shadow: 0 2px 6px rgba(255, 105, 180, 0.3);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: transform 0.2s;
-    margin-top: 2px;
-    /* 绝对定位逻辑在HTML内联样式中处理，配合margin-left实现偏移 */
-}
-
-.td-draw-icon-btn.small i { font-size: 16px; }
-.td-draw-icon-btn.small:active { transform: scale(0.9); }
-.td-draw-icon-btn.small:disabled { background: #f0f0f0; color: #ccc; box-shadow: none; }
-
-/* 5. 圆盘区域与头像 */
-.td-turntable-container {
-    position: relative;
-    width: 240px;
-    height: 240px;
-    margin: 5px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* 缩小并上移，给聊天腾空间 */
-    transform: scale(0.85); 
-    margin-top: -20px !important; 
-    margin-bottom: -15px !important;
-}
-
-.td-avatar-circle {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    border: none !important;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-.td-game-avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    border: 2px solid #fff;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: #fff;
-    font-weight: bold;
-    background-color: #ffc0cb;
-    z-index: 10;
-    transform: translate(-50%, -50%);
-}
-
-.td-game-avatar.selected {
-    border-color: #ff1493;
-    box-shadow: 0 0 0 4px rgba(255, 20, 147, 0.2);
-    z-index: 20;
-    transform: translate(-50%, -50%) scale(1.2);
-}
-
-/* 6. 酒瓶样式 */
-.td-bottle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60px;
-    height: 100px;
-    margin-left: -30px;
-    margin-top: -50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 5;
-    transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.td-bottle img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
-    transform: rotate(0deg); 
-}
-
-/* 7. 状态提示条 */
-.td-status-bar {
-    font-size: 13px;
-    color: #d63384;
-    text-align: center;
-    background: #fff5f8;
-    padding: 4px 15px;
-    border-radius: 12px;
-    margin-top: 5px;
-    font-weight: 500;
-    border: 1px solid #fff0f5;
-}
-
-/* 8. 聊天区域 */
-#tdChatArea {
-    flex: 1;
-    background: transparent !important;
-    padding: 10px 15px;
-    overflow-y: auto;
-    padding-bottom: 20px;
-}
-
-/* 聊天气泡样式覆盖 */
-#tdChatArea .message-content {
-    background-color: #ffffff !important;
-    border: 1px solid #f0f0f0;
-    color: #333 !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    padding: 6px 12px !important;
-}
-
-/* 我发的消息：白底 + 浅粉边框 */
-#tdChatArea .message.sent .message-content {
-    background-color: #ffffff !important;
-    border-color: #ffeef5;
-    color: #333 !important;
-}
-
-/* 动作旁白样式 (居中、灰色、斜体) */
-.td-narration {
-    text-align: center;
-    font-size: 13px;
-    color: #999;
-    font-style: italic;
-    margin: 8px auto;
-    padding: 4px 10px;
-    background-color: rgba(0,0,0,0.03);
-    border-radius: 8px;
-    max-width: 80%;
-    line-height: 1.5;
-}
-
-/* 9. 底部输入框样式 */
-#truthDareGameScreen .chat-input {
-    background: #ffffff !important;
-    border-top: 1px solid #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px 15px;
-    padding-bottom: calc(10px + env(safe-area-inset-bottom));
-    width: 100%;
-    box-sizing: border-box;
-    position: relative;
-}
-
-#truthDareGameScreen .chat-input input {
-    flex: 1;
-    height: 38px;
-    border-radius: 20px;
-    border: 1px solid transparent;
-    padding: 0 15px;
-    background: #f7f8fa;
-    outline: none;
-    font-size: 15px;
-    color: #333;
-    transition: all 0.2s;
-}
-
-#truthDareGameScreen .chat-input input:focus {
-    background: #fff;
-    border-color: #ffb6c1;
-}
-
-#truthDareGameScreen .chat-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    flex-shrink: 0;
-}
-
-/* 暗色模式适配 */
-.wechat-dark-mode .game-card { background-color: #1c1c1e; border-color: #333; }
-.wechat-dark-mode .game-card-icon, .wechat-dark-mode .game-card-title { color: #fff; }
-.wechat-dark-mode .game-card-desc { color: #666; }
-.wechat-dark-mode .td-narration { color: #777; background-color: rgba(255,255,255,0.05); }
 
 /* --- 🎁 礼物功能专属样式 (优化版) --- */
 
@@ -19816,9 +18293,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     opacity: 0.6;
 }
 
-/* ================================================
-   直播样式已移至外部插件文件 live-plugin.css
-   ============================================== */
 /* --- 入梦功能专属样式 --- */
 
 /* 1. 梦境列表卡片 */
@@ -21494,7 +19968,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #apiPresetSelectModal,
 #offlinePresetSelectModal,
 #fontPresetSelectModal,
-#gameApiPresetSelectModal,
 #imageDescriptionModal {
     z-index: 99999998 !important; 
 }
@@ -21726,7 +20199,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 /* 所有正常的 Page 容器往下推（只处理顶层页面，避免嵌套页面重复位移；插件自带安全区布局的页面不位移） */
-.page:not(#homeScreen):not(#videoCallScreen):not(#incomingCallScreen):not(#incomingVideoCallScreen):not(#listenTogetherScreen):not(#dreamPlayScreen):not(#offlineModeScreen):not(#marsModeScreen):not(#multiOfflineScreen):not(#drawGuessGameScreen):not(#crPlayScreen):not(#tmListScreen):not(#tmPlayScreen):not(#readTogetherReaderScreen):not(#loversWhisperDetailScreen):not(#liveApp):not(#liveRoomScreen):not(#myLiveRoomScreen):not(.page .page) {
+.page:not(#homeScreen):not(#videoCallScreen):not(#incomingCallScreen):not(#incomingVideoCallScreen):not(#listenTogetherScreen):not(#dreamPlayScreen):not(#offlineModeScreen):not(#marsModeScreen):not(#multiOfflineScreen):not(#crPlayScreen):not(#tmListScreen):not(#tmPlayScreen):not(#readTogetherReaderScreen):not(#loversWhisperDetailScreen):not(.page .page) {
     top: calc(var(--page-top-offset, 0px) + var(--ios-safe-shift, 0px)) !important;
     height: calc(100% - var(--page-top-offset, 0px) - var(--ios-safe-shift, 0px)) !important;
 }
@@ -22013,6 +20486,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     max-width: 100%;
     line-height: 1.15;
     font-size: var(--nav-font-size, 17px);
+    font-weight: 550;
 }
 #chatScreen .nav-subtitle {
     font-size: 10px;
@@ -22229,12 +20703,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     opacity: 1;
 }
 
-/* 画猜页插件里的 #drawGuessGameScreen { display:flex } 会盖掉 .page 的 display:none，
-   这里用更高优先级兜底：非激活状态必须真正隐藏（即使插件脚本被缓存成旧版本） */
-#drawGuessGameScreen:not(.active) {
-    display: none !important;
-}
-
 /* 聊天时间分隔：白底 + 0.5px 浅灰描边 + 10px 灰字，与引用消息卡片一致 */
 #chatScreen .chat-messages > .chat-timestamp {
     display: block;
@@ -22294,7 +20762,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .chat-btn,
 .nav-btn,
 .function-item,
-.game-card,
 .app-drawer-item,
 .bottom-dock .app-icon-container {
     transition: transform 0.16s var(--ease-ios-out),
@@ -22303,7 +20770,6 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 .app:active .app-icon-container,
 .bottom-dock .app:active .app-icon-container,
-.game-card:active,
 .app-drawer-item:active {
     transform: scale(0.93);
 }
@@ -22320,4 +20786,129 @@ button.nav-btn:active {
         transition: none !important;
         animation: none !important;
     }
+}
+
+/* ============================================================
+   主屏幕两页 App 图标统一：尺寸一致 + iOS 图标圆角比例
+   （圆角用百分比，改图标尺寸时形状比例不会变）
+   ============================================================ */
+.home-screen-page .app-icon-container {
+    width: 62px !important;
+    height: 62px !important;
+    border-radius: 22.37% !important;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   商店 / 同人 / 论坛：整页铺满屏幕，不再跟随普通页整体下移
+   （头部按真实安全区避让，位置与之前完全一致）
+   ============================================================ */
+html.ios-fullscreen #storeApp,
+html.ios-fullscreen #doujinForumApp,
+html.ios-fullscreen #forumScreen {
+    top: 0 !important;
+    height: 100% !important;
+}
+
+html.ios-fullscreen #storeApp .store-top-bar,
+html.ios-fullscreen #doujinForumApp .top-header,
+html.ios-fullscreen #forumScreen .nav-bar {
+    top: env(safe-area-inset-top, 0px) !important;
+}
+
+/* 同人页头部上方的状态栏底色，跟随真实刘海高度 */
+html.ios-fullscreen #doujinForumApp .top-header::before {
+    height: env(safe-area-inset-top, 0px) !important;
+}
+
+/* ============================================================
+   聊天 CSS 全屏编辑器（设置 → 聊天 CSS → 展开）
+   ============================================================ */
+#chatCssEditor {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: none;
+    flex-direction: column;
+    background: #ffffff;
+}
+#chatCssEditor.show {
+    display: flex;
+}
+
+#chatCssEditor .css-editor-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-shrink: 0;
+    padding: calc(env(safe-area-inset-top, 0px) + 8px) 12px 8px;
+    background: #f7f7f7;
+    border-bottom: 0.5px solid #dcdcdc;
+}
+#chatCssEditor .css-editor-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+}
+#chatCssEditor .nav-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #111;
+}
+#chatCssEditor .back-svg {
+    width: 22px;
+    height: 22px;
+}
+#chatCssEditor .css-editor-done {
+    padding: 6px 4px;
+    border: none;
+    background: none;
+    color: #07c160;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#chatCssEditorArea {
+    flex: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 14px 14px calc(20px + env(safe-area-inset-bottom, 0px));
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    background: #fafafa;
+    color: #222;
+    -webkit-user-select: text;
+    user-select: text;
+    white-space: pre;
+    overflow: auto;
+    tab-size: 4;
+}
+
+body.wechat-dark-mode #chatCssEditor {
+    background: #1c1c1e;
+}
+body.wechat-dark-mode #chatCssEditor .css-editor-bar {
+    background: #2c2c2e;
+    border-bottom-color: #3a3a3c;
+}
+body.wechat-dark-mode #chatCssEditor .css-editor-title,
+body.wechat-dark-mode #chatCssEditor .nav-btn {
+    color: #ffffff;
+}
+body.wechat-dark-mode #chatCssEditorArea {
+    background: #1c1c1e;
+    color: #e8e8e8;
 }
