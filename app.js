@@ -38106,6 +38106,26 @@ async function handleUnblockDecision(isAgree) {
 /**
  * [增强版] 根据拉黑状态更新输入框 UI 及锁定按键
  */
+// 消息列表底部留白 = 输入区实际高度 + 12px（与气泡间距一致），
+// 这样最后一条气泡不会被输入区遮挡；输入区变高（多行、拉黑条）时自动同步。
+let _chatBottomPaddingObserver = null;
+function syncChatBottomPadding() {
+    const chatMessages = document.getElementById('chatMessages');
+    const inputArea = document.querySelector('#chatScreen .chat-input-area');
+    if (!chatMessages || !inputArea) return;
+
+    chatMessages.style.paddingBottom = (inputArea.offsetHeight + 12) + 'px';
+
+    if (!_chatBottomPaddingObserver && typeof ResizeObserver !== 'undefined') {
+        _chatBottomPaddingObserver = new ResizeObserver(() => {
+            const el = document.querySelector('#chatScreen .chat-input-area');
+            const cm = document.getElementById('chatMessages');
+            if (el && cm) cm.style.paddingBottom = (el.offsetHeight + 12) + 'px';
+        });
+        _chatBottomPaddingObserver.observe(inputArea);
+    }
+}
+
 function updateBlockedInputUI() {
     if (!currentChatFriendId) return;
 
@@ -38136,9 +38156,8 @@ function updateBlockedInputUI() {
         // 允许：只有“接收消息”按钮保持可用
         receiveBtn.classList.remove('btn-disabled');
 
-        // 2. 布局修正逻辑
-        // 默认输入框高度约 65px，拉黑条高度约 40px，所以底部留白增加到 105px
-        chatMessages.style.paddingBottom = '105px';
+        // 2. 布局修正逻辑：按输入区实际高度（含拉黑条）预留底部留白
+        syncChatBottomPadding();
         
         // 强制收起已打开的功能菜单
         hideFunctionMenus();
@@ -38160,8 +38179,8 @@ function updateBlockedInputUI() {
         plusBtn.classList.remove('btn-disabled');
         receiveBtn.classList.remove('btn-disabled');
 
-        // 恢复默认底部留白 (65px)
-        chatMessages.style.paddingBottom = '65px';
+        // 恢复默认底部留白：输入区高度 + 12px
+        syncChatBottomPadding();
     }
     
     // 自动滚动到底部，确保看到最新消息

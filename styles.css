@@ -618,7 +618,7 @@ html {
         /* --- [BUG FIX] White Module Fix END --- */
 
         .message {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: flex-start; 
             max-width: 100%;
@@ -655,8 +655,9 @@ html {
 
         #chatScreen .message-content {
             max-width: 90%;
-            padding: 10px 14px;
-            font-size: var(--font-size, 15px);
+            /* 上下内边距收紧，气泡不再显得那么高 */
+            padding: 8px 14px;
+            font-size: 15px;
             line-height: 1.4;
             word-wrap: break-word;
             word-break: break-word;
@@ -744,7 +745,8 @@ html {
         #chatScreen .message.received .message-content::before {
             display: block;
             left: -6px;
-            top: 12px;
+            /* 2px + 0.7em：内边距 8px + 半个行高(0.7em) - 三角半高 6px，任意字号下都与首行文字垂直居中 */
+            top: calc(2px + 0.7em);
             border: 6px solid transparent;
             border-left: 0;
             border-right-color: #ffffff;
@@ -753,7 +755,7 @@ html {
         #chatScreen .message.sent .message-content::before {
             display: block;
             right: -6px;
-            top: 12px;
+            top: calc(2px + 0.7em);
             border: 6px solid transparent;
             border-right: 0;
             border-left-color: #95ec69;
@@ -4836,9 +4838,9 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     right: 0;
     
     
-    /* 与微信一致：内容区不缩短，底栏覆盖在上方，滚动预留同高空间 */
+    /* 忽略安全区：底栏固定 49px，内容预留同高空间 */
     bottom: 0;
-    padding-bottom: calc(49px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: 49px;
     
     
     
@@ -4873,8 +4875,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 
 
 .forum-bottom-nav {
-    /* 与微信底栏一致：49px 操作区 + 安全区背景延伸 */
-    height: calc(49px + env(safe-area-inset-bottom, 0px));
+    /* 忽略安全区：底栏固定 49px，贴屏幕底边 */
+    height: 49px;
     background: #ffffff;
     border-top: 1px solid #f0f0f0;
     display: flex;
@@ -4883,7 +4885,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     width: 100%;
     z-index: 100;
     box-sizing: border-box;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: 0;
 }
 
 .forum-tab {
@@ -6614,11 +6616,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     flex-shrink: 0;
 }
 .message.sent .avatar-container {
-    margin: 0 0 0 16px;
+    margin: 0 0 0 14px;
     order: 2;
 }
 .message.received .avatar-container {
-    margin: 0 16px 0 0;
+    margin: 0 14px 0 0;
 }
 
 
@@ -7010,7 +7012,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 }
 
 
-#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(49px + env(safe-area-inset-bottom, 0px)); background: white; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-around; padding: 0 0 env(safe-area-inset-bottom, 0px); box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
+#doujinForumApp .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 49px; background: white; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-around; padding: 0; box-sizing: border-box; z-index: 100; box-shadow: 0 -2px 8px rgba(0,0,0,0.04); transition: transform 0.3s ease-in-out; }
 #doujinForumApp .bottom-nav.hidden { transform: translateY(100px); }
 #doujinForumApp .nav-item { flex: 1; height: 100%; min-height: 0; text-align: center; text-decoration: none; color: #999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0; transition: all 0.3s; cursor: pointer; }
 #doujinForumApp .nav-item.active { color: #7d9d8f; }
@@ -7040,7 +7042,7 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 #doujinForumApp .modal-btn:active { transform: scale(0.98); }
 
 
-#doujinForumApp .page-container { display: none; padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important; }
+#doujinForumApp .page-container { display: none; padding-bottom: 70px !important; }
 
 
 #doujinForumApp .page-container.active {
@@ -12184,14 +12186,14 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-bottom-bar {
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    height: 50px;
+    height: 49px;
     background: #fff;
     border-top: 1px solid #eee;
     display: flex;
     align-items: center;
     justify-content: space-around;
     z-index: 200;
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: 0;
 }
 
 .store-tab-item {
@@ -12230,8 +12232,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .store-page-view {
     height: 100%;           /* 强制占满屏幕高度 */
     overflow-y: auto;       /* 开启垂直滚动 */
-    /* 底部预留底栏高度，内容与微信一样不会被挤压或遮挡 */
-    padding-bottom: calc(61px + env(safe-area-inset-bottom, 0px));
+    /* 底部预留底栏高度，内容不会被遮挡 */
+    padding-bottom: 61px;
     box-sizing: border-box;
 }
 
@@ -12240,11 +12242,11 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     height: 30px;
 }
 
-/* --- 底部导航栏：与微信一致，操作区 49px，背景铺满底部安全区 --- */
+/* --- 底部导航栏：忽略安全区，固定 49px 贴屏幕底边 --- */
 .store-bottom-bar {
-    height: calc(49px + env(safe-area-inset-bottom, 0px)) !important;
+    height: 49px !important;
     padding-top: 0 !important;
-    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    padding-bottom: 0 !important;
     align-items: center !important;
     background: #fff !important;
 }
@@ -16893,8 +16895,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     overflow: hidden;
     /* 【布局修复】让头部和底部按钮自动分开，解决按钮跑上面的问题 */
     justify-content: space-between; 
-    /* 【布局修复】增加内边距，确保内容不贴边 */
-    padding: 60px 0 40px; 
+    /* 【布局修复】顶部留白；底部不再留白，避免按钮下方出现一条空带 */
+    padding: 60px 0 0; 
 }
 
 #videoCallScreen.active, #incomingVideoCallScreen.active {
@@ -17032,8 +17034,8 @@ filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
 .video-controls {
     position: relative;
     z-index: 20;
-    padding: 20px;
-    padding-bottom: 0;
+    /* 底部内边距放在操作栏内部，渐变背景一直铺到屏幕最底部 */
+    padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px));
     display: flex;
     justify-content: space-around;
     background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
